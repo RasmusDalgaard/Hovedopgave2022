@@ -1,0 +1,36 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "EMSuiteVisualConfigurator.UseCases/1.0.0": {
+        "dependencies": {
+          "EMSuiteVisualConfigurator.CoreBusiness": "1.0.0"
+        },
+        "runtime": {
+          "EMSuiteVisualConfigurator.UseCases.dll": {}
+        }
+      },
+      "EMSuiteVisualConfigurator.CoreBusiness/1.0.0": {
+        "runtime": {
+          "EMSuiteVisualConfigurator.CoreBusiness.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "EMSuiteVisualConfigurator.UseCases/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "EMSuiteVisualConfigurator.CoreBusiness/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

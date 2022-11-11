@@ -1,0 +1,12 @@
+C:\Users\Rad\source\repos\hovedopgave\EMSuiteVisualConfigurator\EMSuiteVisualConfigurator.CoreBusiness\bin\Debug\net6.0\EMSuiteVisualConfigurator.CoreBusiness.deps.json
+C:\Users\Rad\source\repos\hovedopgave\EMSuiteVisualConfigurator\EMSuiteVisualConfigurator.CoreBusiness\bin\Debug\net6.0\EMSuiteVisualConfigurator.CoreBusiness.dll
+C:\Users\Rad\source\repos\hovedopgave\EMSuiteVisualConfigurator\EMSuiteVisualConfigurator.CoreBusiness\bin\Debug\net6.0\EMSuiteVisualConfigurator.CoreBusiness.pdb
+C:\Users\Rad\source\repos\hovedopgave\EMSuiteVisualConfigurator\EMSuiteVisualConfigurator.CoreBusiness\obj\Debug\net6.0\EMSuiteVisualConfigurator.CoreBusiness.csproj.AssemblyReference.cache
+C:\Users\Rad\source\repos\hovedopgave\EMSuiteVisualConfigurator\EMSuiteVisualConfigurator.CoreBusiness\obj\Debug\net6.0\EMSuiteVisualConfigurator.CoreBusiness.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Rad\source\repos\hovedopgave\EMSuiteVisualConfigurator\EMSuiteVisualConfigurator.CoreBusiness\obj\Debug\net6.0\EMSuiteVisualConfigurator.CoreBusiness.AssemblyInfoInputs.cache
+C:\Users\Rad\source\repos\hovedopgave\EMSuiteVisualConfigurator\EMSuiteVisualConfigurator.CoreBusiness\obj\Debug\net6.0\EMSuiteVisualConfigurator.CoreBusiness.AssemblyInfo.cs
+C:\Users\Rad\source\repos\hovedopgave\EMSuiteVisualConfigurator\EMSuiteVisualConfigurator.CoreBusiness\obj\Debug\net6.0\EMSuiteVisualConfigurator.CoreBusiness.csproj.CoreCompileInputs.cache
+C:\Users\Rad\source\repos\hovedopgave\EMSuiteVisualConfigurator\EMSuiteVisualConfigurator.CoreBusiness\obj\Debug\net6.0\EMSuiteVisualConfigurator.CoreBusiness.dll
+C:\Users\Rad\source\repos\hovedopgave\EMSuiteVisualConfigurator\EMSuiteVisualConfigurator.CoreBusiness\obj\Debug\net6.0\refint\EMSuiteVisualConfigurator.CoreBusiness.dll
+C:\Users\Rad\source\repos\hovedopgave\EMSuiteVisualConfigurator\EMSuiteVisualConfigurator.CoreBusiness\obj\Debug\net6.0\EMSuiteVisualConfigurator.CoreBusiness.pdb
+C:\Users\Rad\source\repos\hovedopgave\EMSuiteVisualConfigurator\EMSuiteVisualConfigurator.CoreBusiness\obj\Debug\net6.0\ref\EMSuiteVisualConfigurator.CoreBusiness.dll

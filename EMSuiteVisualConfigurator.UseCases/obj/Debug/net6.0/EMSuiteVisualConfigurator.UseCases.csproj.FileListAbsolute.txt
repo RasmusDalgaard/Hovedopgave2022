@@ -1,0 +1,15 @@
+C:\Users\Rad\source\repos\hovedopgave\EMSuiteVisualConfigurator\EMSuiteVisualConfigurator.UseCases\bin\Debug\net6.0\EMSuiteVisualConfigurator.UseCases.deps.json
+C:\Users\Rad\source\repos\hovedopgave\EMSuiteVisualConfigurator\EMSuiteVisualConfigurator.UseCases\bin\Debug\net6.0\EMSuiteVisualConfigurator.UseCases.dll
+C:\Users\Rad\source\repos\hovedopgave\EMSuiteVisualConfigurator\EMSuiteVisualConfigurator.UseCases\bin\Debug\net6.0\EMSuiteVisualConfigurator.UseCases.pdb
+C:\Users\Rad\source\repos\hovedopgave\EMSuiteVisualConfigurator\EMSuiteVisualConfigurator.UseCases\bin\Debug\net6.0\EMSuiteVisualConfigurator.CoreBusiness.dll
+C:\Users\Rad\source\repos\hovedopgave\EMSuiteVisualConfigurator\EMSuiteVisualConfigurator.UseCases\bin\Debug\net6.0\EMSuiteVisualConfigurator.CoreBusiness.pdb
+C:\Users\Rad\source\repos\hovedopgave\EMSuiteVisualConfigurator\EMSuiteVisualConfigurator.UseCases\obj\Debug\net6.0\EMSuiteVisualConfigurator.UseCases.csproj.AssemblyReference.cache
+C:\Users\Rad\source\repos\hovedopgave\EMSuiteVisualConfigurator\EMSuiteVisualConfigurator.UseCases\obj\Debug\net6.0\EMSuiteVisualConfigurator.UseCases.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Rad\source\repos\hovedopgave\EMSuiteVisualConfigurator\EMSuiteVisualConfigurator.UseCases\obj\Debug\net6.0\EMSuiteVisualConfigurator.UseCases.AssemblyInfoInputs.cache
+C:\Users\Rad\source\repos\hovedopgave\EMSuiteVisualConfigurator\EMSuiteVisualConfigurator.UseCases\obj\Debug\net6.0\EMSuiteVisualConfigurator.UseCases.AssemblyInfo.cs
+C:\Users\Rad\source\repos\hovedopgave\EMSuiteVisualConfigurator\EMSuiteVisualConfigurator.UseCases\obj\Debug\net6.0\EMSuiteVisualConfigurator.UseCases.csproj.CoreCompileInputs.cache
+C:\Users\Rad\source\repos\hovedopgave\EMSuiteVisualConfigurator\EMSuiteVisualConfigurator.UseCases\obj\Debug\net6.0\EMSuiteVisualConfigurator.UseCases.csproj.CopyComplete
+C:\Users\Rad\source\repos\hovedopgave\EMSuiteVisualConfigurator\EMSuiteVisualConfigurator.UseCases\obj\Debug\net6.0\EMSuiteVisualConfigurator.UseCases.dll
+C:\Users\Rad\source\repos\hovedopgave\EMSuiteVisualConfigurator\EMSuiteVisualConfigurator.UseCases\obj\Debug\net6.0\refint\EMSuiteVisualConfigurator.UseCases.dll
+C:\Users\Rad\source\repos\hovedopgave\EMSuiteVisualConfigurator\EMSuiteVisualConfigurator.UseCases\obj\Debug\net6.0\EMSuiteVisualConfigurator.UseCases.pdb
+C:\Users\Rad\source\repos\hovedopgave\EMSuiteVisualConfigurator\EMSuiteVisualConfigurator.UseCases\obj\Debug\net6.0\ref\EMSuiteVisualConfigurator.UseCases.dll
