@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\EMSuiteVisualConfigurator.UseCases\EMSuiteVisualConfigurator.UseCases.csproj" />
+    <ProjectReference Include="..\EMSuiteVisualConfigurator.UseCases\EMSuiteVisualConfigurator.Application.csproj" />
   </ItemGroup>
 
 </Project>

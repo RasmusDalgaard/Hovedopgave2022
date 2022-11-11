@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Rad\\source\\repos\\hovedopgave\\EMSuiteVisualConfigurator\\EMSuiteVisualConfigurator.Data\\EMSuiteVisualConfigurator.Data.csproj": {}
+    "C:\\Users\\rappe\\OneDrive\\Documents\\Dat Hovedopgave\\EMSuite Visual Configurator Project\\Hovedopgave2022\\EMSuiteVisualConfigurator.Data\\EMSuiteVisualConfigurator.Data.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Rad\\source\\repos\\hovedopgave\\EMSuiteVisualConfigurator\\EMSuiteVisualConfigurator.CoreBusiness\\EMSuiteVisualConfigurator.CoreBusiness.csproj": {
+    "C:\\Users\\rappe\\OneDrive\\Documents\\Dat Hovedopgave\\EMSuite Visual Configurator Project\\Hovedopgave2022\\EMSuiteVisualConfigurator.CoreBusiness\\EMSuiteVisualConfigurator.CoreBusiness.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Rad\\source\\repos\\hovedopgave\\EMSuiteVisualConfigurator\\EMSuiteVisualConfigurator.CoreBusiness\\EMSuiteVisualConfigurator.CoreBusiness.csproj",
+        "projectUniqueName": "C:\\Users\\rappe\\OneDrive\\Documents\\Dat Hovedopgave\\EMSuite Visual Configurator Project\\Hovedopgave2022\\EMSuiteVisualConfigurator.CoreBusiness\\EMSuiteVisualConfigurator.CoreBusiness.csproj",
         "projectName": "EMSuiteVisualConfigurator.CoreBusiness",
-        "projectPath": "C:\\Users\\Rad\\source\\repos\\hovedopgave\\EMSuiteVisualConfigurator\\EMSuiteVisualConfigurator.CoreBusiness\\EMSuiteVisualConfigurator.CoreBusiness.csproj",
-        "packagesPath": "C:\\Users\\Rad\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Rad\\source\\repos\\hovedopgave\\EMSuiteVisualConfigurator\\EMSuiteVisualConfigurator.CoreBusiness\\obj\\",
+        "projectPath": "C:\\Users\\rappe\\OneDrive\\Documents\\Dat Hovedopgave\\EMSuite Visual Configurator Project\\Hovedopgave2022\\EMSuiteVisualConfigurator.CoreBusiness\\EMSuiteVisualConfigurator.CoreBusiness.csproj",
+        "packagesPath": "C:\\Users\\rappe\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\rappe\\OneDrive\\Documents\\Dat Hovedopgave\\EMSuite Visual Configurator Project\\Hovedopgave2022\\EMSuiteVisualConfigurator.CoreBusiness\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Rad\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\rappe\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -58,17 +58,17 @@
         }
       }
     },
-    "C:\\Users\\Rad\\source\\repos\\hovedopgave\\EMSuiteVisualConfigurator\\EMSuiteVisualConfigurator.Data\\EMSuiteVisualConfigurator.Data.csproj": {
+    "C:\\Users\\rappe\\OneDrive\\Documents\\Dat Hovedopgave\\EMSuite Visual Configurator Project\\Hovedopgave2022\\EMSuiteVisualConfigurator.Data\\EMSuiteVisualConfigurator.Data.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Rad\\source\\repos\\hovedopgave\\EMSuiteVisualConfigurator\\EMSuiteVisualConfigurator.Data\\EMSuiteVisualConfigurator.Data.csproj",
+        "projectUniqueName": "C:\\Users\\rappe\\OneDrive\\Documents\\Dat Hovedopgave\\EMSuite Visual Configurator Project\\Hovedopgave2022\\EMSuiteVisualConfigurator.Data\\EMSuiteVisualConfigurator.Data.csproj",
         "projectName": "EMSuiteVisualConfigurator.Data",
-        "projectPath": "C:\\Users\\Rad\\source\\repos\\hovedopgave\\EMSuiteVisualConfigurator\\EMSuiteVisualConfigurator.Data\\EMSuiteVisualConfigurator.Data.csproj",
-        "packagesPath": "C:\\Users\\Rad\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Rad\\source\\repos\\hovedopgave\\EMSuiteVisualConfigurator\\EMSuiteVisualConfigurator.Data\\obj\\",
+        "projectPath": "C:\\Users\\rappe\\OneDrive\\Documents\\Dat Hovedopgave\\EMSuite Visual Configurator Project\\Hovedopgave2022\\EMSuiteVisualConfigurator.Data\\EMSuiteVisualConfigurator.Data.csproj",
+        "packagesPath": "C:\\Users\\rappe\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\rappe\\OneDrive\\Documents\\Dat Hovedopgave\\EMSuite Visual Configurator Project\\Hovedopgave2022\\EMSuiteVisualConfigurator.Data\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Rad\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\rappe\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -82,8 +82,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\Rad\\source\\repos\\hovedopgave\\EMSuiteVisualConfigurator\\EMSuiteVisualConfigurator.UseCases\\EMSuiteVisualConfigurator.UseCases.csproj": {
-                "projectPath": "C:\\Users\\Rad\\source\\repos\\hovedopgave\\EMSuiteVisualConfigurator\\EMSuiteVisualConfigurator.UseCases\\EMSuiteVisualConfigurator.UseCases.csproj"
+              "C:\\Users\\rappe\\OneDrive\\Documents\\Dat Hovedopgave\\EMSuite Visual Configurator Project\\Hovedopgave2022\\EMSuiteVisualConfigurator.UseCases\\EMSuiteVisualConfigurator.Application.csproj": {
+                "projectPath": "C:\\Users\\rappe\\OneDrive\\Documents\\Dat Hovedopgave\\EMSuite Visual Configurator Project\\Hovedopgave2022\\EMSuiteVisualConfigurator.UseCases\\EMSuiteVisualConfigurator.Application.csproj"
               }
             }
           }
@@ -116,17 +116,17 @@
         }
       }
     },
-    "C:\\Users\\Rad\\source\\repos\\hovedopgave\\EMSuiteVisualConfigurator\\EMSuiteVisualConfigurator.UseCases\\EMSuiteVisualConfigurator.UseCases.csproj": {
+    "C:\\Users\\rappe\\OneDrive\\Documents\\Dat Hovedopgave\\EMSuite Visual Configurator Project\\Hovedopgave2022\\EMSuiteVisualConfigurator.UseCases\\EMSuiteVisualConfigurator.Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Rad\\source\\repos\\hovedopgave\\EMSuiteVisualConfigurator\\EMSuiteVisualConfigurator.UseCases\\EMSuiteVisualConfigurator.UseCases.csproj",
-        "projectName": "EMSuiteVisualConfigurator.UseCases",
-        "projectPath": "C:\\Users\\Rad\\source\\repos\\hovedopgave\\EMSuiteVisualConfigurator\\EMSuiteVisualConfigurator.UseCases\\EMSuiteVisualConfigurator.UseCases.csproj",
-        "packagesPath": "C:\\Users\\Rad\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Rad\\source\\repos\\hovedopgave\\EMSuiteVisualConfigurator\\EMSuiteVisualConfigurator.UseCases\\obj\\",
+        "projectUniqueName": "C:\\Users\\rappe\\OneDrive\\Documents\\Dat Hovedopgave\\EMSuite Visual Configurator Project\\Hovedopgave2022\\EMSuiteVisualConfigurator.UseCases\\EMSuiteVisualConfigurator.Application.csproj",
+        "projectName": "EMSuiteVisualConfigurator.Application",
+        "projectPath": "C:\\Users\\rappe\\OneDrive\\Documents\\Dat Hovedopgave\\EMSuite Visual Configurator Project\\Hovedopgave2022\\EMSuiteVisualConfigurator.UseCases\\EMSuiteVisualConfigurator.Application.csproj",
+        "packagesPath": "C:\\Users\\rappe\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\rappe\\OneDrive\\Documents\\Dat Hovedopgave\\EMSuite Visual Configurator Project\\Hovedopgave2022\\EMSuiteVisualConfigurator.UseCases\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Rad\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\rappe\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -140,8 +140,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\Rad\\source\\repos\\hovedopgave\\EMSuiteVisualConfigurator\\EMSuiteVisualConfigurator.CoreBusiness\\EMSuiteVisualConfigurator.CoreBusiness.csproj": {
-                "projectPath": "C:\\Users\\Rad\\source\\repos\\hovedopgave\\EMSuiteVisualConfigurator\\EMSuiteVisualConfigurator.CoreBusiness\\EMSuiteVisualConfigurator.CoreBusiness.csproj"
+              "C:\\Users\\rappe\\OneDrive\\Documents\\Dat Hovedopgave\\EMSuite Visual Configurator Project\\Hovedopgave2022\\EMSuiteVisualConfigurator.CoreBusiness\\EMSuiteVisualConfigurator.CoreBusiness.csproj": {
+                "projectPath": "C:\\Users\\rappe\\OneDrive\\Documents\\Dat Hovedopgave\\EMSuite Visual Configurator Project\\Hovedopgave2022\\EMSuiteVisualConfigurator.CoreBusiness\\EMSuiteVisualConfigurator.CoreBusiness.csproj"
               }
             }
           }
@@ -155,6 +155,20 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
+          "dependencies": {
+            "MediatR": {
+              "target": "Package",
+              "version": "[11.0.0, )"
+            },
+            "MediatR.Extensions.Microsoft.DependencyInjection": {
+              "target": "Package",
+              "version": "[11.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",

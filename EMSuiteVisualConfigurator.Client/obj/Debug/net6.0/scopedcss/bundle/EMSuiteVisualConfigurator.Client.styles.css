@@ -1,3 +1,27 @@
+/* /Components/AccessPointComponent.razor.rz.scp.css */
+.draggable[b-n4zzwxspj3] {
+    width: 100px;
+    height: 100px;
+    padding: 20px;
+    touch-action: none;
+    user-select: none;
+}
+/* /Components/SensorComponent.razor.rz.scp.css */
+.draggable[b-gv273bdg1r] {
+    width: 100px;
+    height: 100px;
+    padding: 20px;
+    touch-action: none;
+    user-select: none;
+}
+/* /Components/SiteCanvasComponent.razor.rz.scp.css */
+.dropzone[b-gbbbwcv0oq] {
+    background-color: red;
+    width: 500px;
+    height: 500px;
+    touch-action: none;
+    user-select: none;
+}
 /* /Shared/MainLayout.razor.rz.scp.css */
 .page[b-kzxqa3oku6] {
     position: relative;

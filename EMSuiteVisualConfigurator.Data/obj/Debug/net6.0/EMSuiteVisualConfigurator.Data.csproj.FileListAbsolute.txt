@@ -15,3 +15,20 @@ C:\Users\Rad\source\repos\hovedopgave\EMSuiteVisualConfigurator\EMSuiteVisualCon
 C:\Users\Rad\source\repos\hovedopgave\EMSuiteVisualConfigurator\EMSuiteVisualConfigurator.Data\obj\Debug\net6.0\refint\EMSuiteVisualConfigurator.Data.dll
 C:\Users\Rad\source\repos\hovedopgave\EMSuiteVisualConfigurator\EMSuiteVisualConfigurator.Data\obj\Debug\net6.0\EMSuiteVisualConfigurator.Data.pdb
 C:\Users\Rad\source\repos\hovedopgave\EMSuiteVisualConfigurator\EMSuiteVisualConfigurator.Data\obj\Debug\net6.0\ref\EMSuiteVisualConfigurator.Data.dll
+C:\Users\rappe\OneDrive\Documents\Dat Hovedopgave\EMSuite Visual Configurator Project\Hovedopgave2022\EMSuiteVisualConfigurator.Data\bin\Debug\net6.0\EMSuiteVisualConfigurator.Data.deps.json
+C:\Users\rappe\OneDrive\Documents\Dat Hovedopgave\EMSuite Visual Configurator Project\Hovedopgave2022\EMSuiteVisualConfigurator.Data\bin\Debug\net6.0\EMSuiteVisualConfigurator.Data.dll
+C:\Users\rappe\OneDrive\Documents\Dat Hovedopgave\EMSuite Visual Configurator Project\Hovedopgave2022\EMSuiteVisualConfigurator.Data\bin\Debug\net6.0\EMSuiteVisualConfigurator.Data.pdb
+C:\Users\rappe\OneDrive\Documents\Dat Hovedopgave\EMSuite Visual Configurator Project\Hovedopgave2022\EMSuiteVisualConfigurator.Data\bin\Debug\net6.0\EMSuiteVisualConfigurator.Application.dll
+C:\Users\rappe\OneDrive\Documents\Dat Hovedopgave\EMSuite Visual Configurator Project\Hovedopgave2022\EMSuiteVisualConfigurator.Data\bin\Debug\net6.0\EMSuiteVisualConfigurator.CoreBusiness.dll
+C:\Users\rappe\OneDrive\Documents\Dat Hovedopgave\EMSuite Visual Configurator Project\Hovedopgave2022\EMSuiteVisualConfigurator.Data\bin\Debug\net6.0\EMSuiteVisualConfigurator.Application.pdb
+C:\Users\rappe\OneDrive\Documents\Dat Hovedopgave\EMSuite Visual Configurator Project\Hovedopgave2022\EMSuiteVisualConfigurator.Data\bin\Debug\net6.0\EMSuiteVisualConfigurator.CoreBusiness.pdb
+C:\Users\rappe\OneDrive\Documents\Dat Hovedopgave\EMSuite Visual Configurator Project\Hovedopgave2022\EMSuiteVisualConfigurator.Data\obj\Debug\net6.0\EMSuiteVisualConfigurator.Data.csproj.AssemblyReference.cache
+C:\Users\rappe\OneDrive\Documents\Dat Hovedopgave\EMSuite Visual Configurator Project\Hovedopgave2022\EMSuiteVisualConfigurator.Data\obj\Debug\net6.0\EMSuiteVisualConfigurator.Data.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\rappe\OneDrive\Documents\Dat Hovedopgave\EMSuite Visual Configurator Project\Hovedopgave2022\EMSuiteVisualConfigurator.Data\obj\Debug\net6.0\EMSuiteVisualConfigurator.Data.AssemblyInfoInputs.cache
+C:\Users\rappe\OneDrive\Documents\Dat Hovedopgave\EMSuite Visual Configurator Project\Hovedopgave2022\EMSuiteVisualConfigurator.Data\obj\Debug\net6.0\EMSuiteVisualConfigurator.Data.AssemblyInfo.cs
+C:\Users\rappe\OneDrive\Documents\Dat Hovedopgave\EMSuite Visual Configurator Project\Hovedopgave2022\EMSuiteVisualConfigurator.Data\obj\Debug\net6.0\EMSuiteVisualConfigurator.Data.csproj.CoreCompileInputs.cache
+C:\Users\rappe\OneDrive\Documents\Dat Hovedopgave\EMSuite Visual Configurator Project\Hovedopgave2022\EMSuiteVisualConfigurator.Data\obj\Debug\net6.0\EMSuiteVisualConfigurator.Data.csproj.CopyComplete
+C:\Users\rappe\OneDrive\Documents\Dat Hovedopgave\EMSuite Visual Configurator Project\Hovedopgave2022\EMSuiteVisualConfigurator.Data\obj\Debug\net6.0\EMSuiteVisualConfigurator.Data.dll
+C:\Users\rappe\OneDrive\Documents\Dat Hovedopgave\EMSuite Visual Configurator Project\Hovedopgave2022\EMSuiteVisualConfigurator.Data\obj\Debug\net6.0\refint\EMSuiteVisualConfigurator.Data.dll
+C:\Users\rappe\OneDrive\Documents\Dat Hovedopgave\EMSuite Visual Configurator Project\Hovedopgave2022\EMSuiteVisualConfigurator.Data\obj\Debug\net6.0\EMSuiteVisualConfigurator.Data.pdb
+C:\Users\rappe\OneDrive\Documents\Dat Hovedopgave\EMSuite Visual Configurator Project\Hovedopgave2022\EMSuiteVisualConfigurator.Data\obj\Debug\net6.0\ref\EMSuiteVisualConfigurator.Data.dll

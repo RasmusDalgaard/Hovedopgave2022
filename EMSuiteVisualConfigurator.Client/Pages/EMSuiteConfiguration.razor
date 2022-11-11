@@ -1,0 +1,23 @@
+﻿@using EMSuiteVisualConfigurator.Client.Components;
+@using Microsoft.JSInterop
+@inject IJSRuntime JS;
+
+@page "/configuration"
+
+<PageTitle>EMSuite Visual Configurator</PageTitle>
+<h1>Configurator</h1>
+<IconMenuComponent>
+    <SensorComponent/>
+    <AccessPointComponent/>
+</IconMenuComponent>
+
+<SiteCanvasComponent/>
+
+
+@code {
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await JS.InvokeVoidAsync("dragAndDrop", ".draggable");
+        await JS.InvokeVoidAsync("dropZone", ".dropzone");
+    }
+}
