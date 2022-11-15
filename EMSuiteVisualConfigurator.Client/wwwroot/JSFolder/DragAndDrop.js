@@ -22,10 +22,9 @@
             })
         ]
     })
-        .resizable({
-            // resize from all edges and corners
-            edges: { left: true, right: true, bottom: true, top: true },
-
+    .resizable({
+    // resize from all edges and corners
+        edges: { left: true, right: true, bottom: true, top: true },
             listeners: {
                 move(event) {
                     var target = event.target
@@ -47,11 +46,8 @@
                     target.textContent = Math.round(event.rect.width) + '\u00D7' + Math.round(event.rect.height)
                 }
             }
-        })
+    })
 }
-
-
-
 
 function dropZone(dropTarget) {
     interact(dropTarget)
