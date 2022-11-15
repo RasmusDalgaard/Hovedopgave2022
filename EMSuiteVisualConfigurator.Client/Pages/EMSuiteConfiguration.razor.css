@@ -1,1 +1,7 @@
-﻿
+﻿.container-fluid {
+    border: 3px solid black;
+}
+
+.row {
+    height: 600px;
+}

@@ -6,13 +6,15 @@
 
 <PageTitle>EMSuite Visual Configurator</PageTitle>
 <h1>Configurator</h1>
-<IconMenuComponent>
-    <SensorComponent/>
-    <AccessPointComponent/>
-</IconMenuComponent>
-
-<SiteCanvasComponent/>
-
+<div class="container-fluid">
+    <div class="row" >
+        <IconMenuComponent>
+            <SensorComponent/>
+            <AccessPointComponent/>
+        </IconMenuComponent>        
+        <SiteCanvasComponent/>
+    </div>
+</div>
 
 @code {
     protected override async Task OnAfterRenderAsync(bool firstRender)
