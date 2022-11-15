@@ -4,14 +4,17 @@
     interact(className).draggable({
         listeners: {
             start(event) {
-                console.log(event.type, event.target)
+                position.x = parseInt(event.target.getAttribute("x"))
+                position.y = parseInt(event.target.getAttribute("y"))
             },
             move(event) {
                 position.x += event.dx
                 position.y += event.dy
-
-                event.target.style.transform =
-                    `translate(${position.x}px, ${position.y}px)`
+                event.target.style.transform = `translate(${position.x}px, ${position.y}px)`
+            },
+            end(event) {
+                event.target.setAttribute("x", position.x)
+                event.target.setAttribute("y", position.y)
             },
         }, modifiers: [
             interact.modifiers.restrictRect({
@@ -20,6 +23,7 @@
         ]
     })
 };
+
 
 function dropZone(dropTarget) {
     interact(dropTarget)
