@@ -12,9 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\EMSuiteVisualConfigurator.CoreBusiness\EMSuiteVisualConfigurator.CoreBusiness.csproj" />
-    <ProjectReference Include="..\EMSuiteVisualConfigurator.Data\EMSuiteVisualConfigurator.Data.csproj" />
-    <ProjectReference Include="..\EMSuiteVisualConfigurator.UseCases\EMSuiteVisualConfigurator.Application.csproj" />
+    <ProjectReference Include="..\EMSuiteVisualConfigurator.Application\EMSuiteVisualConfigurator.Application.csproj" />
   </ItemGroup>
 
   <ItemGroup>
