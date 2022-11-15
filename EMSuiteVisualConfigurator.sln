@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EMSuiteVisualConfigurator.C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EMSuiteVisualConfigurator.Data", "EMSuiteVisualConfigurator.Data\EMSuiteVisualConfigurator.Data.csproj", "{FBC443B5-86C5-4792-85CF-3C75EC1D5800}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EMSuiteVisualConfigurator.Application", "EMSuiteVisualConfigurator.Application\EMSuiteVisualConfigurator.Application.csproj", "{FD2008F3-EA1A-4803-B917-D6617AE02D9E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EMSuiteVisualConfigurator.Application", "EMSuiteVisualConfigurator.Application\EMSuiteVisualConfigurator.Application.csproj", "{FD2008F3-EA1A-4803-B917-D6617AE02D9E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
