@@ -22,9 +22,35 @@
             })
         ]
     })
-    .resizable({
-    // resize from all edges and corners
-        edges: { left: true, right: true, bottom: true, top: true },
+}
+
+function dragResize(className) {
+    const position = { x: 0, y: 0 }
+
+    interact(className).draggable({
+        listeners: {
+            start(event) {
+                position.x = parseInt(event.target.getAttribute("x"))
+                position.y = parseInt(event.target.getAttribute("y"))
+            },
+            move(event) {
+                position.x += event.dx
+                position.y += event.dy
+                event.target.style.transform = `translate(${position.x}px, ${position.y}px)`
+            },
+            end(event) {
+                event.target.setAttribute("x", position.x)
+                event.target.setAttribute("y", position.y)
+            },
+        }, modifiers: [
+            interact.modifiers.restrictRect({
+                restriction: '.main'
+            })
+        ]
+    })
+        .resizable({
+            // resize from all edges and corners
+            edges: { left: true, right: true, bottom: true, top: true },
             listeners: {
                 move(event) {
                     var target = event.target
@@ -46,8 +72,9 @@
                     target.textContent = Math.round(event.rect.width) + '\u00D7' + Math.round(event.rect.height)
                 }
             }
-    })
+        })
 }
+
 
 function dropZone(dropTarget) {
     interact(dropTarget)
