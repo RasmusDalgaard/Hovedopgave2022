@@ -24,6 +24,5 @@
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         await JS.InvokeVoidAsync("dragAndDrop", ".draggable");
-        //await JS.InvokeVoidAsync("resize", ".resizable");
     }
 }

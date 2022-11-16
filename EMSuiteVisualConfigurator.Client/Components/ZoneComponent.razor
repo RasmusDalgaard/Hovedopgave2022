@@ -1,9 +1,12 @@
 ﻿@using Microsoft.JSInterop
 @inject IJSRuntime JS;
 
-<div class="draggable resizable zone" x="0" y="0">Zone</div>
+<div class="drag-resize zone" x="0" y="0">Zone</div>
 
 
 @code {
-    
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await JS.InvokeVoidAsync("dragResize", ".drag-resize");
+    }
 }
