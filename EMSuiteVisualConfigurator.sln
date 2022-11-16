@@ -11,6 +11,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EMSuiteVisualConfigurator.D
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EMSuiteVisualConfigurator.Application", "EMSuiteVisualConfigurator.Application\EMSuiteVisualConfigurator.Application.csproj", "{FD2008F3-EA1A-4803-B917-D6617AE02D9E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EMSuiteVisualConfigurator.Shared", "EMSuiteVisualConfigurator.Shared\EMSuiteVisualConfigurator.Shared.csproj", "{07606F41-CD90-461B-B3CA-5D4D678122A8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EMSuiteVisualConfigurator.Server", "EMSuiteVisualConfigurator.Server\EMSuiteVisualConfigurator.Server.csproj", "{7B4CF6EB-F33B-422E-AB2C-C0BB62D145A1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +37,14 @@ Global
 		{FD2008F3-EA1A-4803-B917-D6617AE02D9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FD2008F3-EA1A-4803-B917-D6617AE02D9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FD2008F3-EA1A-4803-B917-D6617AE02D9E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{07606F41-CD90-461B-B3CA-5D4D678122A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{07606F41-CD90-461B-B3CA-5D4D678122A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{07606F41-CD90-461B-B3CA-5D4D678122A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{07606F41-CD90-461B-B3CA-5D4D678122A8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B4CF6EB-F33B-422E-AB2C-C0BB62D145A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B4CF6EB-F33B-422E-AB2C-C0BB62D145A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B4CF6EB-F33B-422E-AB2C-C0BB62D145A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B4CF6EB-F33B-422E-AB2C-C0BB62D145A1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -10,3 +10,7 @@
 .demo-col {
     border-left: 2px solid black;
 }
+
+span {
+    margin-left: 5px;
+}

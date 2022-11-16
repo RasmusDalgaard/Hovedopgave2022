@@ -1,8 +1,18 @@
-﻿<div class="col-2 text-center upload-col">
-    <button class="btn btn-info">Upload Plan Drawing</button>
+﻿@using EMSuiteVisualConfigurator.Shared.Models
+@inject HttpClient Http
+
+<div class="col-3 text-center upload-col">
+	<h4>Upload Plan Drawing</h4>
+    <div class="input-group" >
+		<div class="custom-file" @onclick="Upload" disabled="@isDisabled">
+			<InputFile class="custom-file-input" title=" " OnChange="OnChange" accept="image/png, image/jpeg, image/gif" id="inputFile"/>
+		</div>		
+	</div>
 </div>
 
-<div class="col-3"/>
+<div class="col-2">
+	<img src="data:@fileBase64.contentType;base64,@fileBase64.base64data" />
+</div>
 
 <div class="col-2 sitename-col">
     <div class="input-group text-center">
@@ -10,11 +20,36 @@
     </div>
 </div>
 
-<div class="col-3"/>
+<div class="col-2"/>
 
-<div class="col-2 text-center demo-col">
-    <button class="btn btn-success">Generate Demo</button>
+<div class="col-3 text-center demo-col">
+    <button class="btn btn-success">Generate Demo<span class="bi bi-play"></span></button>
 </div>
 @code {
+	ImageFile fileBase64 = new ImageFile();
+	bool isDisabled = false;
 
+	async Task OnChange(InputFileChangeEventArgs e)
+	{
+		var file = e.File; // get the files selected by the users
+		var resizedFile = await file.RequestImageFileAsync(file.ContentType, 640, 480); // resize the image file
+		var buf = new byte[resizedFile.Size]; // allocate a buffer to fill with the file's data
+		using (var stream = resizedFile.OpenReadStream())
+		{
+			await stream.ReadAsync(buf); // copy the stream to the buffer
+		};
+		// convert to a base64 string!!
+		fileBase64.base64data = Convert.ToBase64String(buf); 
+		fileBase64.contentType = file.ContentType;
+		fileBase64.fileName = file.Name;		
+	}
+
+	async Task Upload()
+	{
+		isDisabled = true;
+		using (var msg = await Http.PostAsJsonAsync<ImageFile>("/api/upload", fileBase64, System.Threading.CancellationToken.None))
+		{
+			isDisabled = false;
+		}
+	}
 }
