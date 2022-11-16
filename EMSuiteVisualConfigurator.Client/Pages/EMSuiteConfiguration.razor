@@ -6,7 +6,7 @@
 
 <PageTitle>EMSuite Visual Configurator</PageTitle>
 <div class="container-fluid">
-    <div class="row justify-content-center align-items-center m-1">
+    <div class="row justify-content-center align-items-center py-2">
         <TopBarComponent />
     </div>
     <div class="row maincontent" >
@@ -24,6 +24,5 @@
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         await JS.InvokeVoidAsync("dragAndDrop", ".draggable");
-        //await JS.InvokeVoidAsync("resize", ".resizable");
     }
 }
