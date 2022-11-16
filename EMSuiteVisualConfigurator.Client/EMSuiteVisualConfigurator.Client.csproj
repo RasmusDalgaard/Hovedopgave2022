@@ -13,6 +13,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\EMSuiteVisualConfigurator.Application\EMSuiteVisualConfigurator.Application.csproj" />
+    <ProjectReference Include="..\EMSuiteVisualConfigurator.CoreBusiness\EMSuiteVisualConfigurator.CoreBusiness.csproj" />
+    <ProjectReference Include="..\EMSuiteVisualConfigurator.Data\EMSuiteVisualConfigurator.Data.csproj" />
   </ItemGroup>
 
   <ItemGroup>
