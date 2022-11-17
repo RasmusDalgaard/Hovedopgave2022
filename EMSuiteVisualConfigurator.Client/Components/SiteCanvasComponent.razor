@@ -1,12 +1,18 @@
-﻿@using Microsoft.JSInterop
+﻿@using EMSuiteVisualConfigurator.Shared.Models
+@using Microsoft.JSInterop
 @inject IJSRuntime JS;
 
 <div class="col dropzone">
-    <div>DropZone</div>
+    @if(FileBase64 != null) {
+        <img src="data:@FileBase64.contentType;base64,@FileBase64.base64data"/>
+    }
 </div>
 
 
 @code {
+    [CascadingParameter]
+	protected ImageFile? FileBase64 { get; set; }
+
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         await JS.InvokeVoidAsync("dropZone", ".dropzone");

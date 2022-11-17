@@ -11,7 +11,7 @@
 </div>
 
 <div class="col-2">
-	<img src="data:@fileBase64.contentType;base64,@fileBase64.base64data" />
+	
 </div>
 
 <div class="col-2 sitename-col">
@@ -26,7 +26,8 @@
     <button class="btn btn-success">Generate Demo<span class="bi bi-play"></span></button>
 </div>
 @code {
-	ImageFile fileBase64 = new ImageFile();
+	[CascadingParameter]
+	protected ImageFile FileBase64 { get; set; }
 	bool isDisabled = false;
 
 	async Task OnChange(InputFileChangeEventArgs e)
@@ -39,15 +40,15 @@
 			await stream.ReadAsync(buf); // copy the stream to the buffer
 		};
 		// convert to a base64 string!!
-		fileBase64.base64data = Convert.ToBase64String(buf); 
-		fileBase64.contentType = file.ContentType;
-		fileBase64.fileName = file.Name;		
+		FileBase64.base64data = Convert.ToBase64String(buf); 
+		FileBase64.contentType = file.ContentType;
+		FileBase64.fileName = file.Name;	
 	}
 
 	async Task Upload()
 	{
 		isDisabled = true;
-		using (var msg = await Http.PostAsJsonAsync<ImageFile>("/api/upload", fileBase64, System.Threading.CancellationToken.None))
+		using (var msg = await Http.PostAsJsonAsync<ImageFile>("/api/upload", FileBase64, System.Threading.CancellationToken.None))
 		{
 			isDisabled = false;
 		}

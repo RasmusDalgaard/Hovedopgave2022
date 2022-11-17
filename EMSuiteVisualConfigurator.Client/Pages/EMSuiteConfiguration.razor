@@ -1,26 +1,31 @@
 ﻿@using EMSuiteVisualConfigurator.Client.Components;
+@using EMSuiteVisualConfigurator.Shared.Models
 @using Microsoft.JSInterop
 @inject IJSRuntime JS;
 
 @page "/configuration"
 
 <PageTitle>EMSuite Visual Configurator</PageTitle>
+<CascadingValue Value="@imageFile">
 <div class="container-fluid">
-    <div class="row justify-content-center align-items-center py-2 topbar">
-        <TopBarComponent />
+        <div class="row justify-content-center align-items-center py-2 topbar">
+            <TopBarComponent />
+        </div>
+        <div class="row maincontent" >
+            <IconMenuComponent>
+                <SensorComponent/>
+                <AccessPointComponent/>
+                <ZoneComponent/>
+            </IconMenuComponent>        
+            <SiteCanvasComponent/>
+        </div>
     </div>
-    <div class="row maincontent" >
-        <IconMenuComponent>
-            <SensorComponent/>
-            <AccessPointComponent/>
-            <ZoneComponent/>
-        </IconMenuComponent>        
-        <SiteCanvasComponent/>
-    </div>
-</div>
+</CascadingValue>
 
 
 @code {
+    private ImageFile imageFile = new ImageFile() {contentType=null, base64data=null, fileName="defaultFileName"};
+
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         await JS.InvokeVoidAsync("dragAndDrop", ".draggable");
