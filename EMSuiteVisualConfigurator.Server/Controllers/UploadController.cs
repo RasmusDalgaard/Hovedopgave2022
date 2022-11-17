@@ -18,7 +18,7 @@ namespace EMSuiteVisualConfigurator.Server.Controllers
         public async Task Post([FromBody] ImageFile file)
         {
             var buf = Convert.FromBase64String(file.base64data);
-            await System.IO.File.WriteAllBytesAsync(env.ContentRootPath + System.IO.Path.DirectorySeparatorChar + Guid.NewGuid().ToString("N") + "-" + file.fileName, buf);
+            await System.IO.File.WriteAllBytesAsync(env.ContentRootPath + Path.DirectorySeparatorChar + Guid.NewGuid().ToString("N") + "-" + file.fileName, buf);
         }
     }
 }

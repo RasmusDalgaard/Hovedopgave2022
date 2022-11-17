@@ -6,10 +6,10 @@
 @page "/configuration"
 
 <PageTitle>EMSuite Visual Configurator</PageTitle>
-<CascadingValue Value="@imageFile">
+<CascadingValue Value="@ImageFile">
 <div class="container-fluid">
         <div class="row justify-content-center align-items-center py-2 topbar">
-            <TopBarComponent />
+            <TopBarComponent OnUploadImage="UploadImage" />
         </div>
         <div class="row maincontent" >
             <IconMenuComponent>
@@ -24,7 +24,12 @@
 
 
 @code {
-    private ImageFile imageFile = new ImageFile() {contentType=null, base64data=null, fileName="defaultFileName"};
+    private ImageFile ImageFile { get; set; } = new ImageFile();
+
+    private void UploadImage(ImageFile imageFile) {
+        ImageFile = imageFile;
+        StateHasChanged();
+    }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {

@@ -3,15 +3,15 @@
 @inject IJSRuntime JS;
 
 <div class="col dropzone">
-    @if(FileBase64 != null) {
+    @if (FileBase64 != null)
+    {
         <img src="data:@FileBase64.contentType;base64,@FileBase64.base64data"/>
     }
 </div>
 
 
 @code {
-    [CascadingParameter]
-	protected ImageFile? FileBase64 { get; set; }
+    [CascadingParameter] protected ImageFile? FileBase64 { get; set; }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
