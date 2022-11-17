@@ -2,10 +2,10 @@
 @using Microsoft.JSInterop
 @inject IJSRuntime JS;
 
-<div class="col dropzone">
+<div class="col dropzone" id="siteCanvas">
     @if (FileBase64 != null)
     {
-        <img src="data:@FileBase64.contentType;base64,@FileBase64.base64data"/>
+        <img src="data:@FileBase64.contentType;base64,@FileBase64.base64data" id="image"/>
     }
 </div>
 

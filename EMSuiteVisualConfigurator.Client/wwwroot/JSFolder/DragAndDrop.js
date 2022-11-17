@@ -1,6 +1,5 @@
 ﻿function dragAndDrop(className) {
     const position = { x: 0, y: 0 }
-
     interact(className).draggable({
         listeners: {
             start(event) {
@@ -26,7 +25,6 @@
 
 function dragResize(className) {
     const position = { x: 0, y: 0 }
-
     interact(className).draggable({
         listeners: {
             start(event) {
@@ -48,46 +46,45 @@ function dragResize(className) {
             })
         ]
     })
-        .resizable({
+    .resizable({
             // resize from all edges and corners
-            edges: { left: true, right: true, bottom: true, top: true },
-            listeners: {
-                move(event) {
-                    var target = event.target
-                    var x = (parseFloat(target.getAttribute('x')) || 0)
-                    var y = (parseFloat(target.getAttribute('y')) || 0)
+        edges: { left: true, right: true, bottom: true, top: true },
+        listeners: {
+            move(event) {
+                var target = event.target
+                var x = (parseFloat(target.getAttribute('x')) || 0)
+                var y = (parseFloat(target.getAttribute('y')) || 0)
 
-                    // update the element's style
-                    target.style.width = event.rect.width + 'px'
-                    target.style.height = event.rect.height + 'px'
+                // update the element's style
+                target.style.width = event.rect.width + 'px'
+                target.style.height = event.rect.height + 'px'
 
-                    // translate when resizing from top or left edges
-                    x += event.deltaRect.left
-                    y += event.deltaRect.top
+                // translate when resizing from top or left edges
+                x += event.deltaRect.left
+                y += event.deltaRect.top
 
-                    target.style.transform = 'translate(' + x + 'px,' + y + 'px)'
+                target.style.transform = 'translate(' + x + 'px,' + y + 'px)'
 
-                    target.setAttribute('x', x)
-                    target.setAttribute('y', y)
-                    target.textContent = Math.round(event.rect.width) + '\u00D7' + Math.round(event.rect.height)
-                }
+                target.setAttribute('x', x)
+                target.setAttribute('y', y)
+                target.textContent = Math.round(event.rect.width) + '\u00D7' + Math.round(event.rect.height)
             }
-        })
+        }
+    })
 }
 
-
 function dropZone(dropTarget) {
-    interact(dropTarget)
-        .dropzone({
-            ondrop: function (event) {
-                alert(event.relatedTarget.id
-                    + ' was dropped into '
-                    + event.target.id)
-            }
-        })
-        .on('dropactivate', function (event) {
-            event.target.classList.add('drop-activated')
-        })
+    interact(dropTarget).dropzone({
+        ondrop: function (event) {
+            alert(event.relatedTarget.id
+                + ' was dropped into '
+                + event.target.id
+            )
+            event.stopImmediatePropagation();
+        }
+    }).on('dropactivate', function (event) {
+        event.target.classList.add('drop-activated')
+    })
 }
 
 /*function resize-drag(className) {
