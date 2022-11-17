@@ -33,6 +33,7 @@
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        await JS.InvokeVoidAsync("dragAndDrop", ".draggable");
+        await JS.InvokeVoidAsync("dragstart_handler", ".draggable");
+        await JS.InvokeVoidAsync("dragend_handler", ".draggable");
     }
 }
