@@ -1,6 +1,9 @@
-﻿function dragAndDrop(className) {
+﻿function dragAndDrop(className, objref) {
     const position = { x: 0, y: 0 }
-    interact(className).draggable({
+    const interactable = interact(className)
+
+        interactable.draggable({
+        
         listeners: {
             start(event) {
                 position.x = parseInt(event.target.getAttribute("x"))
@@ -14,11 +17,28 @@
             end(event) {
                 event.target.setAttribute("x", position.x)
                 event.target.setAttribute("y", position.y)
+                DotNet.invokeMethodAsync("EMSuiteVisualConfigurator.Client", "addItem", objref)
+                /*if (document.getElementsByClassName('iconmenu')[0].offsetWidth / 2 < position.x) {
+                    event.target.setAttribute("x", position.x)
+                    event.target.setAttribute("y", position.y)
+                    DotNet.invokeMethodAsync("EMSuiteVisualConfigurator.Client", "addItem", objref)
+                }
+                else {
+                    event.target.setAttribute("x", 0)
+                    event.target.setAttribute("y", 0)
+                    event.target.style.transform = `translate(${0}px, ${0}px)`
+                }*/
+                console.log(event)
             },
         }, modifiers: [
-            interact.modifiers.restrictRect({
-                restriction: '.main'
-            })
+            /*interact.modifiers.restrictRect({
+                //restriction: '.main'
+                restriction: '#app > div > main > article > div > div.row.maincontent'
+                //endOnly: true
+            })*/
+                interact.modifiers.restrictRect({
+                    restriction: '.dropzone'
+                })
         ]
     })
 }

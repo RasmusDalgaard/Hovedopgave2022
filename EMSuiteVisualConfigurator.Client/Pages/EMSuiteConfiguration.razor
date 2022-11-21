@@ -13,9 +13,10 @@
         </div>
         <div class="row maincontent" >
             <IconMenuComponent>
+                @foreach (Item item in items){
                 <SensorComponent/>
-                <AccessPointComponent/>
-                <ZoneComponent/>
+            }
+
             </IconMenuComponent>        
             <SiteCanvasComponent/>
         </div>
@@ -31,9 +32,61 @@
         StateHasChanged();
     }
 
+    private DotNetObjectReference<EMSuiteConfiguration>? objRef;
+    protected override void OnInitialized()
+    {
+        objRef = DotNetObjectReference.Create(this);
+    }
+
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        await JS.InvokeVoidAsync("dragstart_handler", ".draggable");
-        await JS.InvokeVoidAsync("dragend_handler", ".draggable");
+        await JS.InvokeVoidAsync("dragAndDrop", ".draggable", objRef);
     }
+
+    public static IList<Item> items = new List<Item>() { new SensorItem() };
+
+    public class Item
+    {
+        public static int idCount = 0;
+
+        public Item()
+        {
+            idCount++;
+        }
+    }
+
+    class SensorItem : Item
+    {
+        int id;
+        public SensorItem()
+        {
+            id = Item.idCount;
+        }
+    }
+
+    class AccessItem : Item
+    {
+        int id;
+        public AccessItem()
+        {
+            id = Item.idCount;
+        }
+    }
+
+    class ZoneItem : Item
+    {
+        int id;
+        public ZoneItem()
+        {
+            id = Item.idCount;
+        }
+    }
+
+    [JSInvokable]
+    public static void addItem(DotNetObjectReference<EMSuiteConfiguration>? objref)
+    {
+        items.Add(new SensorItem());
+        objref.Value.StateHasChanged();
+    }
+
 }
