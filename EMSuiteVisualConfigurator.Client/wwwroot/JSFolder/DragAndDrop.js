@@ -5,7 +5,7 @@
     const interactable = interact(className)
 
     interactable.draggable({
-
+        //manualStart: true,
         listeners: {
             start(event) {
                 newComp = true
