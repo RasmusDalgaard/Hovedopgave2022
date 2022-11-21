@@ -14,9 +14,19 @@
         <div class="row maincontent" >
             <IconMenuComponent>
                 @foreach (Item item in items){
-                <SensorComponent/>
+                    if (item is SensorItem)
+                    {
+                        <SensorComponent/>
+                    }
+                    if (item is AccessItem)
+                    {
+                        <AccessPointComponent/>
+                    }
+                    if (item is ZoneItem)
+                    {
+                        <ZoneComponent/>
+                    }
             }
-
             </IconMenuComponent>        
             <SiteCanvasComponent/>
         </div>
@@ -43,7 +53,7 @@
         await JS.InvokeVoidAsync("dragAndDrop", ".draggable", objRef);
     }
 
-    public static IList<Item> items = new List<Item>() { new SensorItem() };
+    public static IList<Item> items = new List<Item>() { new SensorItem(), new AccessItem(), new ZoneItem() };
 
     public class Item
     {
@@ -83,9 +93,22 @@
     }
 
     [JSInvokable]
-    public static void addItem(DotNetObjectReference<EMSuiteConfiguration>? objref)
+    public static void addItem(string name, DotNetObjectReference<EMSuiteConfiguration>? objref)
     {
-        items.Add(new SensorItem());
+        switch (name)
+        {
+            case "sensor":
+                items.Add(new SensorItem());
+                break;
+
+            case "accesspoint":
+            items.Add(new AccessItem());
+                break;
+
+            case "zone":
+            items.Add(new ZoneItem());
+                break;
+        }
         objref.Value.StateHasChanged();
     }
 
