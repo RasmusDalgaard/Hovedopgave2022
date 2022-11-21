@@ -120,11 +120,11 @@ function dragResize(className) {
 function dropZone(dropTarget) {
     interact(dropTarget).dropzone({
         ondrop: function (event) {
+            event.stopImmediatePropagation();
             alert(event.relatedTarget.id
                 + ' was dropped into '
                 + event.target.id
-            )
-            event.stopImmediatePropagation();
+            )            
         }
     }).on('dropactivate', function (event) {
         event.target.classList.add('drop-activated')
