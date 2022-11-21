@@ -2,7 +2,7 @@
 @using Microsoft.JSInterop
 @inject IJSRuntime JS;
 
-<div class="col dropzone" id="dest_copy">
+<div class="col dropzone">
     @if (FileBase64 != null)
     {
         <img src="data:@FileBase64.contentType;base64,@FileBase64.base64data" id="image"/>
@@ -12,12 +12,4 @@
 
 @code {
     [CascadingParameter] protected ImageFile? FileBase64 { get; set; }
-
-    
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        await JS.InvokeVoidAsync("dragover_handler", ".dropzone");
-        await JS.InvokeVoidAsync("drop_handler", ".dropzone");
-        
-    }
 }
