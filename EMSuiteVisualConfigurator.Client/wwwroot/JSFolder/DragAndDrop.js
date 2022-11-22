@@ -5,15 +5,11 @@
     const interactable = interact(className)
 
     interactable.draggable({
-        //manualStart: true,
         listeners: {
             start(event) {
                 newComp = true
-                console.log(parseInt(event.target.getAttribute("x")))
-                startPos.x = parseInt(event.target.getAttribute("x"))
-                startPos.y = parseInt(event.target.getAttribute("y"))
-                position.x = startPos.x
-                position.y = startPos.y
+                startPos.x, position.x = parseInt(event.target.getAttribute("x"))
+                startPos.y, position.y = parseInt(event.target.getAttribute("y"))
                 if (position.x != 0 && position.y != 0) {
                     newComp = false
                 }
@@ -24,45 +20,32 @@
                 event.target.style.transform = `translate(${position.x}px, ${position.y}px)`
             },
             end(event) {
-                /*event.target.setAttribute("x", position.x)
-                event.target.setAttribute("y", position.y)
-                DotNet.invokeMethodAsync("EMSuiteVisualConfigurator.Client", "addItem", objref)*/
                 if (!newComp) {
                     if (document.getElementsByClassName('iconmenu')[0].offsetWidth / 2 > position.x) {
-                        event.target.setAttribute("x", startPos.x)
-                        event.target.setAttribute("y", startPos.y)
+                        
                         event.target.style.transform = `translate(${startPos.x}px, ${startPos.y}px)`
                     }
-                    else {
-                        event.target.setAttribute("x", position.x)
-                        event.target.setAttribute("y", position.y)
-                    }
-
                 }
                 else if (document.getElementsByClassName('iconmenu')[0].offsetWidth / 2 < position.x) {
-                    event.target.setAttribute("x", position.x)
-                    event.target.setAttribute("y", position.y)
                     if (event.target.getAttribute("name") == "zone") {
                         event.target.setAttribute("class", "drag-resize zone")
                     }
                     DotNet.invokeMethodAsync("EMSuiteVisualConfigurator.Client", "addItem", event.target.getAttribute("name"), objref)
                 }
                 else {
-                    event.target.setAttribute("x", 0)
-                    event.target.setAttribute("y", 0)
-                    event.target.style.transform = `translate(${0}px, ${0}px)`
+                    position.x = 0
+                    position.y = 0
                 }
-                console.log(event)
+                event.target.setAttribute("x", position.x)
+                event.target.setAttribute("y", position.y)
+                event.target.style.transform = `translate(${position.x}px, ${position.y}px)`
+
             },
         }, modifiers: [
             interact.modifiers.restrictRect({
-                //restriction: '.main'
                 restriction: '#app > div > main > article > div > div.row.maincontent'
                 //endOnly: true
             })
-            /*interact.modifiers.restrictRect({
-                restriction: '.dropzone'
-            })*/
         ]
     })
 }
