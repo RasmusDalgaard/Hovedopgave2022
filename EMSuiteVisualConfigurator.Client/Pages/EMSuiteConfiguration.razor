@@ -4,111 +4,49 @@
 @inject IJSRuntime JS;
 
 @page "/configuration"
-
-<PageTitle>EMSuite Visual Configurator</PageTitle>
-<CascadingValue Value="@ImageFile">
 <div class="container-fluid">
-        <div class="row justify-content-center align-items-center py-2 topbar">
-            <TopBarComponent OnUploadImage="UploadImage" />
-        </div>
-        <div class="row maincontent" >
-            <IconMenuComponent>
-                @foreach (Item item in items){
-                    if (item is SensorItem)
-                    {
-                        <SensorComponent/>
-                    }
-                    if (item is AccessItem)
-                    {
-                        <AccessPointComponent/>
-                    }
-                    if (item is ZoneItem)
-                    {
-                        <ZoneComponent innerText="@item.id.ToString()"/>
-                    }
-            }
-            </IconMenuComponent>        
-            <SiteCanvasComponent/>
-        </div>
-    </div>
-</CascadingValue>
+	@foreach (Site site in sites){
+		<SiteComponent display=@site.display/>
+	}
+	<div class="row no-gutters" style="width: 100%">
+		@foreach (Site site in sites){
+		<button @onclick="()=> switchSite(site)" class="w-auto">Site</button>
+	}
+		<button class="w-auto" @onclick="addSite">+</button>
+	</div>
+</div>
 
 
 @code {
-    private ImageFile ImageFile { get; set; } = new ImageFile();
 
-    private void UploadImage(ImageFile imageFile) {
-        ImageFile = imageFile;
-        StateHasChanged();
-    }
 
-    private DotNetObjectReference<EMSuiteConfiguration>? objRef;
-    protected override void OnInitialized()
-    {
-        objRef = DotNetObjectReference.Create(this);
-    }
+	public class Site{
+		public string display = "none";
 
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        await JS.InvokeVoidAsync("dragAndDrop", ".draggable", objRef);
-    }
+		public Site(string display){
+			this.display = display;
+		}
+	}
+	public static IList<Site> sites = new List<Site>() { new Site("inline") };
+	public static Site active = sites[0];
 
-    public static IList<Item> items = new List<Item>() { new SensorItem(), new AccessItem(), new ZoneItem() };
+	public void addSite(){
+		Site newSite = new Site("inline");
+		sites.Add(newSite);
+		deactivateCurrentSite();
+		active = newSite;
+	}
+	public void deactivateCurrentSite(){
+		active.display = "none";
+	}
 
-    public class Item
-    {
-        public int id;
-        public static int idCount = 0;
-        
-        public Item()
-        {
-            idCount++;
-        }
-        
-    }
+	public void activateSite(Site site){
+		active = site;
+		site.display = "inline";
+	}
 
-    class SensorItem : Item
-    {
-        public SensorItem()
-        {
-            id = Item.idCount;
-        }
-    }
-
-    class AccessItem : Item
-    {
-        public AccessItem()
-        {
-            id = Item.idCount;
-        }
-    }
-
-    class ZoneItem : Item
-    {
-        public ZoneItem()
-        {
-            id = Item.idCount;
-        }
-    }
-
-    [JSInvokable]
-    public static void addItem(string name, DotNetObjectReference<EMSuiteConfiguration>? objref)
-    {
-        switch (name)
-        {
-            case "sensor":
-                items.Add(new SensorItem());
-                break;
-
-            case "accesspoint":
-            items.Add(new AccessItem());
-                break;
-
-            case "zone":
-            items.Add(new ZoneItem());
-                break;
-        }
-        objref.Value.StateHasChanged();
-    }
-
+	public void switchSite(Site site) {
+		deactivateCurrentSite();
+		activateSite(site);
+	}
 }
