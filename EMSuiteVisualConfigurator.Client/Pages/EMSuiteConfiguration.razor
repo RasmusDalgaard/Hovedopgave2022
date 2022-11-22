@@ -24,7 +24,7 @@
                     }
                     if (item is ZoneItem)
                     {
-                        <ZoneComponent/>
+                        <ZoneComponent innerText="@item.id.ToString()"/>
                     }
             }
             </IconMenuComponent>        
@@ -57,17 +57,18 @@
 
     public class Item
     {
+        public int id;
         public static int idCount = 0;
-
+        
         public Item()
         {
             idCount++;
         }
+        
     }
 
     class SensorItem : Item
     {
-        int id;
         public SensorItem()
         {
             id = Item.idCount;
@@ -76,7 +77,6 @@
 
     class AccessItem : Item
     {
-        int id;
         public AccessItem()
         {
             id = Item.idCount;
@@ -85,7 +85,6 @@
 
     class ZoneItem : Item
     {
-        int id;
         public ZoneItem()
         {
             id = Item.idCount;

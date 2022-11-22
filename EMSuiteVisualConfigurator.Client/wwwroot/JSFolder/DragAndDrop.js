@@ -102,7 +102,6 @@ function dragResize(className) {
 
                     target.setAttribute('x', x)
                     target.setAttribute('y', y)
-                    target.textContent = Math.round(event.rect.width) + '\u00D7' + Math.round(event.rect.height)
                 }
             }
         })
