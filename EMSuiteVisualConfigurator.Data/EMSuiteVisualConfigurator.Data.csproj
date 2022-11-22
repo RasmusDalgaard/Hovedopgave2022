@@ -10,8 +10,4 @@
     <ProjectReference Include="..\EMSuiteVisualConfigurator.Application\EMSuiteVisualConfigurator.Application.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Repositories\" />
-  </ItemGroup>
-
 </Project>

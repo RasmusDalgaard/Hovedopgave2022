@@ -6,4 +6,13 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Features\AccessPoints\Commands\" />
+    <Folder Include="Features\AccessPoints\Queries\" />
+    <Folder Include="Features\Sensors\Commands\" />
+    <Folder Include="Features\Sensors\Queries\" />
+    <Folder Include="Features\Zones\Commands\" />
+    <Folder Include="Features\Zones\Queries\" />
+  </ItemGroup>
+
 </Project>
