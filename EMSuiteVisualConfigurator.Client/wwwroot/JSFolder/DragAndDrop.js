@@ -20,13 +20,7 @@
                 event.target.style.transform = `translate(${position.x}px, ${position.y}px)`
             },
             end(event) {
-                if (!newComp) {
-                    if (document.getElementsByClassName('iconmenu')[0].offsetWidth / 2 > position.x) {
-                        
-                        event.target.style.transform = `translate(${startPos.x}px, ${startPos.y}px)`
-                    }
-                }
-                else if (document.getElementsByClassName('iconmenu')[0].offsetWidth / 2 < position.x) {
+                if (document.getElementsByClassName('iconmenu')[0].offsetWidth / 2 < position.x) {
                     if (event.target.getAttribute("name") == "zone") {
                         event.target.setAttribute("class", "drag-resize zone")
                     }
