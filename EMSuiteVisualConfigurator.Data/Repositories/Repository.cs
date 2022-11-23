@@ -1,4 +1,7 @@
 ﻿using EMSuiteVisualConfigurator.Application.Interfaces.Repositories;
+using EMSuiteVisualConfigurator.CoreBusiness.Primitives;
+using EMSuiteVisualConfigurator.Data.DataAccess;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,31 +10,37 @@ using System.Threading.Tasks;
 
 namespace EMSuiteVisualConfigurator.Data.Repositories
 {
-    public class Repository<T> : IRepository<T> where T : class
+    public class Repository<T> : IRepository<T> where T : Entity
     {
-        public async Task<IEnumerable<T>> AllAsync()
+        protected readonly EMSuiteVisualConfiguratorDbContext _dbContext;
+        private DbSet<T> table = null;
+
+        public Repository(EMSuiteVisualConfiguratorDbContext dbContext)
         {
-            throw new NotImplementedException();
+            _dbContext = dbContext;
+            table = dbContext.Set<T>();
         }
 
-        public async Task<T> CreateAsync(T entity)
+        public async Task<IEnumerable<T>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            return await table.ToListAsync();
         }
 
-        public async Task<string> DeleteAsync(string id)
+        public async Task CreateAsync(T entity)
         {
-            throw new NotImplementedException();
+            await table.AddAsync(entity);
         }
 
-        public async Task<T> GetByIdAsync(string id)
+        public async Task DeleteAsync(int id)
         {
-            throw new NotImplementedException();
+            T existing = await table.FindAsync(id);
+            table.Remove(existing);
         }
 
-        public async Task<T> UpdateAsync(T entity)
+        public async Task<T> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            return await table.FindAsync(id);
         }
+
     }
 }

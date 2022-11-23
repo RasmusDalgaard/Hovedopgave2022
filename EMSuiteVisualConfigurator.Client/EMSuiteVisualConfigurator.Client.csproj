@@ -7,6 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Resources\**" />
+    <Content Remove="Resources\**" />
+    <EmbeddedResource Remove="Resources\**" />
+    <None Remove="Resources\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.7" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.7" PrivateAssets="all" />
   </ItemGroup>
@@ -16,10 +23,6 @@
     <ProjectReference Include="..\EMSuiteVisualConfigurator.CoreBusiness\EMSuiteVisualConfigurator.CoreBusiness.csproj" />
     <ProjectReference Include="..\EMSuiteVisualConfigurator.Data\EMSuiteVisualConfigurator.Data.csproj" />
     <ProjectReference Include="..\EMSuiteVisualConfigurator.Shared\EMSuiteVisualConfigurator.Shared.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Resources\Images\" />
   </ItemGroup>
 
 </Project>

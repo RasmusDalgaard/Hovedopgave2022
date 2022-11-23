@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EMSuiteVisualConfigurator.CoreBusiness.Primitives;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,13 +7,11 @@ using System.Threading.Tasks;
 
 namespace EMSuiteVisualConfigurator.Application.Interfaces.Repositories
 {
-    public interface IRepository<T> where T : class
+    public interface IRepository<T> where T : Entity
     {
-        public Task<IEnumerable<T>> AllAsync();
-        public Task<T> GetByIdAsync(string id);
-        public Task<T> CreateAsync(T entity);
-        public Task<T> UpdateAsync(T entity);
-        public Task<string> DeleteAsync(string id);
-        
+        Task<IEnumerable<T>> GetAllAsync();
+        Task<T> GetByIdAsync(int id);
+        Task CreateAsync(T entity);
+        Task DeleteAsync(int id);
     }
 }

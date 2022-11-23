@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using EMSuiteVisualConfigurator.Application.Features.AccessPoints.Responses;
 using EMSuiteVisualConfigurator.Application.Interfaces.Repositories;
 using MediatR;
 using System;
@@ -7,13 +8,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EMSuiteVisualConfigurator.Application.Features.AccessPoints.Queries
+namespace EMSuiteVisualConfigurator.Application.Features.AccessPoints.Queries.GetAllAccessPoints
 {
-    public class GetAllAccessPointsQuery : IRequest<List<GetAllAccessPointsResponse>>
+    public class GetAllAccessPointsQuery : IRequest<List<AccessPointResponse>>
     {
     }
 
-    internal class GetAllAccessPointsQueryHandler : IRequestHandler<GetAllAccessPointsQuery, List<GetAllAccessPointsResponse>>
+    internal class GetAllAccessPointsQueryHandler : IRequestHandler<GetAllAccessPointsQuery, List<AccessPointResponse>>
     {
         private readonly IAccessPointRepository _accessPointRepository;
         private readonly IMapper _mapper;
@@ -24,10 +25,10 @@ namespace EMSuiteVisualConfigurator.Application.Features.AccessPoints.Queries
             _mapper = mapper;
         }
 
-        public async Task<List<GetAllAccessPointsResponse>> Handle(GetAllAccessPointsQuery request, CancellationToken cancellation)
+        public async Task<List<AccessPointResponse>> Handle(GetAllAccessPointsQuery request, CancellationToken cancellation)
         {
             var accessPoints = await _accessPointRepository.GetAllAccessPoints();
-            return _mapper.Map<List<GetAllAccessPointsResponse>>(accessPoints);
+            return _mapper.Map<List<AccessPointResponse>>(accessPoints);
         }
     }
 }
