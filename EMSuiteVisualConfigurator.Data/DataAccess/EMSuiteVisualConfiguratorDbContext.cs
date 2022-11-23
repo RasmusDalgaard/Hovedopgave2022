@@ -15,6 +15,8 @@ namespace EMSuiteVisualConfigurator.Data.DataAccess
 
         }
 
+        public DbSet<Zone> zones { get; set; }
         public DbSet<AccessPoint> accessPoints { get; set; }
+        public DbSet<Sensor> sensors { get; set; }
     }
 }

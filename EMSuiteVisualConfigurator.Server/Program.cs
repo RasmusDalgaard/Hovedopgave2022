@@ -1,5 +1,5 @@
 using EMSuiteVisualConfigurator.Application;
-using EMSuiteVisualConfigurator.Data.DataAccess;
+using EMSuiteVisualConfigurator.Data;
 using MediatR;
 using System.Reflection;
 

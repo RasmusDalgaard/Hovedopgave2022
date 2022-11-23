@@ -1,13 +1,19 @@
 ﻿using EMSuiteVisualConfigurator.CoreBusiness.Primitives;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EMSuiteVisualConfigurator.CoreBusiness.Entities
 {
     public class Sensor : Entity
     {
+        public string Name { get; protected set; }
+
+        public Sensor(int id, string name)
+        {
+            Name = name;
+        }
+
+        private Sensor()
+        {
+
+        }
     }
 }
