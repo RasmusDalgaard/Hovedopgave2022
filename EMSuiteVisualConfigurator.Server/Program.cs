@@ -1,3 +1,5 @@
+using EMSuiteVisualConfigurator.Application;
+using EMSuiteVisualConfigurator.Data.DataAccess;
 using MediatR;
 using System.Reflection;
 
@@ -9,8 +11,8 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
-builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
+builder.Services.InjectDbContext(builder.Configuration);
+builder.Services.InjectApplicationDependencies(builder.Configuration);
 
 var app = builder.Build();
 

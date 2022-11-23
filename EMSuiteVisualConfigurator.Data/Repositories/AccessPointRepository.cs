@@ -19,7 +19,7 @@ namespace EMSuiteVisualConfigurator.Data.Repositories
 
         public async Task<IEnumerable<AccessPoint>> GetAllAccessPoints()
         {
-            return _dbContext.accessPoints;
+            return await _dbContext.accessPoints.ToListAsync();
         }
 
         public async Task<AccessPoint> GetAccessPointById(int id)

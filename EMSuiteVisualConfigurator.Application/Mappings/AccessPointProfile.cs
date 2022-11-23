@@ -14,6 +14,7 @@ namespace EMSuiteVisualConfigurator.Application.Mappings
         public AccessPointProfile()
         {
             CreateMap<AccessPoint, AccessPointResponse>();
+            CreateMap<AccessPointResponse, AccessPoint>();
         }
     }
 }
