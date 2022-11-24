@@ -7,16 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Features\AccessPoints\Commands\" />
-    <Folder Include="Features\Sensors\Commands\" />
-    <Folder Include="Features\Sensors\Queries\" />
-    <Folder Include="Features\Zones\Commands\" />
-    <Folder Include="Features\Zones\Queries\" />
+    <PackageReference Include="AutoMapper" Version="12.0.0" />
+    <PackageReference Include="MediatR" Version="11.0.0" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="7.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="12.0.0" />
-    <PackageReference Include="MediatR" Version="11.0.0" />
+    <ProjectReference Include="..\EMSuiteVisualConfigurator.CoreBusiness\EMSuiteVisualConfigurator.CoreBusiness.csproj" />
   </ItemGroup>
 
 </Project>

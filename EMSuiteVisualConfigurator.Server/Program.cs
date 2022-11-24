@@ -1,7 +1,5 @@
 using EMSuiteVisualConfigurator.Application;
 using EMSuiteVisualConfigurator.Data;
-using MediatR;
-using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 

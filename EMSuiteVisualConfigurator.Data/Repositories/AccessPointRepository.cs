@@ -35,8 +35,7 @@ namespace EMSuiteVisualConfigurator.Data.Repositories
         }
 
         public async Task DeleteAccessPoint(int id)
-        {
-            
+        {            
             var accessPoint = await _dbContext.accessPoints
                 .FirstOrDefaultAsync(a => a.Id == id);
             if (accessPoint == null) return;
@@ -44,9 +43,6 @@ namespace EMSuiteVisualConfigurator.Data.Repositories
             _dbContext.accessPoints.Remove(accessPoint);
             await _dbContext.SaveChangesAsync();
             //Retrieve Sensors and delete
-           
-            
         }     
-
     }
 }

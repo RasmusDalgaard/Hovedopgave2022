@@ -1,4 +1,5 @@
 ﻿using EMSuiteVisualConfigurator.CoreBusiness.Entities;
+using EMSuiteVisualConfigurator.CoreBusiness.Primitives;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -10,13 +11,16 @@ namespace EMSuiteVisualConfigurator.Data.DataAccess
 {
     public class EMSuiteVisualConfiguratorDbContext : DbContext
     {
+        public DbSet<AccessPoint> accessPoints { get; set; }
         public EMSuiteVisualConfiguratorDbContext(DbContextOptions opt) : base(opt)
         {
-
         }
 
-        public DbSet<Zone> zones { get; set; }
-        public DbSet<AccessPoint> accessPoints { get; set; }
-        public DbSet<Sensor> sensors { get; set; }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Entity>().HasKey(e => e.Id);
+            modelBuilder.Entity<Entity>().UseTpcMappingStrategy();
+            modelBuilder.Entity<AccessPoint>().HasBaseType<Entity>();            
+        }
     }
 }

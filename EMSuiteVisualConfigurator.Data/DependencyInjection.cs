@@ -1,8 +1,9 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.EntityFrameworkCore;
 using EMSuiteVisualConfigurator.Data.Repositories;
 using EMSuiteVisualConfigurator.Data.DataAccess;
+using Microsoft.EntityFrameworkCore;
+using EMSuiteVisualConfigurator.Application.Interfaces.Repositories;
 
 namespace EMSuiteVisualConfigurator.Data
 {
@@ -11,10 +12,9 @@ namespace EMSuiteVisualConfigurator.Data
         public static IServiceCollection InjectDbContext(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddDbContext<EMSuiteVisualConfiguratorDbContext>(options =>
-                options.UseSqlServer(configuration.GetConnectionString("DefaultConection"),
+                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"), 
                 b => b.MigrationsAssembly(typeof(EMSuiteVisualConfiguratorDbContext).Assembly.FullName)), ServiceLifetime.Transient);
-            services.AddScoped<AccessPointRepository>();
-
+            services.AddScoped<IAccessPointRepository, AccessPointRepository>();
             return services;
         }
     }
