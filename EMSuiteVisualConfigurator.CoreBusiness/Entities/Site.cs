@@ -1,15 +1,17 @@
 ﻿using EMSuiteVisualConfigurator.CoreBusiness.Primitives;
 
+
 namespace EMSuiteVisualConfigurator.CoreBusiness.Entities
 {
-    public class AccessPoint : Entity
+    public class Site : Entity
     {
         public string Name { get; protected set; }
+        public List<Zone> Zones { get; protected set; }
 
-        public AccessPoint(string name)
+        public Site(string name)
         {
             Name = name;
+            Zones = new List<Zone>();
         }
-
     }
 }
