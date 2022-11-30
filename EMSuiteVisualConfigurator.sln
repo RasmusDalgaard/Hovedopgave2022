@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.32106.194
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32630.192
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EMSuiteVisualConfigurator.Client", "EMSuiteVisualConfigurator.Client\EMSuiteVisualConfigurator.Client.csproj", "{5CD28712-8075-4F2A-B8CF-0068284BB2E1}"
 EndProject
@@ -11,9 +11,19 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EMSuiteVisualConfigurator.D
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EMSuiteVisualConfigurator.Application", "EMSuiteVisualConfigurator.Application\EMSuiteVisualConfigurator.Application.csproj", "{FD2008F3-EA1A-4803-B917-D6617AE02D9E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EMSuiteVisualConfigurator.Shared", "EMSuiteVisualConfigurator.Shared\EMSuiteVisualConfigurator.Shared.csproj", "{07606F41-CD90-461B-B3CA-5D4D678122A8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EMSuiteVisualConfigurator.Shared", "EMSuiteVisualConfigurator.Shared\EMSuiteVisualConfigurator.Shared.csproj", "{07606F41-CD90-461B-B3CA-5D4D678122A8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EMSuiteVisualConfigurator.Server", "EMSuiteVisualConfigurator.Server\EMSuiteVisualConfigurator.Server.csproj", "{7B4CF6EB-F33B-422E-AB2C-C0BB62D145A1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EMSuiteVisualConfigurator.Server", "EMSuiteVisualConfigurator.Server\EMSuiteVisualConfigurator.Server.csproj", "{7B4CF6EB-F33B-422E-AB2C-C0BB62D145A1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Source", "Source", "{AEAC38B5-4E41-4E4B-94E1-9FA7398B3F42}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{C1F27A34-C3C4-4A1A-8A98-6C6F0CBB8BA3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{BA7EE14E-F46A-41E5-994B-F5F9692417C1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{D7CA9BF5-1553-42BA-A817-CC60C9046AE7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{D1AA7D07-0B81-4DE6-854D-06313C4657AC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -48,6 +58,18 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{5CD28712-8075-4F2A-B8CF-0068284BB2E1} = {D1AA7D07-0B81-4DE6-854D-06313C4657AC}
+		{A3F67BE3-8AA0-4AE0-B57D-33CCD96DA58D} = {C1F27A34-C3C4-4A1A-8A98-6C6F0CBB8BA3}
+		{FBC443B5-86C5-4792-85CF-3C75EC1D5800} = {BA7EE14E-F46A-41E5-994B-F5F9692417C1}
+		{FD2008F3-EA1A-4803-B917-D6617AE02D9E} = {C1F27A34-C3C4-4A1A-8A98-6C6F0CBB8BA3}
+		{07606F41-CD90-461B-B3CA-5D4D678122A8} = {D7CA9BF5-1553-42BA-A817-CC60C9046AE7}
+		{7B4CF6EB-F33B-422E-AB2C-C0BB62D145A1} = {D1AA7D07-0B81-4DE6-854D-06313C4657AC}
+		{C1F27A34-C3C4-4A1A-8A98-6C6F0CBB8BA3} = {AEAC38B5-4E41-4E4B-94E1-9FA7398B3F42}
+		{BA7EE14E-F46A-41E5-994B-F5F9692417C1} = {AEAC38B5-4E41-4E4B-94E1-9FA7398B3F42}
+		{D7CA9BF5-1553-42BA-A817-CC60C9046AE7} = {AEAC38B5-4E41-4E4B-94E1-9FA7398B3F42}
+		{D1AA7D07-0B81-4DE6-854D-06313C4657AC} = {AEAC38B5-4E41-4E4B-94E1-9FA7398B3F42}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FDFBB32D-4BAC-4AFF-9336-CF95A7A8BC86}
