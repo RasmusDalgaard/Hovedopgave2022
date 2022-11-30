@@ -13,12 +13,10 @@ namespace EMSuiteVisualConfigurator.Application.Features.AccessPoints.Commands.C
 {
     public class CreateAccessPointCommand : IRequest<AccessPointResponse>
     {
-        public int Id { get; set; }
         public string Name { get; set; }
 
-        public CreateAccessPointCommand(int id, string name)
+        public CreateAccessPointCommand(string name)
         {
-            Id = id;
             Name = name;
         }
     }
@@ -36,7 +34,7 @@ namespace EMSuiteVisualConfigurator.Application.Features.AccessPoints.Commands.C
 
         public async Task<AccessPointResponse> Handle(CreateAccessPointCommand request, CancellationToken cancellationToken)
         {
-            var newAccessPoint = new AccessPoint(request.Id, request.Name);
+            var newAccessPoint = new AccessPoint(request.Name);
             var persistedAccessPoint = await _accessPointRepository.CreateAccessPoint(newAccessPoint);
             return _mapper.Map<AccessPointResponse>(persistedAccessPoint);
         }

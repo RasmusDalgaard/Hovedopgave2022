@@ -2,11 +2,7 @@
 using EMSuiteVisualConfigurator.CoreBusiness.Primitives;
 using EMSuiteVisualConfigurator.Data.DataAccess;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace EMSuiteVisualConfigurator.Data.Repositories
 {

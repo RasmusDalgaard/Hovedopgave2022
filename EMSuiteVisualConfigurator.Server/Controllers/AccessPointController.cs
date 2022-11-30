@@ -31,9 +31,9 @@ namespace EMSuiteVisualConfigurator.Server.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateAccessPoint(int id, string name)
+        public async Task<IActionResult> CreateAccessPoint(string name)
         {
-            var result = await _mediator.Send(new CreateAccessPointCommand(id, name));
+            var result = await _mediator.Send(new CreateAccessPointCommand(name));
             return Ok(result);
         }
     }

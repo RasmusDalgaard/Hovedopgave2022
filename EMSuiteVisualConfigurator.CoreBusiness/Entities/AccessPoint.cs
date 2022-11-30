@@ -6,7 +6,7 @@ namespace EMSuiteVisualConfigurator.CoreBusiness.Entities
     {
         public string Name { get; protected set; }
 
-        public AccessPoint(int id, string name)
+        public AccessPoint(string name)
         {
             Name = name;
         }
