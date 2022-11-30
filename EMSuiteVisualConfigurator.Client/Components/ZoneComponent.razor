@@ -1,10 +1,12 @@
 ﻿@using Microsoft.JSInterop
 @inject IJSRuntime JS;
 
-<div style="grid-column: 1; grid-row: 3; margin-top: 200px" class="draggable zone" x="0" y="0" name="zone">Zone</div>
+<div style="grid-column: 1; grid-row: 3; margin-top: 200px" class="draggable zone" x="0" y="0" name="zone">Zone @innerText</div>
 
 
 @code {
+    [Parameter]
+    public string innerText { get; set; }
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         await JS.InvokeVoidAsync("dragResize", ".drag-resize");

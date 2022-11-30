@@ -2,14 +2,21 @@
 @using Microsoft.JSInterop
 @inject IJSRuntime JS;
 
-<div class="col dropzone">
-    @if (FileBase64 != null)
+<div class="col dropzone align-items-start">
+    @if (FileBase64.base64data != null)
     {
-        <img src="data:@FileBase64.contentType;base64,@FileBase64.base64data" id="image"/>
+        Console.WriteLine(FileBase64.base64data.GetType);
+        <button onclick="@rmImg" type="button" class="btn btn-danger btn-circle"><img class="trash-icon" src="https://cdn-icons-png.flaticon.com/512/1799/1799391.png" /></button>
+        <img src="data:@FileBase64.contentType;base64,@FileBase64.base64data" class="plandrawing" id="image" />
     }
 </div>
 
 
 @code {
     [CascadingParameter] protected ImageFile? FileBase64 { get; set; }
+
+    public void rmImg()
+    {
+        FileBase64.base64data = null;
+    }
 }

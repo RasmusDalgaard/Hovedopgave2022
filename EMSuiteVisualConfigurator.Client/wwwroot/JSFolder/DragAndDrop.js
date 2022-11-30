@@ -8,11 +8,12 @@
         listeners: {
             start(event) {
                 newComp = true
-                startPos.x, position.x = parseInt(event.target.getAttribute("x"))
-                startPos.y, position.y = parseInt(event.target.getAttribute("y"))
+                startPos.x = position.x = parseInt(event.target.getAttribute("x"))
+                startPos.y = position.y = parseInt(event.target.getAttribute("y"))
                 if (position.x != 0 && position.y != 0) {
                     newComp = false
                 }
+                console.log(startPos.x)
             },
             move(event) {
                 position.x += event.dx
@@ -20,22 +21,21 @@
                 event.target.style.transform = `translate(${position.x}px, ${position.y}px)`
             },
             end(event) {
-                if (!newComp) {
-                    if (document.getElementsByClassName('iconmenu')[0].offsetWidth / 2 > position.x) {
-                        
-                        event.target.style.transform = `translate(${startPos.x}px, ${startPos.y}px)`
-                    }
-                }
-                else if (document.getElementsByClassName('iconmenu')[0].offsetWidth / 2 < position.x) {
+                if (document.getElementsByClassName('iconmenu')[0].offsetWidth / 2 < position.x && newComp) {
                     if (event.target.getAttribute("name") == "zone") {
                         event.target.setAttribute("class", "drag-resize zone")
                     }
                     DotNet.invokeMethodAsync("EMSuiteVisualConfigurator.Client", "addItem", event.target.getAttribute("name"), objref)
                 }
-                else {
+                else if (document.getElementsByClassName('iconmenu')[0].offsetWidth / 2 > position.x && newComp) {
                     position.x = 0
                     position.y = 0
                 }
+                else if (document.getElementsByClassName('iconmenu')[0].offsetWidth / 2 > position.x && !newComp) {
+                    position.x = startPos.x
+                    position.y = startPos.y
+                }
+                
                 event.target.setAttribute("x", position.x)
                 event.target.setAttribute("y", position.y)
                 event.target.style.transform = `translate(${position.x}px, ${position.y}px)`
@@ -52,11 +52,14 @@
 
 function dragResize(className) {
     const position = { x: 0, y: 0 }
+    const startPos = { x: 0, y: 0 }
     interact(className).draggable({
         listeners: {
             start(event) {
-                position.x = parseInt(event.target.getAttribute("x"))
-                position.y = parseInt(event.target.getAttribute("y"))
+                position.x = startPos.x = parseInt(event.target.getAttribute("x"))
+                position.y = startPos.y = parseInt(event.target.getAttribute("y"))
+                console.log(startPos.x)
+                console.log(position.x)
             },
             move(event) {
                 position.x += event.dx
@@ -64,8 +67,13 @@ function dragResize(className) {
                 event.target.style.transform = `translate(${position.x}px, ${position.y}px)`
             },
             end(event) {
+                if (document.getElementsByClassName('iconmenu')[0].offsetWidth / 2 > position.x) {
+                    position.x = startPos.x
+                    position.y = startPos.y
+                }
                 event.target.setAttribute("x", position.x)
                 event.target.setAttribute("y", position.y)
+                event.target.style.transform = `translate(${position.x}px, ${position.y}px)`
             },
         }, modifiers: [
             interact.modifiers.restrictRect({
@@ -94,7 +102,6 @@ function dragResize(className) {
 
                     target.setAttribute('x', x)
                     target.setAttribute('y', y)
-                    target.textContent = Math.round(event.rect.width) + '\u00D7' + Math.round(event.rect.height)
                 }
             }
         })

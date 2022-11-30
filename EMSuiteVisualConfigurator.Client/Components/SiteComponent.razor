@@ -1,0 +1,118 @@
+﻿@using EMSuiteVisualConfigurator.Client.Components;
+@using EMSuiteVisualConfigurator.Shared.Models
+@using Microsoft.JSInterop
+@inject IJSRuntime JS;
+
+<div style="display: @display">
+<PageTitle>EMSuite Visual Configurator</PageTitle>
+<CascadingValue Value="@ImageFile">
+    <!--<div class="container-fluid">-->
+        <div class="row justify-content-center align-items-center py-2 topbar">
+            <TopBarComponent OnUploadImage="UploadImage" />
+        </div>
+        <div class="row maincontent">
+            <IconMenuComponent>
+                @foreach (Item item in items)
+                {
+                    if (item is SensorItem)
+                    {
+                        <SensorComponent />
+                    }
+                    if (item is AccessItem)
+                    {
+                        <AccessPointComponent />
+                    }
+                    if (item is ZoneItem)
+                    {
+                        <ZoneComponent innerText="@item.id.ToString()" />
+                    }
+                }
+            </IconMenuComponent>
+            <SiteCanvasComponent />
+        </div>
+    <!--</div>-->
+</CascadingValue>
+</div>
+
+
+@code {
+    [Parameter]
+    public string display { get; set; }
+    private ImageFile ImageFile { get; set; } = new ImageFile();
+
+    private void UploadImage(ImageFile imageFile)
+    {
+        ImageFile = imageFile;
+        StateHasChanged();
+    }
+
+    private DotNetObjectReference<SiteComponent>? objRef;
+    protected override void OnInitialized()
+    {
+        objRef = DotNetObjectReference.Create(this);
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await JS.InvokeVoidAsync("dragAndDrop", ".draggable", objRef);
+    }
+
+    public IList<Item> items = new List<Item>() { new SensorItem(), new AccessItem(), new ZoneItem() };
+
+    public class Item
+    {
+        public int id;
+        public static int idCount = 0;
+
+        public Item()
+        {
+            idCount++;
+        }
+
+    }
+
+    class SensorItem : Item
+    {
+        public SensorItem()
+        {
+            id = Item.idCount;
+        }
+    }
+
+    class AccessItem : Item
+    {
+        public AccessItem()
+        {
+            id = Item.idCount;
+        }
+    }
+
+    class ZoneItem : Item
+    {
+        public ZoneItem()
+        {
+            id = Item.idCount;
+        }
+    }
+
+    [JSInvokable]
+    public static void addItem(string name, DotNetObjectReference<SiteComponent>? objref)
+    {
+        switch (name)
+        {
+            case "sensor":
+                objref.Value.items.Add(new SensorItem());
+                break;
+
+            case "accesspoint":
+                objref.Value.items.Add(new AccessItem());
+                break;
+
+            case "zone":
+                objref.Value.items.Add(new ZoneItem());
+                break;
+        }
+        objref.Value.StateHasChanged();
+    }
+
+}
