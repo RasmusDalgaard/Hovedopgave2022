@@ -11,5 +11,10 @@ namespace EMSuiteVisualConfigurator.CoreBusiness.Entities
             Name = name;
         }
 
+        private AccessPoint()
+        {
+
+        }
+
     }
 }

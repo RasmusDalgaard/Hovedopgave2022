@@ -13,5 +13,10 @@ namespace EMSuiteVisualConfigurator.CoreBusiness.Entities
             Name = name;
             Zones = new List<Zone>();
         }
+
+        private Site()
+        {
+
+        }
     }
 }
