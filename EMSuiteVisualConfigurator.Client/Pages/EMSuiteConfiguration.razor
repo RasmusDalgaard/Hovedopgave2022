@@ -10,8 +10,15 @@
 	}
 	<div class="row no-gutters" style="width: 100%">
 		@foreach (Site site in sites){
-		<button @onclick="()=> switchSite(site)" class="w-auto">Site</button>
-	}
+			<div class="bg-secondary w-auto">
+				<button @onclick="()=> switchSite(site)" class="btn btn-secondary w-auto">Site</button>
+				@if (sites.Count != 1) {
+					<button @onclick="()=> deleteSite(site)" class="btn btn-danger btn-circle delete-text">X</button>
+				}
+			</div>
+		
+		}
+
 		<button class="w-auto" @onclick="addSite">+</button>
 	</div>
 </div>
@@ -48,5 +55,13 @@
 	public void switchSite(Site site) {
 		deactivateCurrentSite();
 		activateSite(site);
+	}
+
+	public void deleteSite(Site site){
+		bool wasActive = site == active;
+		sites.Remove(site);
+		if(wasActive){
+			switchSite(sites[0]);
+		}
 	}
 }
