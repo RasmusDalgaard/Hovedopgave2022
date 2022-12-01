@@ -4,7 +4,7 @@ using EMSuiteVisualConfigurator.Application.Interfaces.Repositories;
 using MediatR;
 
 
-namespace EMSuiteVisualConfigurator.Application.Features.AccessPoints.Queries.GetAccessPointById
+namespace EMSuiteVisualConfigurator.Application.Features.AccessPoints.Queries
 {
     public class GetAccessPointByIdQuery : IRequest<AccessPointResponse>
     {

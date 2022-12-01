@@ -4,7 +4,7 @@ using EMSuiteVisualConfigurator.Application.Interfaces.Repositories;
 using EMSuiteVisualConfigurator.CoreBusiness.Entities;
 using MediatR;
 
-namespace EMSuiteVisualConfigurator.Application.Features.AccessPoints.Commands.CreateAccessPoint
+namespace EMSuiteVisualConfigurator.Application.Features.AccessPoints.Commands
 {
     public class CreateAccessPointCommand : IRequest<AccessPointResponse>
     {

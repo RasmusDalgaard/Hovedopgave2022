@@ -1,8 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MediatR;
-using EMSuiteVisualConfigurator.Application.Features.AccessPoints.Queries.GetAllAccessPoints;
-using EMSuiteVisualConfigurator.Application.Features.AccessPoints.Queries.GetAccessPointById;
-using EMSuiteVisualConfigurator.Application.Features.AccessPoints.Commands.CreateAccessPoint;
+using EMSuiteVisualConfigurator.Application.Features.AccessPoints.Queries;
+using EMSuiteVisualConfigurator.Application.Features.AccessPoints.Commands;
 using EMSuiteVisualConfigurator.Application.Features.AccessPoints.Requests;
 
 namespace EMSuiteVisualConfigurator.Server.Controllers
