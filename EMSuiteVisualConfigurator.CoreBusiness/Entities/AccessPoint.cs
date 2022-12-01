@@ -5,20 +5,22 @@ namespace EMSuiteVisualConfigurator.CoreBusiness.Entities
     public class AccessPoint : Entity
     {
         public string Name { get; protected set; }
+        public List<Logger> Loggers { get; protected set; }
 
-        public Zone Zone { get; protected set; }
+        public bool IsAuthorized { get; protected set; }
 
-        public List<Sensor> sensors { get; protected set; }
-
-        public AccessPoint(string name)
+        public AccessPoint(string name, List<Logger> loggers, bool isAutorized)
         {
             Name = name;
-            sensors = new List<Sensor>();
+            Loggers = loggers;
+            IsAuthorized = isAutorized;
         }
 
-        private AccessPoint()
+        public AccessPoint()
         {
-            sensors = new List<Sensor>();
+            Name = "DefaultName";
+            Loggers = new List<Logger>();
+            IsAuthorized = true;
         }
 
     }

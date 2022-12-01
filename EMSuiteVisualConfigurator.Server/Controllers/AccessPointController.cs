@@ -2,7 +2,6 @@
 using MediatR;
 using EMSuiteVisualConfigurator.Application.Features.AccessPoints.Queries;
 using EMSuiteVisualConfigurator.Application.Features.AccessPoints.Commands;
-using EMSuiteVisualConfigurator.Application.Features.AccessPoints.Requests;
 
 namespace EMSuiteVisualConfigurator.Server.Controllers
 {
@@ -33,9 +32,9 @@ namespace EMSuiteVisualConfigurator.Server.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateAccessPoint(AccessPointRequest request)
+        public async Task<IActionResult> CreateAccessPoint(CreateAccessPointCommand command)
         {
-            var result = await _mediator.Send(new CreateAccessPointCommand(request.Name));
+            var result = await _mediator.Send(command);
             return Ok(result);
         }
     }

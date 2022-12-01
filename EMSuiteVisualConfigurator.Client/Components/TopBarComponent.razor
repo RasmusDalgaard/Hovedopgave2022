@@ -1,7 +1,7 @@
-﻿@using EMSuiteVisualConfigurator.Application.Features.AccessPoints.Requests
+﻿@using EMSuiteVisualConfigurator.Application.Features.AccessPoints.Commands
+@using EMSuiteVisualConfigurator.Client.Managers.AccessPoint
 @using EMSuiteVisualConfigurator.Shared.Models
 @using System.Text.Json.Serialization
-@inject HttpClient Http
 
 <div class="col-3 text-center upload-col">
 	<h4>Upload Plan Drawing</h4>
@@ -12,27 +12,33 @@
 	</div>
 </div>
 
-<div class="col-2">
+<div class="col-2"/>
 	
-</div>
-
 <div class="col-2 sitename-col">
     <div class="input-group text-center">
-        <input type="text" class="form-control" placeholder="Site Name" value="@AccessPointRequest.Name" @onchange="HandleInput">
+        <input type="text" class="form-control" placeholder="Site Name" @bind-value="CreateAccessPointModel.Name">
     </div>
 </div>
 
 <div class="col-2"/>
 
 <div class="col-3 text-center demo-col">
-    <button class="btn btn-success" @onclick="OnGenerate">Generate Demo<span class="bi bi-play"></span></button>
+    <button class="btn btn-success" @onclick="CreateAccessPoint"> Generate Demo <span class="bi bi-play"></span></button>
 </div>
+
 @code {
 	[CascadingParameter] protected ImageFile FileBase64 { get; set; }
 	[Parameter] public Action<ImageFile> OnUploadImage { get; set; }
-	public AccessPointRequest AccessPointRequest { get; set; } = new AccessPointRequest();
-
+	
+	[Inject] private IAccessPointManager AccessPointManager { get; set; }
+	[Parameter] public CreateAccessPointCommand CreateAccessPointModel { get; set; } = new();
 	bool isDisabled = false;
+
+	async Task CreateAccessPoint() {
+		CreateAccessPointModel.Loggers = new();
+		CreateAccessPointModel.IsAuthorized = true;
+		await AccessPointManager.CreateAccessPoint(CreateAccessPointModel);
+	}
 
 	async Task OnChange(InputFileChangeEventArgs e)
 	{
@@ -48,16 +54,7 @@
 		FileBase64.contentType = file.ContentType;
 		FileBase64.fileName = file.Name;
 		OnUploadImage?.Invoke(new ImageFile{base64data = FileBase64.base64data, contentType = FileBase64.contentType ,fileName = FileBase64.fileName});
-	}
-
-	async Task OnGenerate() {
-		await Http.PostAsJsonAsync<AccessPointRequest>("api/accesspoint", AccessPointRequest);
-	}
-
-	public void HandleInput(ChangeEventArgs args)
-	{
-		AccessPointRequest.Name += args.Value;
-	}
+	}	
 
 	async Task Upload()
 	{

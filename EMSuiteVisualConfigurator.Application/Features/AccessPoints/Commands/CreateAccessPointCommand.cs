@@ -9,11 +9,8 @@ namespace EMSuiteVisualConfigurator.Application.Features.AccessPoints.Commands
     public class CreateAccessPointCommand : IRequest<AccessPointResponse>
     {
         public string Name { get; set; }
-
-        public CreateAccessPointCommand(string name)
-        {
-            Name = name;
-        }
+        public List<Logger> Loggers { get; set; }
+        public bool IsAuthorized { get; set; }       
     }
 
     internal class CreateAccessPointCommandHandler : IRequestHandler<CreateAccessPointCommand, AccessPointResponse>
@@ -27,9 +24,9 @@ namespace EMSuiteVisualConfigurator.Application.Features.AccessPoints.Commands
             _mapper = mapper;
         }
 
-        public async Task<AccessPointResponse> Handle(CreateAccessPointCommand request, CancellationToken cancellationToken)
+        public async Task<AccessPointResponse> Handle(CreateAccessPointCommand command, CancellationToken cancellationToken)
         {
-            var newAccessPoint = new AccessPoint(request.Name);
+            var newAccessPoint = new AccessPoint(command.Name, command.Loggers, command.IsAuthorized);
             var persistedAccessPoint = await _accessPointRepository.CreateAccessPoint(newAccessPoint);
             return _mapper.Map<AccessPointResponse>(persistedAccessPoint);
         }

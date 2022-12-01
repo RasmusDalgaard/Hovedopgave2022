@@ -16,7 +16,7 @@ namespace EMSuiteVisualConfigurator.Data.DataAccess
 
         public DbSet<Zone> zones { get; set; }
         public DbSet<AccessPoint> accessPoints { get; set; }
-        public DbSet<Sensor> sensors { get; set; }
+        public DbSet<Logger> sensors { get; set; }
         public EMSuiteVisualConfiguratorDbContext(DbContextOptions opt) : base(opt)
         {
         }
@@ -29,7 +29,7 @@ namespace EMSuiteVisualConfigurator.Data.DataAccess
             modelBuilder.Entity<Site>().HasBaseType<Entity>();        
             modelBuilder.Entity<Zone>().HasBaseType<Entity>();        
             modelBuilder.Entity<AccessPoint>().HasBaseType<Entity>();        
-            modelBuilder.Entity<Sensor>().HasBaseType<Entity>();        
+            modelBuilder.Entity<Logger>().HasBaseType<Entity>();        
         }
     }
 }
