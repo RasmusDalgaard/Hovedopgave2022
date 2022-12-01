@@ -1,14 +1,10 @@
 ﻿using EMSuiteVisualConfigurator.CoreBusiness.Primitives;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EMSuiteVisualConfigurator.CoreBusiness.Entities
 {
     public class Sensor : Entity
     {
+        public AccessPoint AccessPoint { get; protected set; }
         public Sensor()
         {
         }
