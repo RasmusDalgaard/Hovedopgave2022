@@ -1,9 +1,4 @@
 ﻿using EMSuiteVisualConfigurator.CoreBusiness.Primitives;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EMSuiteVisualConfigurator.CoreBusiness.Entities
 {
@@ -11,7 +6,9 @@ namespace EMSuiteVisualConfigurator.CoreBusiness.Entities
     {
         public bool IsAuthorized { get; protected set; }
 
-        public int Temperature { get; protected set; }
+        public int ChannelNumber { get; protected set; }
+
+        public int ChannelType { get; protected set; }
 
         public Channel()
         {
