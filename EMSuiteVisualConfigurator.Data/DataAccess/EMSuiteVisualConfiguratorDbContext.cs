@@ -1,11 +1,7 @@
 ﻿using EMSuiteVisualConfigurator.CoreBusiness.Entities;
 using EMSuiteVisualConfigurator.CoreBusiness.Primitives;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace EMSuiteVisualConfigurator.Data.DataAccess
 {
@@ -16,7 +12,10 @@ namespace EMSuiteVisualConfigurator.Data.DataAccess
 
         public DbSet<Zone> zones { get; set; }
         public DbSet<AccessPoint> accessPoints { get; set; }
-        public DbSet<Logger> sensors { get; set; }
+        public DbSet<Logger> loggers { get; set; }
+        public DbSet<Port> ports { get; set; }
+        public DbSet<Channel> channels { get; set; }
+
         public EMSuiteVisualConfiguratorDbContext(DbContextOptions opt) : base(opt)
         {
         }
@@ -25,11 +24,22 @@ namespace EMSuiteVisualConfigurator.Data.DataAccess
         {
             modelBuilder.Entity<Entity>().HasKey(e => e.Id);
             modelBuilder.Entity<Entity>().UseTpcMappingStrategy();
-            modelBuilder.Entity<EMSuiteConfiguration>().HasBaseType<Entity>();        
-            modelBuilder.Entity<Site>().HasBaseType<Entity>();        
-            modelBuilder.Entity<Zone>().HasBaseType<Entity>();        
-            modelBuilder.Entity<AccessPoint>().HasBaseType<Entity>();        
-            modelBuilder.Entity<Logger>().HasBaseType<Entity>();        
+            //modelBuilder.Entity<EMSuiteConfiguration>().HasBaseType<Entity>();        
+            //modelBuilder.Entity<Site>().HasBaseType<Entity>();        
+            //modelBuilder.Entity<Zone>().HasBaseType<Entity>();        
+            modelBuilder.Entity<AccessPoint>()
+                .HasBaseType<Entity>()
+                .HasMany(a => a.Loggers);
+
+            modelBuilder.Entity<Logger>()
+                .HasBaseType<Entity>()
+                .HasMany(l => l.Ports);
+
+            modelBuilder.Entity<Port>()
+                .HasBaseType<Entity>()
+                .HasMany(p => p.Channels);
+
+            modelBuilder.Entity<Channel>().HasBaseType<Entity>();      
         }
     }
 }

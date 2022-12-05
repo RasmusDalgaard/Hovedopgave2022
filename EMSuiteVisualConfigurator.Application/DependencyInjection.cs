@@ -14,6 +14,9 @@ namespace EMSuiteVisualConfigurator.Application
             var mapperConfig = new MapperConfiguration(mc =>
             {
                 mc.AddProfile(new AccessPointProfile());
+                mc.AddProfile(new LoggerProfile());
+                mc.AddProfile(new PortProfile());
+                mc.AddProfile(new ChannelProfile());
             });
 
             IMapper mapper = mapperConfig.CreateMapper();

@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using EMSuiteVisualConfigurator.Application.Features.AccessPoints.Responses;
+using EMSuiteVisualConfigurator.Application.Features.Responses;
 using EMSuiteVisualConfigurator.Application.Interfaces.Repositories;
 using MediatR;
 

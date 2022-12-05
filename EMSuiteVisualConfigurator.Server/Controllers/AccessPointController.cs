@@ -9,12 +9,12 @@ namespace EMSuiteVisualConfigurator.Server.Controllers
     [ApiController]
     public class AccessPointController : ControllerBase
     {
-        private readonly IWebHostEnvironment env;
+        private readonly IWebHostEnvironment _env;
         private readonly IMediator _mediator;
         public AccessPointController(IMediator mediator, IWebHostEnvironment env)
         {
             _mediator = mediator;
-            this.env = env;
+            _env = env;
         }
 
         [HttpGet]

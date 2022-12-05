@@ -44,9 +44,8 @@ namespace EMSuiteVisualConfigurator.Data.Migrations
                 {
                     b.HasBaseType("EMSuiteVisualConfigurator.CoreBusiness.Primitives.Entity");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<bool>("IsAuthorized")
+                        .HasColumnType("bit");
 
                     b.Property<int?>("ZoneId")
                         .HasColumnType("int");
@@ -56,6 +55,24 @@ namespace EMSuiteVisualConfigurator.Data.Migrations
                     b.ToTable("accessPoints");
                 });
 
+            modelBuilder.Entity("EMSuiteVisualConfigurator.CoreBusiness.Entities.Channel", b =>
+                {
+                    b.HasBaseType("EMSuiteVisualConfigurator.CoreBusiness.Primitives.Entity");
+
+                    b.Property<bool>("IsAuthorized")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("PortId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Temperature")
+                        .HasColumnType("int");
+
+                    b.HasIndex("PortId");
+
+                    b.ToTable("channels");
+                });
+
             modelBuilder.Entity("EMSuiteVisualConfigurator.CoreBusiness.Entities.EMSuiteConfiguration", b =>
                 {
                     b.HasBaseType("EMSuiteVisualConfigurator.CoreBusiness.Primitives.Entity");
@@ -63,25 +80,54 @@ namespace EMSuiteVisualConfigurator.Data.Migrations
                     b.ToTable("emsuiteConfigurations");
                 });
 
-            modelBuilder.Entity("EMSuiteVisualConfigurator.CoreBusiness.Entities.Sensor", b =>
+            modelBuilder.Entity("EMSuiteVisualConfigurator.CoreBusiness.Entities.Logger", b =>
                 {
                     b.HasBaseType("EMSuiteVisualConfigurator.CoreBusiness.Primitives.Entity");
 
-                    b.ToTable("sensors");
+                    b.Property<int?>("AccessPointId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Battery")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SignalStrength")
+                        .HasColumnType("int");
+
+                    b.HasIndex("AccessPointId");
+
+                    b.ToTable("loggers");
+                });
+
+            modelBuilder.Entity("EMSuiteVisualConfigurator.CoreBusiness.Entities.Port", b =>
+                {
+                    b.HasBaseType("EMSuiteVisualConfigurator.CoreBusiness.Primitives.Entity");
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("LoggerId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SensorSerialNumber")
+                        .HasColumnType("int");
+
+                    b.HasIndex("LoggerId");
+
+                    b.ToTable("ports");
                 });
 
             modelBuilder.Entity("EMSuiteVisualConfigurator.CoreBusiness.Entities.Site", b =>
                 {
                     b.HasBaseType("EMSuiteVisualConfigurator.CoreBusiness.Primitives.Entity");
 
-                    b.Property<int?>("EMSuiteConfigurationId")
+                    b.Property<int>("ConfigurationId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasIndex("EMSuiteConfigurationId");
+                    b.HasIndex("ConfigurationId");
 
                     b.ToTable("sites");
                 });
@@ -90,7 +136,7 @@ namespace EMSuiteVisualConfigurator.Data.Migrations
                 {
                     b.HasBaseType("EMSuiteVisualConfigurator.CoreBusiness.Primitives.Entity");
 
-                    b.Property<int?>("SiteId")
+                    b.Property<int>("SiteId")
                         .HasColumnType("int");
 
                     b.HasIndex("SiteId");
@@ -105,23 +151,67 @@ namespace EMSuiteVisualConfigurator.Data.Migrations
                         .HasForeignKey("ZoneId");
                 });
 
+            modelBuilder.Entity("EMSuiteVisualConfigurator.CoreBusiness.Entities.Channel", b =>
+                {
+                    b.HasOne("EMSuiteVisualConfigurator.CoreBusiness.Entities.Port", null)
+                        .WithMany("Channels")
+                        .HasForeignKey("PortId");
+                });
+
+            modelBuilder.Entity("EMSuiteVisualConfigurator.CoreBusiness.Entities.Logger", b =>
+                {
+                    b.HasOne("EMSuiteVisualConfigurator.CoreBusiness.Entities.AccessPoint", null)
+                        .WithMany("Loggers")
+                        .HasForeignKey("AccessPointId");
+                });
+
+            modelBuilder.Entity("EMSuiteVisualConfigurator.CoreBusiness.Entities.Port", b =>
+                {
+                    b.HasOne("EMSuiteVisualConfigurator.CoreBusiness.Entities.Logger", null)
+                        .WithMany("Ports")
+                        .HasForeignKey("LoggerId");
+                });
+
             modelBuilder.Entity("EMSuiteVisualConfigurator.CoreBusiness.Entities.Site", b =>
                 {
-                    b.HasOne("EMSuiteVisualConfigurator.CoreBusiness.Entities.EMSuiteConfiguration", null)
+                    b.HasOne("EMSuiteVisualConfigurator.CoreBusiness.Entities.EMSuiteConfiguration", "Configuration")
                         .WithMany("Sites")
-                        .HasForeignKey("EMSuiteConfigurationId");
+                        .HasForeignKey("ConfigurationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Configuration");
                 });
 
             modelBuilder.Entity("EMSuiteVisualConfigurator.CoreBusiness.Entities.Zone", b =>
                 {
-                    b.HasOne("EMSuiteVisualConfigurator.CoreBusiness.Entities.Site", null)
+                    b.HasOne("EMSuiteVisualConfigurator.CoreBusiness.Entities.Site", "Site")
                         .WithMany("Zones")
-                        .HasForeignKey("SiteId");
+                        .HasForeignKey("SiteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Site");
+                });
+
+            modelBuilder.Entity("EMSuiteVisualConfigurator.CoreBusiness.Entities.AccessPoint", b =>
+                {
+                    b.Navigation("Loggers");
                 });
 
             modelBuilder.Entity("EMSuiteVisualConfigurator.CoreBusiness.Entities.EMSuiteConfiguration", b =>
                 {
                     b.Navigation("Sites");
+                });
+
+            modelBuilder.Entity("EMSuiteVisualConfigurator.CoreBusiness.Entities.Logger", b =>
+                {
+                    b.Navigation("Ports");
+                });
+
+            modelBuilder.Entity("EMSuiteVisualConfigurator.CoreBusiness.Entities.Port", b =>
+                {
+                    b.Navigation("Channels");
                 });
 
             modelBuilder.Entity("EMSuiteVisualConfigurator.CoreBusiness.Entities.Site", b =>

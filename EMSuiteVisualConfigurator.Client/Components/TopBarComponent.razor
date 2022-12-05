@@ -1,7 +1,7 @@
 ﻿@using EMSuiteVisualConfigurator.Application.Features.AccessPoints.Commands
-@using EMSuiteVisualConfigurator.Client.Managers.AccessPoint
 @using EMSuiteVisualConfigurator.Shared.Models
 @using System.Text.Json.Serialization
+@inject HttpClient Http
 
 <div class="col-3 text-center upload-col">
 	<h4>Upload Plan Drawing</h4>
@@ -16,7 +16,7 @@
 	
 <div class="col-2 sitename-col">
     <div class="input-group text-center">
-        <input type="text" class="form-control" placeholder="Site Name" @bind-value="CreateAccessPointModel.Name">
+        <input type="text" class="form-control" placeholder="Site Name">
     </div>
 </div>
 
@@ -30,14 +30,13 @@
 	[CascadingParameter] protected ImageFile FileBase64 { get; set; }
 	[Parameter] public Action<ImageFile> OnUploadImage { get; set; }
 	
-	[Inject] private IAccessPointManager AccessPointManager { get; set; }
 	[Parameter] public CreateAccessPointCommand CreateAccessPointModel { get; set; } = new();
 	bool isDisabled = false;
 
 	async Task CreateAccessPoint() {
 		CreateAccessPointModel.Loggers = new();
 		CreateAccessPointModel.IsAuthorized = true;
-		await AccessPointManager.CreateAccessPoint(CreateAccessPointModel);
+		await Http.PostAsJsonAsync("api/accesspoint", CreateAccessPointModel);
 	}
 
 	async Task OnChange(InputFileChangeEventArgs e)

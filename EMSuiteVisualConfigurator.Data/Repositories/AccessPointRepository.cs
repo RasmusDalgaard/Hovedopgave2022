@@ -1,5 +1,4 @@
-﻿
-using EMSuiteVisualConfigurator.Application.Interfaces.Repositories;
+﻿using EMSuiteVisualConfigurator.Application.Interfaces.Repositories;
 using EMSuiteVisualConfigurator.CoreBusiness.Entities;
 using EMSuiteVisualConfigurator.Data.DataAccess;
 using Microsoft.EntityFrameworkCore;
