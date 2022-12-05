@@ -4,11 +4,10 @@ namespace EMSuiteVisualConfigurator.CoreBusiness.Entities
 {
     public class EMSuiteConfiguration : Entity
     {
-        public List<Site> Sites { get; protected set; }
+        public List<Site> Sites { get; protected set; } = new List<Site>();
 
         public EMSuiteConfiguration()
         {
-            Sites = new List<Site>();
         }
     }
 }
