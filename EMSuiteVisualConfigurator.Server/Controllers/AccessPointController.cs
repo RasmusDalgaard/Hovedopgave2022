@@ -4,6 +4,7 @@ using EMSuiteVisualConfigurator.Application.Features.AccessPoints.Queries.GetAll
 using EMSuiteVisualConfigurator.Application.Features.AccessPoints.Queries.GetAccessPointById;
 using EMSuiteVisualConfigurator.Application.Features.AccessPoints.Commands.CreateAccessPoint;
 using EMSuiteVisualConfigurator.Application.Features.AccessPoints.Requests;
+using Microsoft.Data.SqlClient;
 
 namespace EMSuiteVisualConfigurator.Server.Controllers
 {
@@ -38,6 +39,18 @@ namespace EMSuiteVisualConfigurator.Server.Controllers
         {
             var result = await _mediator.Send(new CreateAccessPointCommand(request.Name));
             return Ok(result);
+        }
+        [HttpGet("/test")]
+        public void test()
+        {
+            string conString = "Server=localhost;Database=EMSuite;Trusted_Connection=True;MultipleActiveResultSets=true;User Id=test;Password=test;TrustServerCertificate=True;";
+            string queryString = "INSERT INTO SiteLoggerAllocation (SiteID, LoggerSerialNumber) Values(1, 200001);";
+            queryString += "; INSERT INTO ZoneLoggerChannelAllocation (ZoneID, LoggerChannelID) Values(1, 1)";
+            SqlConnection conn = new SqlConnection(conString);
+            SqlCommand cmd = new SqlCommand(queryString, conn);
+            cmd.Connection.Open();
+            cmd.ExecuteNonQuery();
+            cmd.Connection.Close();
         }
     }
 }
