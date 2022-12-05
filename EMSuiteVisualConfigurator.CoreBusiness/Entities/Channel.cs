@@ -6,7 +6,9 @@ namespace EMSuiteVisualConfigurator.CoreBusiness.Entities
     {
         public bool IsAuthorized { get; protected set; } = true;
 
-        public int Temperature { get; protected set; }
+        public int ChannelNumber { get; protected set; }
+
+        public int ChannelType { get; protected set; }
 
         public Channel(bool isAuthorized, int temperature)
         {
