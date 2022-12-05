@@ -47,11 +47,6 @@ namespace EMSuiteVisualConfigurator.Data.Migrations
                     b.Property<bool>("IsAuthorized")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("ZoneId")
-                        .HasColumnType("int");
-
-                    b.HasIndex("ZoneId");
-
                     b.ToTable("accessPoints");
                 });
 
@@ -68,7 +63,12 @@ namespace EMSuiteVisualConfigurator.Data.Migrations
                     b.Property<int>("Temperature")
                         .HasColumnType("int");
 
+                    b.Property<int?>("ZoneId")
+                        .HasColumnType("int");
+
                     b.HasIndex("PortId");
+
+                    b.HasIndex("ZoneId");
 
                     b.ToTable("channels");
                 });
@@ -120,14 +120,26 @@ namespace EMSuiteVisualConfigurator.Data.Migrations
                 {
                     b.HasBaseType("EMSuiteVisualConfigurator.CoreBusiness.Primitives.Entity");
 
-                    b.Property<int>("ConfigurationId")
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("EMSuiteConfigurationId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasIndex("ConfigurationId");
+                    b.Property<string>("PostCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TimeZoneId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasIndex("EMSuiteConfigurationId");
 
                     b.ToTable("sites");
                 });
@@ -136,7 +148,11 @@ namespace EMSuiteVisualConfigurator.Data.Migrations
                 {
                     b.HasBaseType("EMSuiteVisualConfigurator.CoreBusiness.Primitives.Entity");
 
-                    b.Property<int>("SiteId")
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("SiteId")
                         .HasColumnType("int");
 
                     b.HasIndex("SiteId");
@@ -144,18 +160,15 @@ namespace EMSuiteVisualConfigurator.Data.Migrations
                     b.ToTable("zones");
                 });
 
-            modelBuilder.Entity("EMSuiteVisualConfigurator.CoreBusiness.Entities.AccessPoint", b =>
-                {
-                    b.HasOne("EMSuiteVisualConfigurator.CoreBusiness.Entities.Zone", null)
-                        .WithMany("AccessPoints")
-                        .HasForeignKey("ZoneId");
-                });
-
             modelBuilder.Entity("EMSuiteVisualConfigurator.CoreBusiness.Entities.Channel", b =>
                 {
                     b.HasOne("EMSuiteVisualConfigurator.CoreBusiness.Entities.Port", null)
                         .WithMany("Channels")
                         .HasForeignKey("PortId");
+
+                    b.HasOne("EMSuiteVisualConfigurator.CoreBusiness.Entities.Zone", null)
+                        .WithMany("Channels")
+                        .HasForeignKey("ZoneId");
                 });
 
             modelBuilder.Entity("EMSuiteVisualConfigurator.CoreBusiness.Entities.Logger", b =>
@@ -174,24 +187,16 @@ namespace EMSuiteVisualConfigurator.Data.Migrations
 
             modelBuilder.Entity("EMSuiteVisualConfigurator.CoreBusiness.Entities.Site", b =>
                 {
-                    b.HasOne("EMSuiteVisualConfigurator.CoreBusiness.Entities.EMSuiteConfiguration", "Configuration")
+                    b.HasOne("EMSuiteVisualConfigurator.CoreBusiness.Entities.EMSuiteConfiguration", null)
                         .WithMany("Sites")
-                        .HasForeignKey("ConfigurationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Configuration");
+                        .HasForeignKey("EMSuiteConfigurationId");
                 });
 
             modelBuilder.Entity("EMSuiteVisualConfigurator.CoreBusiness.Entities.Zone", b =>
                 {
-                    b.HasOne("EMSuiteVisualConfigurator.CoreBusiness.Entities.Site", "Site")
+                    b.HasOne("EMSuiteVisualConfigurator.CoreBusiness.Entities.Site", null)
                         .WithMany("Zones")
-                        .HasForeignKey("SiteId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Site");
+                        .HasForeignKey("SiteId");
                 });
 
             modelBuilder.Entity("EMSuiteVisualConfigurator.CoreBusiness.Entities.AccessPoint", b =>
@@ -221,7 +226,7 @@ namespace EMSuiteVisualConfigurator.Data.Migrations
 
             modelBuilder.Entity("EMSuiteVisualConfigurator.CoreBusiness.Entities.Zone", b =>
                 {
-                    b.Navigation("AccessPoints");
+                    b.Navigation("Channels");
                 });
 #pragma warning restore 612, 618
         }

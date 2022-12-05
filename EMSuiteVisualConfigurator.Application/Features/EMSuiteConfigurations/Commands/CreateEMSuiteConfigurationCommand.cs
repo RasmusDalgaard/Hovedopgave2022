@@ -24,9 +24,9 @@ namespace EMSuiteVisualConfigurator.Application.Features.EMSuiteConfigurations.C
 
         public async Task<EMSuiteConfigurationResponse> Handle(CreateEMSuiteConfigurationCommand command, CancellationToken cancellationToken)
         {
-            var configuration = new EMSuiteConfiguration();
+            var configuration = new EMSuiteConfiguration(command.Sites);
             var persistedConfiguration = await _emsuiteConfigurationRepository.CreateConfiguration(configuration);
-            return _mapper.Map<EMSuiteConfigurationResponse>(configuration);
+            return _mapper.Map<EMSuiteConfigurationResponse>(persistedConfiguration);
         }
     }
 }

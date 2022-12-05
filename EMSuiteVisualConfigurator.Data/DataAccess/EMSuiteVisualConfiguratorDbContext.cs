@@ -24,9 +24,18 @@ namespace EMSuiteVisualConfigurator.Data.DataAccess
         {
             modelBuilder.Entity<Entity>().HasKey(e => e.Id);
             modelBuilder.Entity<Entity>().UseTpcMappingStrategy();
-            //modelBuilder.Entity<EMSuiteConfiguration>().HasBaseType<Entity>();        
-            //modelBuilder.Entity<Site>().HasBaseType<Entity>();        
-            //modelBuilder.Entity<Zone>().HasBaseType<Entity>();        
+            modelBuilder.Entity<EMSuiteConfiguration>()
+                .HasBaseType<Entity>()
+                .HasMany(e => e.Sites);
+            
+            modelBuilder.Entity<Site>()
+                .HasBaseType<Entity>()
+                .HasMany(s => s.Zones);  
+            
+            modelBuilder.Entity<Zone>()
+                .HasBaseType<Entity>()
+                .HasMany(z => z.Channels);
+            
             modelBuilder.Entity<AccessPoint>()
                 .HasBaseType<Entity>()
                 .HasMany(a => a.Loggers);

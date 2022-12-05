@@ -6,6 +6,10 @@ namespace EMSuiteVisualConfigurator.CoreBusiness.Entities
     {
         public List<Site> Sites { get; protected set; } = new List<Site>();
 
+        public EMSuiteConfiguration(List<Site> sites)
+        {
+            Sites = sites;
+        }
         public EMSuiteConfiguration()
         {
         }

@@ -1,5 +1,6 @@
 ﻿@using EMSuiteVisualConfigurator.Application.Features.AccessPoints.Commands
 @using EMSuiteVisualConfigurator.Application.Features.EMSuiteConfigurations.Commands
+@using EMSuiteVisualConfigurator.CoreBusiness.Entities
 @using EMSuiteVisualConfigurator.Shared.Models
 @using System.Text.Json.Serialization
 @inject HttpClient Http
@@ -30,17 +31,24 @@
 @code {
 	[CascadingParameter] protected ImageFile FileBase64 { get; set; }
 	[Parameter] public Action<ImageFile> OnUploadImage { get; set; }
-	
+
 	[Parameter] public CreateAccessPointCommand CreateAccessPointModel { get; set; } = new();
 	[Parameter] public CreateEMSuiteConfigurationCommand CreateEMSuiteConfigurationModel { get; set; } = new();
 
 	bool isDisabled = false;
 
 	async Task CreateConfiguration() {
+		await CreateAccessPoint();
+		CreateEMSuiteConfigurationModel.Sites = new ();
+		CreateEMSuiteConfigurationModel.Sites.Add(new Site("Test", "Test", "Test", "Test"));
+		await Http.PostAsJsonAsync("api/emsuiteconfiguration", CreateEMSuiteConfigurationModel);
+	}
+
+	private async Task CreateAccessPoint()
+	{
 		CreateAccessPointModel.Loggers = new();
 		CreateAccessPointModel.IsAuthorized = true;
 		await Http.PostAsJsonAsync("api/accesspoint", CreateAccessPointModel);
-		CreateEMSuiteConfigurationModel.Sites = new();
 	}
 
 	async Task OnChange(InputFileChangeEventArgs e)

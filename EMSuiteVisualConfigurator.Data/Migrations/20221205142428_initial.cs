@@ -15,6 +15,18 @@ namespace EMSuiteVisualConfigurator.Data.Migrations
                 name: "EntitySequence");
 
             migrationBuilder.CreateTable(
+                name: "accessPoints",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false, defaultValueSql: "NEXT VALUE FOR [EntitySequence]"),
+                    IsAuthorized = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_accessPoints", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "emsuiteConfigurations",
                 columns: table => new
                 {
@@ -23,61 +35,6 @@ namespace EMSuiteVisualConfigurator.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_emsuiteConfigurations", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "sites",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false, defaultValueSql: "NEXT VALUE FOR [EntitySequence]"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ConfigurationId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_sites", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_sites_emsuiteConfigurations_ConfigurationId",
-                        column: x => x.ConfigurationId,
-                        principalTable: "emsuiteConfigurations",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "zones",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false, defaultValueSql: "NEXT VALUE FOR [EntitySequence]"),
-                    SiteId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_zones", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_zones_sites_SiteId",
-                        column: x => x.SiteId,
-                        principalTable: "sites",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "accessPoints",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false, defaultValueSql: "NEXT VALUE FOR [EntitySequence]"),
-                    IsAuthorized = table.Column<bool>(type: "bit", nullable: false),
-                    ZoneId = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_accessPoints", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_accessPoints_zones_ZoneId",
-                        column: x => x.ZoneId,
-                        principalTable: "zones",
-                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -96,6 +53,27 @@ namespace EMSuiteVisualConfigurator.Data.Migrations
                         name: "FK_loggers_accessPoints_AccessPointId",
                         column: x => x.AccessPointId,
                         principalTable: "accessPoints",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "sites",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false, defaultValueSql: "NEXT VALUE FOR [EntitySequence]"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PostCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    TimeZoneId = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    EMSuiteConfigurationId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_sites", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_sites_emsuiteConfigurations_EMSuiteConfigurationId",
+                        column: x => x.EMSuiteConfigurationId,
+                        principalTable: "emsuiteConfigurations",
                         principalColumn: "Id");
                 });
 
@@ -119,13 +97,32 @@ namespace EMSuiteVisualConfigurator.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "zones",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false, defaultValueSql: "NEXT VALUE FOR [EntitySequence]"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    SiteId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_zones", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_zones_sites_SiteId",
+                        column: x => x.SiteId,
+                        principalTable: "sites",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "channels",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false, defaultValueSql: "NEXT VALUE FOR [EntitySequence]"),
                     IsAuthorized = table.Column<bool>(type: "bit", nullable: false),
                     Temperature = table.Column<int>(type: "int", nullable: false),
-                    PortId = table.Column<int>(type: "int", nullable: true)
+                    PortId = table.Column<int>(type: "int", nullable: true),
+                    ZoneId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -135,17 +132,22 @@ namespace EMSuiteVisualConfigurator.Data.Migrations
                         column: x => x.PortId,
                         principalTable: "ports",
                         principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_channels_zones_ZoneId",
+                        column: x => x.ZoneId,
+                        principalTable: "zones",
+                        principalColumn: "Id");
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_accessPoints_ZoneId",
-                table: "accessPoints",
-                column: "ZoneId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_channels_PortId",
                 table: "channels",
                 column: "PortId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_channels_ZoneId",
+                table: "channels",
+                column: "ZoneId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_loggers_AccessPointId",
@@ -158,9 +160,9 @@ namespace EMSuiteVisualConfigurator.Data.Migrations
                 column: "LoggerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_sites_ConfigurationId",
+                name: "IX_sites_EMSuiteConfigurationId",
                 table: "sites",
-                column: "ConfigurationId");
+                column: "EMSuiteConfigurationId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_zones_SiteId",
@@ -178,16 +180,16 @@ namespace EMSuiteVisualConfigurator.Data.Migrations
                 name: "ports");
 
             migrationBuilder.DropTable(
-                name: "loggers");
-
-            migrationBuilder.DropTable(
-                name: "accessPoints");
-
-            migrationBuilder.DropTable(
                 name: "zones");
 
             migrationBuilder.DropTable(
+                name: "loggers");
+
+            migrationBuilder.DropTable(
                 name: "sites");
+
+            migrationBuilder.DropTable(
+                name: "accessPoints");
 
             migrationBuilder.DropTable(
                 name: "emsuiteConfigurations");
