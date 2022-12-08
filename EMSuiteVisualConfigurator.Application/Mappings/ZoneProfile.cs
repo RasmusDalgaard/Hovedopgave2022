@@ -8,13 +8,9 @@ namespace EMSuiteVisualConfigurator.Application.Mappings
     {
         public ZoneProfile()
         {
-            CreateMap<Zone, ZoneResponse>(MemberList.None)
-                .ForMember(response => response.Channels,
-                opts => opts.MapFrom(entity => entity.Channels));
+            CreateMap<Zone, ZoneResponse>();
 
-            CreateMap<ZoneResponse, Zone>(MemberList.None)
-                .ForMember(entity => entity.Channels,
-                opts => opts.MapFrom(response => response.Channels));
+            CreateMap<ZoneResponse, Zone>();
         }
     }
 }

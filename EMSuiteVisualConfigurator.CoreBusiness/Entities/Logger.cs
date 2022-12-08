@@ -4,9 +4,9 @@ namespace EMSuiteVisualConfigurator.CoreBusiness.Entities
 {
     public class Logger : Entity
     {
-        public List<Port> Ports { get; protected set; } = new List<Port>();
-        public int Battery { get; protected set; } = 0;
-        public int SignalStrength { get; protected set; } = 0;
+        public List<Port> Ports { get; set; } = new List<Port>();
+        public int Battery { get; set; } = 0;
+        public int SignalStrength { get; set; } = 0;
         public Logger()
         {
             Ports.Add(new Port

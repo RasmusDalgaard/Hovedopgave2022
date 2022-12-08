@@ -8,13 +8,9 @@ namespace EMSuiteVisualConfigurator.Application.Mappings
     {
         public EMSuiteConfigurationProfile()
         {
-            CreateMap<EMSuiteConfiguration, EMSuiteConfigurationResponse>(MemberList.None)
-                .ForMember(response => response.Sites,
-                opts => opts.MapFrom(entity => entity.Sites));
+            CreateMap<EMSuiteConfiguration, EMSuiteConfigurationResponse>();
 
-            CreateMap<EMSuiteConfigurationResponse, EMSuiteConfiguration>(MemberList.None)
-                .ForMember(entity => entity.Sites,
-                opts => opts.MapFrom(response => response.Sites));
+            CreateMap<EMSuiteConfigurationResponse, EMSuiteConfiguration>();
         }
     }
 }

@@ -8,13 +8,9 @@ namespace EMSuiteVisualConfigurator.Application.Mappings
     {
         public AccessPointProfile()
         {
-            CreateMap<AccessPoint, AccessPointResponse>(MemberList.None)
-                .ForMember(response => response.Loggers,
-                opts => opts.MapFrom(entity => entity.Loggers));
+            CreateMap<AccessPoint, AccessPointResponse>();
 
-            CreateMap<AccessPointResponse, AccessPoint>(MemberList.None)
-                .ForMember(entity => entity.Loggers,
-                opts => opts.MapFrom(response => response.Loggers));
+            CreateMap<AccessPointResponse, AccessPoint>();
         }
     }
 }

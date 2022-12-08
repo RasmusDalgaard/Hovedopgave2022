@@ -8,7 +8,8 @@ namespace EMSuiteVisualConfigurator.Application.Features.EMSuiteConfigurations.C
 {
     public class CreateEMSuiteConfigurationCommand : IRequest<EMSuiteConfigurationResponse>
     {
-        public List<Site> Sites { get; set; }
+        public string ConfigurationName { get; set; }
+        public List<Site> Sites { get; set; } = new List<Site>();
     }
 
     internal class CreateEMSuiteConfigurationCommandHandler : IRequestHandler<CreateEMSuiteConfigurationCommand, EMSuiteConfigurationResponse>
@@ -24,7 +25,7 @@ namespace EMSuiteVisualConfigurator.Application.Features.EMSuiteConfigurations.C
 
         public async Task<EMSuiteConfigurationResponse> Handle(CreateEMSuiteConfigurationCommand command, CancellationToken cancellationToken)
         {
-            var configuration = new EMSuiteConfiguration(command.Sites);
+            var configuration = new EMSuiteConfiguration(command.ConfigurationName, command.Sites);
             var persistedConfiguration = await _emsuiteConfigurationRepository.CreateConfiguration(configuration);
             return _mapper.Map<EMSuiteConfigurationResponse>(persistedConfiguration);
         }

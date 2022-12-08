@@ -8,13 +8,9 @@ namespace EMSuiteVisualConfigurator.Application.Mappings
     {
         public PortProfile()
         {
-            CreateMap<Port, PortResponse>(MemberList.None)
-                .ForMember(response => response.Channels,
-                opts => opts.MapFrom(entity => entity.Channels));
+            CreateMap<Port, PortResponse>();
 
-            CreateMap<PortResponse, Port>(MemberList.None)
-                .ForMember(entity => entity.Channels,
-                opts => opts.MapFrom(response => response.Channels));
+            CreateMap<PortResponse, Port>();
         }
     }
 }

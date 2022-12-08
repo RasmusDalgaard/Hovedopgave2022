@@ -77,6 +77,10 @@ namespace EMSuiteVisualConfigurator.Data.Migrations
                 {
                     b.HasBaseType("EMSuiteVisualConfigurator.CoreBusiness.Primitives.Entity");
 
+                    b.Property<string>("ConfigurationName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.ToTable("emsuiteConfigurations");
                 });
 

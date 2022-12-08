@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EMSuiteVisualConfigurator.Data.Migrations
 {
     [DbContext(typeof(EMSuiteVisualConfiguratorDbContext))]
-    [Migration("20221205142428_initial")]
+    [Migration("20221206091258_initial")]
     partial class initial
     {
         /// <inheritdoc />
@@ -79,6 +79,10 @@ namespace EMSuiteVisualConfigurator.Data.Migrations
             modelBuilder.Entity("EMSuiteVisualConfigurator.CoreBusiness.Entities.EMSuiteConfiguration", b =>
                 {
                     b.HasBaseType("EMSuiteVisualConfigurator.CoreBusiness.Primitives.Entity");
+
+                    b.Property<string>("ConfigurationName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.ToTable("emsuiteConfigurations");
                 });

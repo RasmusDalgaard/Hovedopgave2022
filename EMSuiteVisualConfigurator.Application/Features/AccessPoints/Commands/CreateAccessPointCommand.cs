@@ -8,7 +8,7 @@ namespace EMSuiteVisualConfigurator.Application.Features.AccessPoints.Commands
 {
     public class CreateAccessPointCommand : IRequest<AccessPointResponse>
     {
-        public List<Logger> Loggers { get; set; }
+        public List<Logger> Loggers { get; set; } = new List<Logger>();
         public bool IsAuthorized { get; set; }       
     }
 

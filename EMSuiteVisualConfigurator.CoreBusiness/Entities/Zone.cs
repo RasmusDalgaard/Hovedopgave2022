@@ -4,8 +4,8 @@ namespace EMSuiteVisualConfigurator.CoreBusiness.Entities
 {
     public class Zone : Entity
     {
-        public string Name { get; protected set; }
-        public List<Channel> Channels { get; protected set; }
+        public string Name { get; set; }
+        public List<Channel> Channels { get; set; }
 
         public Zone(List<Channel> channels)
         {

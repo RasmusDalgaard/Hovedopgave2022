@@ -4,9 +4,9 @@ namespace EMSuiteVisualConfigurator.CoreBusiness.Entities
 {
     public class Channel : Entity
     {
-        public bool IsAuthorized { get; protected set; } = true;
+        public bool IsAuthorized { get; set; } = true;
 
-        public int Temperature { get; protected set; } = 1;
+        public int Temperature { get; set; } = 1;
 
         public Channel(bool isAuthorized, int temperature)
         {

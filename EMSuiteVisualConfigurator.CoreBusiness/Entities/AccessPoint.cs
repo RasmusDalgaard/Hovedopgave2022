@@ -4,9 +4,9 @@ namespace EMSuiteVisualConfigurator.CoreBusiness.Entities
 {
     public class AccessPoint : Entity
     {
-        public List<Logger> Loggers { get; protected set; } = new List<Logger>();
+        public List<Logger> Loggers { get; set; } = new List<Logger>();
 
-        public bool IsAuthorized { get; protected set; } = false;
+        public bool IsAuthorized { get; set; } = false;
 
         public AccessPoint(List<Logger> loggers, bool isAutorized)
         {

@@ -8,13 +8,9 @@ namespace EMSuiteVisualConfigurator.Application.Mappings
     {
         public LoggerProfile()
         {
-            CreateMap<Logger, LoggerResponse>(MemberList.None)
-                .ForMember(response => response.Ports,
-                opts => opts.MapFrom(entity => entity.Ports));
+            CreateMap<Logger, LoggerResponse>();
 
-            CreateMap<LoggerResponse, Logger>(MemberList.None)
-                .ForMember(entity => entity.Ports,
-                opts => opts.MapFrom(response => response.Ports));
+            CreateMap<LoggerResponse, Logger>();
         }
     }
 }

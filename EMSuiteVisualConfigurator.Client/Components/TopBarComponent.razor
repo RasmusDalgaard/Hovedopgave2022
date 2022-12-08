@@ -39,14 +39,14 @@
 
 	async Task CreateConfiguration() {
 		await CreateAccessPoint();
-		CreateEMSuiteConfigurationModel.Sites = new ();
-		CreateEMSuiteConfigurationModel.Sites.Add(new Site("Test", "Test", "Test", "Test"));
+		CreateEMSuiteConfigurationModel.ConfigurationName = "TestConfig2";
+		CreateEMSuiteConfigurationModel.Sites.Add(new Site("TestName2", "TestAdress2", "TestPostCode2", "TestTimeZoneId2"));
 		await Http.PostAsJsonAsync("api/emsuiteconfiguration", CreateEMSuiteConfigurationModel);
 	}
 
 	private async Task CreateAccessPoint()
 	{
-		CreateAccessPointModel.Loggers = new();
+		CreateAccessPointModel.Loggers.Add(new Logger());
 		CreateAccessPointModel.IsAuthorized = true;
 		await Http.PostAsJsonAsync("api/accesspoint", CreateAccessPointModel);
 	}
