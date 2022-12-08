@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
+using EMSuiteVisualConfigurator.Application.DTOs;
 using EMSuiteVisualConfigurator.Application.Features.Responses;
-using EMSuiteVisualConfigurator.CoreBusiness.Entities;
 
 namespace EMSuiteVisualConfigurator.Application.Mappings
 {
@@ -8,9 +8,9 @@ namespace EMSuiteVisualConfigurator.Application.Mappings
     {
         public SiteProfile()
         {
-            CreateMap<Site, SiteResponse>();
+            CreateMap<SiteDTO, SiteResponse>();
 
-            CreateMap<SiteResponse, Site>();
+            CreateMap<SiteResponse, SiteDTO>();
         }
     }
 }

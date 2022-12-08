@@ -1,4 +1,5 @@
-﻿@using EMSuiteVisualConfigurator.Application.Features.AccessPoints.Commands
+﻿@using EMSuiteVisualConfigurator.Application.DTOs
+@using EMSuiteVisualConfigurator.Application.Features.AccessPoints.Commands
 @using EMSuiteVisualConfigurator.Application.Features.EMSuiteConfigurations.Commands
 @using EMSuiteVisualConfigurator.CoreBusiness.Entities
 @using EMSuiteVisualConfigurator.Shared.Models
@@ -29,26 +30,33 @@
 </div>
 
 @code {
+	[CascadingParameter] protected CreateEMSuiteConfigurationCommand CreateEMSuiteConfigurationModel { get; set; }
+	[CascadingParameter] protected IList<ConfigurationItem> items { get; set; }
+	[CascadingParameter] protected EMSuiteConfigurationDTO ConfigurationDTO { get; set; }
 	[CascadingParameter] protected ImageFile FileBase64 { get; set; }
 	[Parameter] public Action<ImageFile> OnUploadImage { get; set; }
-
-	[Parameter] public CreateAccessPointCommand CreateAccessPointModel { get; set; } = new();
-	[Parameter] public CreateEMSuiteConfigurationCommand CreateEMSuiteConfigurationModel { get; set; } = new();
 
 	bool isDisabled = false;
 
 	async Task CreateConfiguration() {
-		await CreateAccessPoint();
-		CreateEMSuiteConfigurationModel.ConfigurationName = "TestConfig2";
-		CreateEMSuiteConfigurationModel.Sites.Add(new Site("TestName2", "TestAdress2", "TestPostCode2", "TestTimeZoneId2"));
-		await Http.PostAsJsonAsync("api/emsuiteconfiguration", CreateEMSuiteConfigurationModel);
-	}
 
-	private async Task CreateAccessPoint()
-	{
-		CreateAccessPointModel.Loggers.Add(new Logger());
-		CreateAccessPointModel.IsAuthorized = true;
-		await Http.PostAsJsonAsync("api/accesspoint", CreateAccessPointModel);
+		foreach (ConfigurationItem item in items)
+		{		
+			if (item is AccessPointDTO)
+			{
+				CreateEMSuiteConfigurationModel.AccessPointDTOs.Add((AccessPointDTO)item);
+				//Connect channels with accesspoint here
+
+
+
+			}
+			if (item is ZoneDTO)
+			{
+				//Connect zone to sites here
+				CreateEMSuiteConfigurationModel.ConfigurationDTO.Sites.ElementAt(0).Zones.Add((ZoneDTO)item);
+			}
+			
+		}
 	}
 
 	async Task OnChange(InputFileChangeEventArgs e)

@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
+using EMSuiteVisualConfigurator.Application.DTOs;
 using EMSuiteVisualConfigurator.Application.Features.Responses;
-using EMSuiteVisualConfigurator.CoreBusiness.Entities;
 
 namespace EMSuiteVisualConfigurator.Application.Mappings
 {
@@ -8,8 +8,8 @@ namespace EMSuiteVisualConfigurator.Application.Mappings
     {
         public ChannelProfile()
         {
-            CreateMap<Channel, ChannelResponse>();
-            CreateMap<ChannelResponse, Channel>();
+            CreateMap<ChannelDTO, ChannelResponse>();
+            CreateMap<ChannelResponse, ChannelDTO>();
         }
     }
 }

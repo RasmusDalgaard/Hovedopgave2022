@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
+using EMSuiteVisualConfigurator.Application.DTOs;
 using EMSuiteVisualConfigurator.Application.Features.Responses;
-using EMSuiteVisualConfigurator.CoreBusiness.Entities;
 
 namespace EMSuiteVisualConfigurator.Application.Mappings
 {
@@ -8,9 +8,9 @@ namespace EMSuiteVisualConfigurator.Application.Mappings
     {
         public PortProfile()
         {
-            CreateMap<Port, PortResponse>();
+            CreateMap<PortDTO, PortResponse>();
 
-            CreateMap<PortResponse, Port>();
+            CreateMap<PortResponse, PortDTO>();
         }
     }
 }

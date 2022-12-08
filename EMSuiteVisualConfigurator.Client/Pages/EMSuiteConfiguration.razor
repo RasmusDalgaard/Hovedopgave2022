@@ -1,67 +1,62 @@
-﻿@using EMSuiteVisualConfigurator.Client.Components;
+﻿@using EMSuiteVisualConfigurator.Application.DTOs
+@using EMSuiteVisualConfigurator.Client.Components;
 @using EMSuiteVisualConfigurator.Shared.Models
 @using Microsoft.JSInterop
 @inject IJSRuntime JS;
 
 @page "/configuration"
-<div class="container-fluid">
-	@foreach (Site site in sites){
-		<SiteComponent display=@site.display/>
-	}
-	<div class="row no-gutters" style="width: 100%">
-		@foreach (Site site in sites){
-			<div class="bg-secondary w-auto">
-				<button @onclick="()=> switchSite(site)" class="btn btn-secondary w-auto">Site</button>
-				@if (sites.Count != 1) {
-					<button @onclick="()=> deleteSite(site)" class="btn btn-danger btn-circle delete-text">X</button>
-				}
-			</div>
-		
+<PageTitle>EMSuite Visual Configurator</PageTitle>
+<CascadingValue Value="@ConfigurationDTO">
+	<div class="container-fluid">
+		@foreach (SiteDTO site in ConfigurationDTO.Sites){
+			<SiteComponent display=@site.Display/>
 		}
+		<div class="row no-gutters" style="width: 100%">
+			@foreach (SiteDTO site in ConfigurationDTO.Sites){
+				<div class="bg-secondary w-auto">
+					<button @onclick="()=> switchSite(site)" class="btn btn-secondary w-auto">Site</button>
+					@if (ConfigurationDTO.Sites.Count != 1) {
+						<button @onclick="()=> deleteSite(site)" class="btn btn-danger btn-circle delete-text">X</button>
+					}
+				</div>
+		
+			}
 
-		<button class="w-auto" @onclick="addSite">+</button>
+			<button class="w-auto" @onclick="addSite">+</button>
+		</div>
 	</div>
-</div>
+</CascadingValue>
 
 
 @code {
-
-
-	public class Site{
-		public string display = "none";
-
-		public Site(string display){
-			this.display = display;
-		}
-	}
-	public static IList<Site> sites = new List<Site>() { new Site("inline") };
-	public static Site active = sites[0];
+	private static EMSuiteConfigurationDTO ConfigurationDTO { get; set; } = new EMSuiteConfigurationDTO();
+	public static SiteDTO active = ConfigurationDTO.Sites[0];
 
 	public void addSite(){
-		Site newSite = new Site("inline");
-		sites.Add(newSite);
+		SiteDTO newSite = new SiteDTO();
+		ConfigurationDTO.Sites.Add(newSite);
 		deactivateCurrentSite();
 		active = newSite;
 	}
 	public void deactivateCurrentSite(){
-		active.display = "none";
+		active.Display = "none";
 	}
 
-	public void activateSite(Site site){
+	public void activateSite(SiteDTO site){
 		active = site;
-		site.display = "inline";
+		site.Display = "inline";
 	}
 
-	public void switchSite(Site site) {
+	public void switchSite(SiteDTO site) {
 		deactivateCurrentSite();
 		activateSite(site);
 	}
 
-	public void deleteSite(Site site){
+	public void deleteSite(SiteDTO site){
 		bool wasActive = site == active;
-		sites.Remove(site);
+		ConfigurationDTO.Sites.Remove(site);
 		if(wasActive){
-			switchSite(sites[0]);
+			switchSite(ConfigurationDTO.Sites[0]);
 		}
 	}
 }

@@ -2,17 +2,17 @@
 using EMSuiteVisualConfigurator.Application.Features.Responses;
 using MediatR;
 using EMSuiteVisualConfigurator.Application.Interfaces.Repositories;
-using EMSuiteVisualConfigurator.CoreBusiness.Entities;
+using EMSuiteVisualConfigurator.Application.DTOs;
 
 namespace EMSuiteVisualConfigurator.Application.Features.EMSuiteConfigurations.Commands
 {
-    public class CreateEMSuiteConfigurationCommand : IRequest<EMSuiteConfigurationResponse>
+    public class CreateEMSuiteConfigurationCommand : IRequest<int>
     {
-        public string ConfigurationName { get; set; }
-        public List<Site> Sites { get; set; } = new List<Site>();
+        public EMSuiteConfigurationDTO ConfigurationDTO { get; set; }
+        public List<AccessPointDTO> AccessPointDTOs { get; set; }
     }
 
-    internal class CreateEMSuiteConfigurationCommandHandler : IRequestHandler<CreateEMSuiteConfigurationCommand, EMSuiteConfigurationResponse>
+    internal class CreateEMSuiteConfigurationCommandHandler : IRequestHandler<CreateEMSuiteConfigurationCommand, int>
     {
         private readonly IEMSuiteConfigurationRepository _emsuiteConfigurationRepository;
         private readonly IMapper _mapper;
@@ -23,11 +23,13 @@ namespace EMSuiteVisualConfigurator.Application.Features.EMSuiteConfigurations.C
             _mapper = mapper;
         }
 
-        public async Task<EMSuiteConfigurationResponse> Handle(CreateEMSuiteConfigurationCommand command, CancellationToken cancellationToken)
+        public async Task<int> Handle(CreateEMSuiteConfigurationCommand command, CancellationToken cancellationToken)
         {
-            var configuration = new EMSuiteConfiguration(command.ConfigurationName, command.Sites);
-            var persistedConfiguration = await _emsuiteConfigurationRepository.CreateConfiguration(configuration);
-            return _mapper.Map<EMSuiteConfigurationResponse>(persistedConfiguration);
+            //Run stored procedure for AccessPoint here
+
+            //Link ConfigurationItems to Zone and site here 
+
+            return 1;
         }
     }
 }

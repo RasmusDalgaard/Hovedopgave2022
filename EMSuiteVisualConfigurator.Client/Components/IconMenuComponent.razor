@@ -1,13 +1,62 @@
-﻿<div class="col-3 iconmenu">
+﻿@inject IJSRuntime JS;
+@using EMSuiteVisualConfigurator.Application.DTOs
+
+<div class="col-3 iconmenu">
     <div class="d-flex flex-column">
         <div class="p-4" style="display: grid;">
-            @ChildContent
+            @foreach (ConfigurationItem item in items)
+            {
+                if (item is ChannelDTO)
+                {
+                    <SensorComponent />
+                }
+                if (item is AccessPointDTO)
+                {
+                    <AccessPointComponent />
+                }
+                if (item is ZoneDTO)
+                {
+                    <ZoneComponent innerText="@item.Id.ToString()" />
+                }  
+            }
         </div>        
     </div>    
 </div>
 
 @code {
-    [Parameter] public RenderFragment? ChildContent { get; set; }
-    
+    [CascadingParameter] protected IList<ConfigurationItem> items { get; set; }
 
+    private DotNetObjectReference<IconMenuComponent>? objRef;
+    protected override void OnInitialized()
+    {
+        objRef = DotNetObjectReference.Create(this);
+    }
+
+    [JSInvokable]
+    public static void addItem(string name, DotNetObjectReference<IconMenuComponent>? objRef)
+    {
+        switch (name)
+        {
+            case "sensor":
+                LoggerDTO loggerDTO = new LoggerDTO();
+                ChannelDTO channelDTO = new ChannelDTO();
+                loggerDTO.Ports.ElementAt(0).Channels.Add(channelDTO);
+                objRef.Value.items.Add(loggerDTO);               
+                break;
+
+            case "accesspoint":
+                objRef.Value.items.Add(new AccessPointDTO());
+                break;
+
+            case "zone":
+                objRef.Value.items.Add(new ZoneDTO());
+                break;
+        }
+        objRef.Value.StateHasChanged();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await JS.InvokeVoidAsync("dragAndDrop", ".draggable", objRef);
+    }   
 }
