@@ -5,6 +5,7 @@
 @using EMSuiteVisualConfigurator.Shared.Models
 @using System.Text.Json.Serialization
 @inject HttpClient Http
+@inject IJSRuntime JS
 
 <div class="col-3 text-center upload-col">
 	<h4>Upload Plan Drawing</h4>
@@ -52,11 +53,19 @@
 			}
 			if (item is ZoneDTO)
 			{
+				var channelIdsInZone = await GetElementsInZone(item);
+				
 				//Connect zone to sites here
 				CreateEMSuiteConfigurationModel.ConfigurationDTO.Sites.ElementAt(0).Zones.Add((ZoneDTO)item);
 			}
-			
+
 		}
+	}
+
+	public async Task<int> GetElementsInZone(ConfigurationItem zoneDTO)
+	{
+		var result = await JS.InvokeAsync<int>("GetElementsInZone", zoneDTO.Id);
+		return result;
 	}
 
 	async Task OnChange(InputFileChangeEventArgs e)
