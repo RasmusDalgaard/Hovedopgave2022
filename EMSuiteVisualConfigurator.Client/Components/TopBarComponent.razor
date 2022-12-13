@@ -53,10 +53,22 @@
 			}
 			if (item is ZoneDTO)
 			{
-				Console.WriteLine("ZoneId in items: " + item.Id);
-				var zoneInIconMenuId = await JS.InvokeAsync<int>("GetElementsInZone", item.Id);
-				StateHasChanged();
-				Console.WriteLine(zoneInIconMenuId);
+				Console.WriteLine("ZoneId in items before remove: " + item.Id);
+				var zoneInIconMenuId = await JS.InvokeAsync<int>("GetZoneIdInIconMenu", item.Id);
+				if (item.Id == zoneInIconMenuId) {
+					items.Remove(item);
+				}
+				Console.WriteLine("ZoneId in items after remove: " + item.Id);
+				var channelIdsInZone = await JS.InvokeAsync<List<int>>("GetChannelIdsFromZone", item.Id);
+				ZoneDTO zoneDTO = (ZoneDTO)item;
+				foreach (ConfigurationItem i in items)
+				{
+					if (i is ChannelDTO)
+					{
+						zoneDTO.Channels.Add((ChannelDTO)i);
+					}
+				}
+				
 				//Connect zone to sites here
 				CreateEMSuiteConfigurationModel.ConfigurationDTO.Sites.ElementAt(0).Zones.Add((ZoneDTO)item);
 			}
