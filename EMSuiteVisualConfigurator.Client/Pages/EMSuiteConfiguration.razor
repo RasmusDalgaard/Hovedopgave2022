@@ -29,21 +29,22 @@
 
 
 @code {
-	private static EMSuiteConfigurationDTO ConfigurationDTO { get; set; } = new EMSuiteConfigurationDTO();
-	public static SiteDTO active = ConfigurationDTO.Sites[0];
+	public EMSuiteConfigurationDTO ConfigurationDTO { get; set; } = new EMSuiteConfigurationDTO();
+	public SiteDTO ActiveSite { get; set; }
 
 	public void addSite(){
 		SiteDTO newSite = new SiteDTO();
 		ConfigurationDTO.Sites.Add(newSite);
 		deactivateCurrentSite();
-		active = newSite;
+		ActiveSite = newSite;
 	}
 	public void deactivateCurrentSite(){
-		active.Display = "none";
+		ActiveSite = ConfigurationDTO.Sites[0];
+		ActiveSite.Display = "none";
 	}
 
 	public void activateSite(SiteDTO site){
-		active = site;
+		ActiveSite = site;
 		site.Display = "inline";
 	}
 
@@ -53,7 +54,7 @@
 	}
 
 	public void deleteSite(SiteDTO site){
-		bool wasActive = site == active;
+		bool wasActive = site == ActiveSite;
 		ConfigurationDTO.Sites.Remove(site);
 		if(wasActive){
 			switchSite(ConfigurationDTO.Sites[0]);

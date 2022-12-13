@@ -31,16 +31,16 @@
 </div>
 
 @code {
-	[CascadingParameter] protected CreateEMSuiteConfigurationCommand CreateEMSuiteConfigurationModel { get; set; }
-	[CascadingParameter] protected IList<ConfigurationItem> items { get; set; }
-	[CascadingParameter] protected EMSuiteConfigurationDTO ConfigurationDTO { get; set; }
+	[CascadingParameter] public CreateEMSuiteConfigurationCommand CreateEMSuiteConfigurationModel { get; set; }
+	[CascadingParameter] public IList<ConfigurationItem> items { get; set; }
+	[CascadingParameter] public EMSuiteConfigurationDTO ConfigurationDTO { get; set; }
 	[CascadingParameter] protected ImageFile FileBase64 { get; set; }
 	[Parameter] public Action<ImageFile> OnUploadImage { get; set; }
 
 	bool isDisabled = false;
 
 	async Task CreateConfiguration() {
-
+		CreateEMSuiteConfigurationModel.ConfigurationDTO = ConfigurationDTO;
 		foreach (ConfigurationItem item in items)
 		{		
 			if (item is AccessPointDTO)
@@ -53,19 +53,15 @@
 			}
 			if (item is ZoneDTO)
 			{
-				var channelIdsInZone = await GetElementsInZone(item);
-				
+				Console.WriteLine("ZoneId in items: " + item.Id);
+				var zoneInIconMenuId = await JS.InvokeAsync<int>("GetElementsInZone", item.Id);
+				StateHasChanged();
+				Console.WriteLine(zoneInIconMenuId);
 				//Connect zone to sites here
 				CreateEMSuiteConfigurationModel.ConfigurationDTO.Sites.ElementAt(0).Zones.Add((ZoneDTO)item);
 			}
 
 		}
-	}
-
-	public async Task<int> GetElementsInZone(ConfigurationItem zoneDTO)
-	{
-		var result = await JS.InvokeAsync<int>("GetElementsInZone", zoneDTO.Id);
-		return result;
 	}
 
 	async Task OnChange(InputFileChangeEventArgs e)

@@ -13,7 +13,6 @@
                 if (position.x != 0 && position.y != 0) {
                     newComp = false
                 }
-                console.log(startPos.x)
             },
             move(event) {
                 position.x += event.dx

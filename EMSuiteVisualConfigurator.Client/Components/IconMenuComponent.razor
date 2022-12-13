@@ -49,8 +49,7 @@
                 break;
 
             case "zone":
-                ZoneDTO zoneDTO = new ZoneDTO();
-                objRef.Value.items.Add(zoneDTO);
+                objRef.Value.items.Add(new ZoneDTO());
                 break;
         }
         objRef.Value.StateHasChanged();

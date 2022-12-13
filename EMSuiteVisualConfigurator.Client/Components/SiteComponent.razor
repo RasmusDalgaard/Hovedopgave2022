@@ -29,7 +29,7 @@
 @code {
     public IList<ConfigurationItem> items = new List<ConfigurationItem>() { new ChannelDTO(), new AccessPointDTO(), new ZoneDTO() };
     public CreateEMSuiteConfigurationCommand CreateEMSuiteConfigurationModel { get; set; } = new CreateEMSuiteConfigurationCommand();
-    [CascadingParameter] protected EMSuiteConfigurationDTO ConfigurationDTO { get; set; }
+    [CascadingParameter] public EMSuiteConfigurationDTO ConfigurationDTO { get; set; }
     [Parameter] public string Display { get; set; }
     private ImageFile ImageFile { get; set; } = new ImageFile();
 
