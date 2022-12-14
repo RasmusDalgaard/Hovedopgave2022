@@ -27,7 +27,7 @@
 
 
 @code {
-    public IList<ConfigurationItem> items = new List<ConfigurationItem>() { new ChannelDTO(), new AccessPointDTO(), new ZoneDTO() };
+    public IList<ConfigurationItem> items = new List<ConfigurationItem>() { new LoggerDTO(), new AccessPointDTO(), new ZoneDTO() };
     public CreateEMSuiteConfigurationCommand CreateEMSuiteConfigurationModel { get; set; } = new CreateEMSuiteConfigurationCommand();
     [CascadingParameter] public EMSuiteConfigurationDTO ConfigurationDTO { get; set; }
     [Parameter] public string Display { get; set; }

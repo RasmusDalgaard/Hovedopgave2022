@@ -46,7 +46,7 @@
 			if (item is AccessPointDTO)
 			{
 				CreateEMSuiteConfigurationModel.AccessPointDTOs.Add((AccessPointDTO)item);
-				//Connect channels with accesspoint here
+				//Connect loggers with accesspoint here
 
 
 
@@ -59,11 +59,12 @@
 					items.Remove(item);
 				}
 				Console.WriteLine("ZoneId in items after remove: " + item.Id);
+
 				var channelIdsInZone = await JS.InvokeAsync<List<int>>("GetChannelIdsFromZone", item.Id);
 				ZoneDTO zoneDTO = (ZoneDTO)item;
 				foreach (ConfigurationItem i in items)
 				{
-					if (i is ChannelDTO)
+					if (i is ChannelDTO && channelIdsInZone.Contains(i.Id))
 					{
 						zoneDTO.Channels.Add((ChannelDTO)i);
 					}

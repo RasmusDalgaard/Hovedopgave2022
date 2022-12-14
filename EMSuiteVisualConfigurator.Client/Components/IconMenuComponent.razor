@@ -6,7 +6,7 @@
         <div class="p-4" style="display: grid;">
             @foreach (ConfigurationItem item in items)
             {
-                if (item is ChannelDTO)
+                if (item is LoggerDTO)
                 {
                     <SensorComponent Id="item.Id"/>
                 }
