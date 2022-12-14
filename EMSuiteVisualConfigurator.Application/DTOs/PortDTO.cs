@@ -17,7 +17,7 @@ namespace EMSuiteVisualConfigurator.Application.DTOs
         public PortDTO()
         {
             IdCount++;
-            Id = IdCount;
+            Id = IdCount;            
         }
     }
 }

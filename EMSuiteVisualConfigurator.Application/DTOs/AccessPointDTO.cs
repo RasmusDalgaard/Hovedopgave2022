@@ -15,7 +15,7 @@ namespace EMSuiteVisualConfigurator.Application.DTOs
         public AccessPointDTO()
         {
             IdCount++;
-            Id = IdCount;
+            Id = IdCount;            
         }
     }
 }

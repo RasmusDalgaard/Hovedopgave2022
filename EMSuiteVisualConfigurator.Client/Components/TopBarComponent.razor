@@ -38,43 +38,51 @@
 	[Parameter] public Action<ImageFile> OnUploadImage { get; set; }
 
 	bool isDisabled = false;
+	public List<LoggerDTO> sensors = new List<LoggerDTO>();
+	public List<AccessPointDTO> accessPoints = new List<AccessPointDTO>();
+	public List<ZoneDTO> zones = new List<ZoneDTO>();
 
 	async Task CreateConfiguration() {
 		CreateEMSuiteConfigurationModel.ConfigurationDTO = ConfigurationDTO;
-		foreach (ConfigurationItem item in items)
-		{		
+		var zoneAndChannelIds = await JS.InvokeAsync<Dictionary<int, int[]>>("GetZoneAndChannelIds");
+
+		RemoveIconMenuItems();
+
+		foreach (ConfigurationItem item in items.ToArray())
+		{
+			if (item is LoggerDTO)
+			{
+				sensors.Add((LoggerDTO)item);
+			}
 			if (item is AccessPointDTO)
 			{
-				CreateEMSuiteConfigurationModel.AccessPointDTOs.Add((AccessPointDTO)item);
-				//Connect loggers with accesspoint here
-
-
-
+				accessPoints.Add((AccessPointDTO)item);
 			}
+
 			if (item is ZoneDTO)
 			{
-				Console.WriteLine("ZoneId in items before remove: " + item.Id);
-				var zoneInIconMenuId = await JS.InvokeAsync<int>("GetZoneIdInIconMenu", item.Id);
-				if (item.Id == zoneInIconMenuId) {
-					items.Remove(item);
-				}
-				Console.WriteLine("ZoneId in items after remove: " + item.Id);
+				zones.Add((ZoneDTO)item);				
 
-				var channelIdsInZone = await JS.InvokeAsync<List<int>>("GetChannelIdsFromZone", item.Id);
-				ZoneDTO zoneDTO = (ZoneDTO)item;
-				foreach (ConfigurationItem i in items)
-				{
-					if (i is ChannelDTO && channelIdsInZone.Contains(i.Id))
-					{
-						zoneDTO.Channels.Add((ChannelDTO)i);
-					}
-				}
-				
-				//Connect zone to sites here
-				CreateEMSuiteConfigurationModel.ConfigurationDTO.Sites.ElementAt(0).Zones.Add((ZoneDTO)item);
 			}
-
 		}
+		//Link loggers to access points
+		CreateEMSuiteConfigurationModel.AccessPointDTOs = accessPoints;	
+
+
+		//Link the channels from the sensors to the corresponding zones
+		for (int i = 0; i < zones.Count; i++)
+		{
+			var channelIds = zoneAndChannelIds[i];
+			List<LoggerDTO> sensorsToLink = sensors.Where(sensor => channelIds.Contains(sensor.Id)).ToList();
+			for (int j = 0; j < sensorsToLink.Count; j++)
+			{
+				zones[i].Channels = sensorsToLink[j].Ports.ElementAt(0).Channels;
+			}
+		}
+		
+		//Element At correct siteID
+		CreateEMSuiteConfigurationModel.ConfigurationDTO.Sites.ElementAt(0).Zones = zones;
+		
 	}
 
 	async Task OnChange(InputFileChangeEventArgs e)
@@ -100,5 +108,16 @@
 		{
 			isDisabled = false;
 		}
+	}
+
+	private void RemoveIconMenuItems() {
+			ConfigurationItem loggerToRemove = items.Where(item => item.Id == LoggerDTO.IdCount && item is LoggerDTO).ToArray()[0];
+			ConfigurationItem accessPointToRemove = items.Where(item => item.Id == AccessPointDTO.IdCount && item is AccessPointDTO).ToArray()[0];
+			ConfigurationItem zoneToRemove = items.Where(item => item.Id == ZoneDTO.IdCount && item is ZoneDTO).ToArray()[0];
+			items.Remove(loggerToRemove);
+			items.Remove(accessPointToRemove);
+			items.Remove(zoneToRemove);
+			Console.WriteLine(loggerToRemove.Id);
+			Console.WriteLine(items.Count);
 	}
 }

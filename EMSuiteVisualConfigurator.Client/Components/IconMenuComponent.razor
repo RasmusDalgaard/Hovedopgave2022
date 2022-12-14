@@ -35,21 +35,22 @@
     [JSInvokable]
     public static void addItem(string name, DotNetObjectReference<IconMenuComponent>? objRef)
     {
+        var items = objRef.Value.items;
         switch (name)
         {
             case "sensor":
                 LoggerDTO loggerDTO = new LoggerDTO();
                 ChannelDTO channelDTO = new ChannelDTO();
                 loggerDTO.Ports.ElementAt(0).Channels.Add(channelDTO);
-                objRef.Value.items.Add(loggerDTO);               
+                items.Add(loggerDTO);
                 break;
 
             case "accesspoint":
-                objRef.Value.items.Add(new AccessPointDTO());
+                items.Add(new AccessPointDTO());
                 break;
 
-            case "zone":
-                objRef.Value.items.Add(new ZoneDTO());
+            case "zone": 
+                items.Add(new ZoneDTO());
                 break;
         }
         objRef.Value.StateHasChanged();

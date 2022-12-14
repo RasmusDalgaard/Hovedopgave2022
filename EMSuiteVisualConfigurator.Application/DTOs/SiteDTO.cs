@@ -20,7 +20,7 @@ namespace EMSuiteVisualConfigurator.Application.DTOs
         public SiteDTO()
         {
             IdCount++;
-            Id = IdCount;
+            Id = IdCount;            
         }
 
         public SiteDTO(string display)
