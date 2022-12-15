@@ -9,7 +9,7 @@
 <CascadingValue Value="@ConfigurationDTO">
 	<div class="container-fluid">
 		@foreach (SiteDTO site in ConfigurationDTO.Sites){
-			<SiteComponent display=@site.Display/>
+			<SiteComponent display=@site.Display siteId=@site.Id/>
 		}
 		<div class="row no-gutters" style="width: 100%">
 			@foreach (SiteDTO site in ConfigurationDTO.Sites){
@@ -19,7 +19,6 @@
 						<button @onclick="()=> deleteSite(site)" class="btn btn-danger btn-circle delete-text">X</button>
 					}
 				</div>
-		
 			}
 
 			<button class="w-auto" @onclick="addSite">+</button>

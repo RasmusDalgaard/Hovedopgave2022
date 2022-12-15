@@ -5,22 +5,20 @@
 @using Microsoft.JSInterop
 @inject IJSRuntime JS;
 
-<div style="display: @Display">
+<div style="display: @Display" name="site" id="@SiteId">
     <CascadingValue Value="items">
         <CascadingValue Value="@CreateEMSuiteConfigurationModel">
-            <CascadingValue Value="ConfigurationDTO">
                 <CascadingValue Value="@ImageFile">
                     <!--<div class="container-fluid">-->
                         <div class="row justify-content-center align-items-center py-2 topbar">
-                            <TopBarComponent OnUploadImage="UploadImage" />
+                            <TopBarComponent OnUploadImage="UploadImage" siteId=@SiteId/>
                         </div>
                         <div class="row maincontent">
                             <IconMenuComponent/>
-                            <SiteCanvasComponent />
+                            <SiteCanvasComponent/>
                         </div>
                     <!--</div>-->
                 </CascadingValue>
-            </CascadingValue>
         </CascadingValue>
     </CascadingValue>
 </div>
@@ -29,7 +27,7 @@
 @code {
     public IList<ConfigurationItem> items = new List<ConfigurationItem>() { new LoggerDTO(), new AccessPointDTO(), new ZoneDTO() };
     public CreateEMSuiteConfigurationCommand CreateEMSuiteConfigurationModel { get; set; } = new CreateEMSuiteConfigurationCommand();
-    [CascadingParameter] public EMSuiteConfigurationDTO ConfigurationDTO { get; set; }
+    [Parameter] public int SiteId { get; set; }
     [Parameter] public string Display { get; set; }
     private ImageFile ImageFile { get; set; } = new ImageFile();
 

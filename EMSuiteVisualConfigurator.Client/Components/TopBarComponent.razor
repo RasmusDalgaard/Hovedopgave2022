@@ -20,7 +20,7 @@
 	
 <div class="col-2 sitename-col">
     <div class="input-group text-center">
-        <input type="text" class="form-control" placeholder="Site Name">
+        <input type="text" class="form-control" placeholder="Site @SiteId">
     </div>
 </div>
 
@@ -36,53 +36,104 @@
 	[CascadingParameter] public EMSuiteConfigurationDTO ConfigurationDTO { get; set; }
 	[CascadingParameter] protected ImageFile FileBase64 { get; set; }
 	[Parameter] public Action<ImageFile> OnUploadImage { get; set; }
+	[Parameter] public int SiteId { get; set; }
 
 	bool isDisabled = false;
-	public List<LoggerDTO> sensors = new List<LoggerDTO>();
-	public List<AccessPointDTO> accessPoints = new List<AccessPointDTO>();
-	public List<ZoneDTO> zones = new List<ZoneDTO>();
+	public List<LoggerDTO> allSensors = new List<LoggerDTO>();
+	public List<AccessPointDTO> allAccessPoints = new List<AccessPointDTO>();
+	public List<ZoneDTO> allZones = new List<ZoneDTO>();
 
 	async Task CreateConfiguration() {
-		CreateEMSuiteConfigurationModel.ConfigurationDTO = ConfigurationDTO;
-		var zoneAndChannelIds = await JS.InvokeAsync<Dictionary<int, int[]>>("GetZoneAndChannelIds");
+		CreateEMSuiteConfigurationModel.ConfigurationDTO = ConfigurationDTO;	
 
 		RemoveIconMenuItems();
-
 		foreach (ConfigurationItem item in items.ToArray())
 		{
 			if (item is LoggerDTO)
 			{
-				sensors.Add((LoggerDTO)item);
+				allSensors.Add((LoggerDTO)item);
 			}
 			if (item is AccessPointDTO)
 			{
-				accessPoints.Add((AccessPointDTO)item);
+				allAccessPoints.Add((AccessPointDTO)item);
 			}
-
 			if (item is ZoneDTO)
 			{
-				zones.Add((ZoneDTO)item);				
-
+				allZones.Add((ZoneDTO)item);				
 			}
 		}
-		//Link loggers to access points
-		CreateEMSuiteConfigurationModel.AccessPointDTOs = accessPoints;	
+		LinkAndAddZones(CreateEMSuiteConfigurationModel.ConfigurationDTO);
+		LinkAndAddAccessPoints(CreateEMSuiteConfigurationModel);
+	}
 
-
-		//Link the channels from the sensors to the corresponding zones
-		for (int i = 0; i < zones.Count; i++)
+	private async void LinkAndAddZones(EMSuiteConfigurationDTO configurationDTO)
+	{
+		//Get zones with its channels for each site
+		for (int i = 0; i < configurationDTO.Sites.Count; i++)
 		{
-			var channelIds = zoneAndChannelIds[i];
-			List<LoggerDTO> sensorsToLink = sensors.Where(sensor => channelIds.Contains(sensor.Id)).ToList();
-			for (int j = 0; j < sensorsToLink.Count; j++)
+			var currentSiteId = configurationDTO.Sites[i].Id;
+			var zonesLoggersDict = await JS.InvokeAsync<Dictionary<int, int[]>>("GetZonesAndLoggersIds", currentSiteId);
+			int zoneCount = zonesLoggersDict.Count;
+			Console.WriteLine("zoneCount " + zoneCount);
+			var zoneIds = zonesLoggersDict.Keys.ToArray();
+			List<ZoneDTO> zonesToLink = null;
+
+			//Find the ChannelDTOs from the LoggerDTOs (sensors) which have the same Id as the channels from dict
+			for (int j = 1; j < zoneCount; j++)
 			{
-				zones[i].Channels = sensorsToLink[j].Ports.ElementAt(0).Channels;
+				var loggerIds = zonesLoggersDict[j];
+				List<LoggerDTO> loggers = allSensors.Where(sensor => loggerIds.Contains(sensor.Id)).ToList();
+				for (int k = 0; k < loggers.Count; k++)
+				{	
+					//Link the ChannelDTOs from the loggersto the zone
+					allZones[zoneIds[j]].Channels = loggers[k].Ports.ElementAt(0).Channels;
+					//Assign the zones that should be linked to the site
+					zonesToLink = allZones.Where(zone => zoneIds.Contains(zone.Id)).ToList();
+				}
+			}
+			//Find correct Site and link the zones to it
+			configurationDTO.Sites.ElementAt(currentSiteId).Zones = zonesToLink;
+		}		
+	}
+
+	private async void LinkAndAddAccessPoints(CreateEMSuiteConfigurationCommand model)
+	{
+		List<AccessPointDTO> accessPointsToLink = null;
+
+		//Get zones with its channels for each site
+		for (int i = 0; i < model.ConfigurationDTO.Sites.Count; i++)
+		{
+			var currentSiteId = model.ConfigurationDTO.Sites[i].Id;
+			var accessPointsLoggersDict = await JS.InvokeAsync<Dictionary<int, int[]>>("GetAccessPointsAndLoggersIds", currentSiteId);
+			int accessPointCount = accessPointsLoggersDict.Count;
+			var accessPointIds = accessPointsLoggersDict.Keys.ToArray();
+
+
+			//Find the ChannelDTOs from the LoggerDTOs (sensors) which have the same Id as the channels from dict
+			for (int j = 1; j < accessPointCount; j++)
+			{
+				var loggerIds = accessPointsLoggersDict[j];
+				List<LoggerDTO> loggersToLink = allSensors.Where(sensor => loggerIds.Contains(sensor.Id)).ToList();
+				//Link the LoggerDTOs to the AccessPointDTO
+				allAccessPoints[accessPointIds[j]].Loggers = loggersToLink;
+				//Assign the accessPoints that should be linked to the configurationModel
+				accessPointsToLink = allAccessPoints.Where(accessPoint => accessPointIds.Contains(accessPoint.Id)).ToList();				
+			}
+			//Link the accessPoint to the configurationModel
+			if (accessPointsToLink != null)
+			{
+				model.AccessPointDTOs.AddRange(accessPointsToLink);
 			}
 		}
-		
-		//Element At correct siteID
-		CreateEMSuiteConfigurationModel.ConfigurationDTO.Sites.ElementAt(0).Zones = zones;
-		
+	}
+
+	private void RemoveIconMenuItems() {
+		ConfigurationItem loggerToRemove = items.Where(item => item.Id == LoggerDTO.IdCount && item is LoggerDTO).ToArray()[0];
+		ConfigurationItem accessPointToRemove = items.Where(item => item.Id == AccessPointDTO.IdCount && item is AccessPointDTO).ToArray()[0];
+		ConfigurationItem zoneToRemove = items.Where(item => item.Id == ZoneDTO.IdCount && item is ZoneDTO).ToArray()[0];
+		items.Remove(loggerToRemove);
+		items.Remove(accessPointToRemove);
+		items.Remove(zoneToRemove);
 	}
 
 	async Task OnChange(InputFileChangeEventArgs e)
@@ -109,15 +160,5 @@
 			isDisabled = false;
 		}
 	}
-
-	private void RemoveIconMenuItems() {
-			ConfigurationItem loggerToRemove = items.Where(item => item.Id == LoggerDTO.IdCount && item is LoggerDTO).ToArray()[0];
-			ConfigurationItem accessPointToRemove = items.Where(item => item.Id == AccessPointDTO.IdCount && item is AccessPointDTO).ToArray()[0];
-			ConfigurationItem zoneToRemove = items.Where(item => item.Id == ZoneDTO.IdCount && item is ZoneDTO).ToArray()[0];
-			items.Remove(loggerToRemove);
-			items.Remove(accessPointToRemove);
-			items.Remove(zoneToRemove);
-			Console.WriteLine(loggerToRemove.Id);
-			Console.WriteLine(items.Count);
-	}
+	
 }
