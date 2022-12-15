@@ -74,31 +74,36 @@
 			var currentSiteId = configurationDTO.Sites[i].Id;
 			var zonesLoggersDict = await JS.InvokeAsync<Dictionary<int, int[]>>("GetZonesAndLoggersIds", currentSiteId);
 			int zoneCount = zonesLoggersDict.Count;
-			Console.WriteLine("zoneCount " + zoneCount);
 			var zoneIds = zonesLoggersDict.Keys.ToArray();
-			List<ZoneDTO> zonesToLink = null;
+			List<ZoneDTO> zonesToLink = new List<ZoneDTO>();
 
 			//Find the ChannelDTOs from the LoggerDTOs (sensors) which have the same Id as the channels from dict
-			for (int j = 1; j < zoneCount; j++)
+			for (int j = 0; j < zoneCount; j++)
 			{
-				var loggerIds = zonesLoggersDict[j];
+				var loggerIds = zonesLoggersDict[zoneIds[j]];
 				List<LoggerDTO> loggers = allSensors.Where(sensor => loggerIds.Contains(sensor.Id)).ToList();
 				for (int k = 0; k < loggers.Count; k++)
-				{	
+				{
 					//Link the ChannelDTOs from the loggersto the zone
-					allZones[zoneIds[j]].Channels = loggers[k].Ports.ElementAt(0).Channels;
+					var zoneDTO = allZones.Where(zone => zone.Id == zoneIds[j]).ElementAt(0);
+					zoneDTO.Channels = loggers[k].Ports.ElementAt(0).Channels;
 					//Assign the zones that should be linked to the site
-					zonesToLink = allZones.Where(zone => zoneIds.Contains(zone.Id)).ToList();
+					zonesToLink.Add(zoneDTO);
 				}
 			}
-			//Find correct Site and link the zones to it
-			configurationDTO.Sites.ElementAt(currentSiteId).Zones = zonesToLink;
+			if (zonesToLink != null)
+			{
+				//Find correct Site and link the zones to it
+				Console.WriteLine("Current Site ID: " + currentSiteId);
+				Console.WriteLine("Number of Sites: " + configurationDTO.Sites.Count);
+				configurationDTO.Sites.Where(site => site.Id == currentSiteId).ElementAt(0).Zones.AddRange(zonesToLink);
+			}
 		}		
 	}
 
 	private async void LinkAndAddAccessPoints(CreateEMSuiteConfigurationCommand model)
 	{
-		List<AccessPointDTO> accessPointsToLink = null;
+		List<AccessPointDTO> accessPointsToLink = new List<AccessPointDTO>();
 
 		//Get zones with its channels for each site
 		for (int i = 0; i < model.ConfigurationDTO.Sites.Count; i++)
@@ -107,17 +112,16 @@
 			var accessPointsLoggersDict = await JS.InvokeAsync<Dictionary<int, int[]>>("GetAccessPointsAndLoggersIds", currentSiteId);
 			int accessPointCount = accessPointsLoggersDict.Count;
 			var accessPointIds = accessPointsLoggersDict.Keys.ToArray();
-
-
 			//Find the ChannelDTOs from the LoggerDTOs (sensors) which have the same Id as the channels from dict
-			for (int j = 1; j < accessPointCount; j++)
+			for (int j = 0; j < accessPointCount; j++)
 			{
-				var loggerIds = accessPointsLoggersDict[j];
+				var loggerIds = accessPointsLoggersDict[accessPointIds[j]];
 				List<LoggerDTO> loggersToLink = allSensors.Where(sensor => loggerIds.Contains(sensor.Id)).ToList();
 				//Link the LoggerDTOs to the AccessPointDTO
-				allAccessPoints[accessPointIds[j]].Loggers = loggersToLink;
+				var accessPointDTO = allAccessPoints.Where(accessPoint => accessPoint.Id == accessPointIds[j]).ElementAt(0);
+				accessPointDTO.Loggers = loggersToLink;
 				//Assign the accessPoints that should be linked to the configurationModel
-				accessPointsToLink = allAccessPoints.Where(accessPoint => accessPointIds.Contains(accessPoint.Id)).ToList();				
+				accessPointsToLink.Add(accessPointDTO);				
 			}
 			//Link the accessPoint to the configurationModel
 			if (accessPointsToLink != null)
