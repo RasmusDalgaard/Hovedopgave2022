@@ -1,4 +1,5 @@
 ﻿@using EMSuiteVisualConfigurator.Application.DTOs
+@using EMSuiteVisualConfigurator.Application.Features.EMSuiteConfigurations.Commands;
 @using EMSuiteVisualConfigurator.Client.Components;
 @using EMSuiteVisualConfigurator.Shared.Models
 @using Microsoft.JSInterop
@@ -6,16 +7,19 @@
 
 @page "/configuration"
 <PageTitle>EMSuite Visual Configurator</PageTitle>
-<CascadingValue Value="@ConfigurationDTO">
+	<CascadingValue Value="@CreateEMSuiteConfigurationModel">
 	<div class="container-fluid">
-		@foreach (SiteDTO site in ConfigurationDTO.Sites){
+		@foreach (SiteDTO site in CreateEMSuiteConfigurationModel.ConfigurationDTO.Sites)
+		{
 			<SiteComponent display=@site.Display siteId=@site.Id/>
 		}
 		<div class="row no-gutters" style="width: 100%">
-			@foreach (SiteDTO site in ConfigurationDTO.Sites){
+			@foreach (SiteDTO site in CreateEMSuiteConfigurationModel.ConfigurationDTO.Sites)
+			{
 				<div class="bg-secondary w-auto">
 					<button @onclick="()=> switchSite(site)" class="btn btn-secondary w-auto">Site</button>
-					@if (ConfigurationDTO.Sites.Count != 1) {
+					@if (CreateEMSuiteConfigurationModel.ConfigurationDTO.Sites.Count != 1)
+					{
 						<button @onclick="()=> deleteSite(site)" class="btn btn-danger btn-circle delete-text">X</button>
 					}
 				</div>
@@ -24,21 +28,21 @@
 			<button class="w-auto" @onclick="addSite">+</button>
 		</div>
 	</div>
-</CascadingValue>
+	</CascadingValue>
 
 
 @code {
-	public EMSuiteConfigurationDTO ConfigurationDTO { get; set; } = new EMSuiteConfigurationDTO();
+	public CreateEMSuiteConfigurationCommand CreateEMSuiteConfigurationModel { get; set; } = new CreateEMSuiteConfigurationCommand();
 	public SiteDTO ActiveSite { get; set; }
 
 	public void addSite(){
 		SiteDTO newSite = new SiteDTO();
-		ConfigurationDTO.Sites.Add(newSite);
+		CreateEMSuiteConfigurationModel.ConfigurationDTO.Sites.Add(newSite);
 		deactivateCurrentSite();
 		ActiveSite = newSite;
 	}
 	public void deactivateCurrentSite(){
-		ActiveSite = ConfigurationDTO.Sites[0];
+		ActiveSite = CreateEMSuiteConfigurationModel.ConfigurationDTO.Sites[0];
 		ActiveSite.Display = "none";
 	}
 
@@ -54,9 +58,9 @@
 
 	public void deleteSite(SiteDTO site){
 		bool wasActive = site == ActiveSite;
-		ConfigurationDTO.Sites.Remove(site);
+		CreateEMSuiteConfigurationModel.ConfigurationDTO.Sites.Remove(site);
 		if(wasActive){
-			switchSite(ConfigurationDTO.Sites[0]);
+			switchSite(CreateEMSuiteConfigurationModel.ConfigurationDTO.Sites[0]);
 		}
 	}
 }

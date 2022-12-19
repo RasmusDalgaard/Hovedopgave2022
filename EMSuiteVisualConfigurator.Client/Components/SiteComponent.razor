@@ -7,7 +7,6 @@
 
 <div style="display: @Display" name="site" id="@SiteId">
     <CascadingValue Value="items">
-        <CascadingValue Value="@CreateEMSuiteConfigurationModel">
                 <CascadingValue Value="@ImageFile">
                     <!--<div class="container-fluid">-->
                         <div class="row justify-content-center align-items-center py-2 topbar">
@@ -19,14 +18,12 @@
                         </div>
                     <!--</div>-->
                 </CascadingValue>
-        </CascadingValue>
     </CascadingValue>
 </div>
 
 
 @code {
     public IList<ConfigurationItem> items = new List<ConfigurationItem>() { new LoggerDTO(), new AccessPointDTO(), new ZoneDTO() };
-    public CreateEMSuiteConfigurationCommand CreateEMSuiteConfigurationModel { get; set; } = new CreateEMSuiteConfigurationCommand();
     [Parameter] public int SiteId { get; set; }
     [Parameter] public string Display { get; set; }
     private ImageFile ImageFile { get; set; } = new ImageFile();

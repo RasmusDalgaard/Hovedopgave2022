@@ -10,14 +10,15 @@ namespace EMSuiteVisualConfigurator.Application.DTOs
     {
         public List<ChannelDTO> Channels { get; set; } = new List<ChannelDTO>();
         public int SensorSerialNumber { get; set; } = IdCount;
-        public DateTime CreateDate { get; set; } = DateTime.Now;
+        public DateTime CreateDate { get; set; } = DateTime.UtcNow;
         public static int IdCount { get; set; } = 0;
 
 
         public PortDTO()
         {
             IdCount++;
-            Id = IdCount;            
+            Id = IdCount;
+            Channels.Add(new ChannelDTO());
         }
     }
 }

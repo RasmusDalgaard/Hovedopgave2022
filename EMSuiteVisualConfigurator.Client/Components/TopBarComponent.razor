@@ -33,7 +33,6 @@
 @code {
 	[CascadingParameter] public CreateEMSuiteConfigurationCommand CreateEMSuiteConfigurationModel { get; set; }
 	[CascadingParameter] public IList<ConfigurationItem> items { get; set; }
-	[CascadingParameter] public EMSuiteConfigurationDTO ConfigurationDTO { get; set; }
 	[CascadingParameter] protected ImageFile FileBase64 { get; set; }
 	[Parameter] public Action<ImageFile> OnUploadImage { get; set; }
 	[Parameter] public int SiteId { get; set; }
@@ -44,8 +43,7 @@
 	public List<ZoneDTO> allZones = new List<ZoneDTO>();
 
 	async Task CreateConfiguration() {
-		CreateEMSuiteConfigurationModel.ConfigurationDTO = ConfigurationDTO;	
-
+		CreateEMSuiteConfigurationModel.ConfigurationDTO.ConfigurationName = "123";
 		RemoveIconMenuItems();
 		foreach (ConfigurationItem item in items.ToArray())
 		{
@@ -62,11 +60,13 @@
 				allZones.Add((ZoneDTO)item);				
 			}
 		}
-		LinkAndAddZones(CreateEMSuiteConfigurationModel.ConfigurationDTO);
-		LinkAndAddAccessPoints(CreateEMSuiteConfigurationModel);
+		await LinkAndAddZones(CreateEMSuiteConfigurationModel.ConfigurationDTO);
+		await LinkAndAddAccessPoints(CreateEMSuiteConfigurationModel);
+		Console.WriteLine("setup done");
+		await Http.PostAsJsonAsync<CreateEMSuiteConfigurationCommand>("/api/emsuiteconfiguration", CreateEMSuiteConfigurationModel, System.Threading.CancellationToken.None);
 	}
 
-	private async void LinkAndAddZones(EMSuiteConfigurationDTO configurationDTO)
+	public async Task LinkAndAddZones(EMSuiteConfigurationDTO configurationDTO)
 	{
 		//Get zones with its channels for each site
 		for (int i = 0; i < configurationDTO.Sites.Count; i++)
@@ -82,26 +82,24 @@
 			{
 				var loggerIds = zonesLoggersDict[zoneIds[j]];
 				List<LoggerDTO> loggers = allSensors.Where(sensor => loggerIds.Contains(sensor.Id)).ToList();
+				//Link the ChannelDTOs from the loggersto the zone
+				var zoneDTO = allZones.Where(zone => zone.Id == zoneIds[j]).ElementAt(0);
 				for (int k = 0; k < loggers.Count; k++)
 				{
-					//Link the ChannelDTOs from the loggersto the zone
-					var zoneDTO = allZones.Where(zone => zone.Id == zoneIds[j]).ElementAt(0);
 					zoneDTO.Channels = loggers[k].Ports.ElementAt(0).Channels;
 					//Assign the zones that should be linked to the site
-					zonesToLink.Add(zoneDTO);
 				}
+				zonesToLink.Add(zoneDTO);
 			}
-			if (zonesToLink != null)
-			{
-				//Find correct Site and link the zones to it
-				Console.WriteLine("Current Site ID: " + currentSiteId);
-				Console.WriteLine("Number of Sites: " + configurationDTO.Sites.Count);
-				configurationDTO.Sites.Where(site => site.Id == currentSiteId).ElementAt(0).Zones.AddRange(zonesToLink);
-			}
-		}		
+			//Find correct Site and link the zones to it
+			Console.WriteLine("Current Site ID: " + currentSiteId);
+			Console.WriteLine("Number of Sites: " + configurationDTO.Sites.Count);
+			var currentSite = configurationDTO.Sites.Where(site => site.Id == currentSiteId).ElementAt(0);
+			currentSite.Zones = zonesToLink;
+		}
 	}
 
-	private async void LinkAndAddAccessPoints(CreateEMSuiteConfigurationCommand model)
+	public async Task LinkAndAddAccessPoints(CreateEMSuiteConfigurationCommand model)
 	{
 		List<AccessPointDTO> accessPointsToLink = new List<AccessPointDTO>();
 

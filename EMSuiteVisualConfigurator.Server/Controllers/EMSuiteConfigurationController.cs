@@ -1,4 +1,5 @@
-﻿using EMSuiteVisualConfigurator.Application.Features.EMSuiteConfigurations.Commands;
+﻿using EMSuiteVisualConfigurator.Application.DTOs;
+using EMSuiteVisualConfigurator.Application.Features.EMSuiteConfigurations.Commands;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
