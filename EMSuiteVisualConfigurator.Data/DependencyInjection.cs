@@ -16,6 +16,7 @@ namespace EMSuiteVisualConfigurator.Data
                 b => b.MigrationsAssembly(typeof(EMSuiteVisualConfiguratorDbContext).Assembly.FullName)), ServiceLifetime.Transient);
             services.AddScoped<IAccessPointRepository, AccessPointRepository>();
             services.AddScoped<IEMSuiteConfigurationRepository, EMSuiteConfigurationRepository>();
+            services.AddScoped<IConfigurationRepository, ConfigurationRepository>();
             return services;
         }
     }

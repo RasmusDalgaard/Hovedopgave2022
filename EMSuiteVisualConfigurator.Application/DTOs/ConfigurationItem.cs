@@ -8,7 +8,7 @@ namespace EMSuiteVisualConfigurator.Application.DTOs
 {
     public abstract class ConfigurationItem
     {
-        public int Id { get; protected set; }
+        public int Id { get; set; }
         protected ConfigurationItem()
         {
         }

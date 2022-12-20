@@ -11,32 +11,24 @@ namespace EMSuiteVisualConfigurator.Data.Repositories
         {
         }
 
-        public async Task<IEnumerable<EMSuiteConfiguration>> GetAllConfigurations()
+        public Task<EMSuiteConfiguration> CreateConfiguration(EMSuiteConfiguration emsuiteConfiguration)
         {
-            return await _dbContext.emsuiteConfigurations.ToListAsync();
+            throw new NotImplementedException();
         }
 
-        public async Task<EMSuiteConfiguration> GetConfigurationById(int id)
+        public Task DeleteConfiguration(int id)
         {
-            return await _dbContext.emsuiteConfigurations.FirstOrDefaultAsync(p => p.Id == id);
+            throw new NotImplementedException();
         }
 
-        public async Task<EMSuiteConfiguration> CreateConfiguration(EMSuiteConfiguration configuration)
+        public Task<IEnumerable<EMSuiteConfiguration>> GetAllConfigurations()
         {
-            _dbContext.Add(configuration);
-            await _dbContext.SaveChangesAsync();
-            return configuration;
+            throw new NotImplementedException();
         }
 
-        public async Task DeleteConfiguration(int id)
+        public Task<EMSuiteConfiguration> GetConfigurationById(int id)
         {
-            var configuration = await _dbContext.emsuiteConfigurations
-                .FirstOrDefaultAsync(a => a.Id == id);
-            if (configuration == null) return;
-
-            _dbContext.emsuiteConfigurations.Remove(configuration);
-            await _dbContext.SaveChangesAsync();
-            //Retrieve Sensors and delete
+            throw new NotImplementedException();
         }
     }
 }

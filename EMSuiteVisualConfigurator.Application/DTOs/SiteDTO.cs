@@ -11,8 +11,8 @@ namespace EMSuiteVisualConfigurator.Application.DTOs
         public string Display = "inline";
         public string Name { get; set; } = $"ConfigurationName{IdCount}";
         public string Address { get; set; } = $"ConfigurationAddress{IdCount}";
-        public string PostCode { get; set; } = $"ConfigurationPostCode{IdCount}";
-        public string TimeZoneId { get; set; } = $"ConfigurationTimeZoneId{IdCount}";
+        public string PostCode { get; set; } = $"PC{IdCount}";
+        public string TimeZoneId { get; set; } = $"UTC";
         public List<ZoneDTO> Zones { get; set; } = new List<ZoneDTO>();
         public static int IdCount { get; set; } = 0;
 

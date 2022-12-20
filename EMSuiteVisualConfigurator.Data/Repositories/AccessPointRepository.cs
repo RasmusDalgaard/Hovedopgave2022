@@ -3,41 +3,32 @@ using EMSuiteVisualConfigurator.CoreBusiness.Entities;
 using EMSuiteVisualConfigurator.Data.DataAccess;
 using Microsoft.EntityFrameworkCore;
 
-
 namespace EMSuiteVisualConfigurator.Data.Repositories
 {
     public class AccessPointRepository : Repository<AccessPoint>, IAccessPointRepository
     {
         public AccessPointRepository(EMSuiteVisualConfiguratorDbContext dbContext) : base(dbContext)
         {
-        }       
-
-        public async Task<IEnumerable<AccessPoint>> GetAllAccessPoints()
-        {
-            return await _dbContext.accessPoints.ToListAsync();
         }
 
-        public async Task<AccessPoint> GetAccessPointById(int id)
+        public Task<AccessPoint> CreateAccessPoint(AccessPoint accessPoint)
         {
-            return await _dbContext.accessPoints.FirstOrDefaultAsync(p => p.Id == id);
+            throw new NotImplementedException();
         }
 
-        public async Task<AccessPoint> CreateAccessPoint(AccessPoint accessPoint)
+        public Task DeleteAccessPoint(int id)
         {
-            _dbContext.Add(accessPoint);
-            await _dbContext.SaveChangesAsync();
-            return accessPoint;
+            throw new NotImplementedException();
         }
 
-        public async Task DeleteAccessPoint(int id)
-        {            
-            var accessPoint = await _dbContext.accessPoints
-                .FirstOrDefaultAsync(a => a.Id == id);
-            if (accessPoint == null) return;
+        public Task<AccessPoint> GetAccessPointById(int id)
+        {
+            throw new NotImplementedException();
+        }
 
-            _dbContext.accessPoints.Remove(accessPoint);
-            await _dbContext.SaveChangesAsync();
-            //Retrieve Sensors and delete
-        }     
+        public Task<IEnumerable<AccessPoint>> GetAllAccessPoints()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
