@@ -29,10 +29,12 @@ namespace EMSuiteVisualConfigurator.Application.Features.EMSuiteConfigurations.C
         {
             //Run stored procedure for AccessPoint here
             //Link ConfigurationItems to Zone and site here 
-            //await _configurationRepository.InsertEquipment(command);
+            await _configurationRepository.InsertEquipment(command);
             await _configurationRepository.CreateSites(command);
-            //await _configurationRepository.CreateAndAddZones(command);
+            await _configurationRepository.CreateAndAddZones(command);
             await _configurationRepository.AddUserToSite(command);
+            await _configurationRepository.AddUserToZone(command);
+            await _configurationRepository.AllocateLoggerZone(command);
             return "success";
         }
     }

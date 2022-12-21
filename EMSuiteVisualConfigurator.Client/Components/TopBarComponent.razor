@@ -9,7 +9,7 @@
 
 <div class="col-3 text-center upload-col">
 	<h4>Upload Plan Drawing</h4>
-    <div class="input-group" >
+	<div class="input-group justify-content-center">
 		<div class="custom-file" @onclick="Upload" disabled="@isDisabled">
 			<InputFile class="custom-file-input" title=" " OnChange="OnChange" accept="image/png, image/jpeg, image/gif" id="inputFile"/>
 		</div>		
@@ -18,15 +18,15 @@
 
 <div class="col-2"/>
 	
-<div class="col-2 sitename-col">
-    <div class="input-group text-center">
+<div class="col-2">
+    <div class="input-group text-center py-4">
         <input type="text" class="form-control" placeholder="Site @SiteId">
     </div>
 </div>
 
 <div class="col-2"/>
 
-<div class="col-3 text-center demo-col">
+<div class="col-3 text-center demo-col py-4">
     <button class="btn btn-success" @onclick="CreateConfiguration"> Generate Demo <span class="bi bi-play"></span></button>
 </div>
 

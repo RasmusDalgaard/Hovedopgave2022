@@ -2,7 +2,7 @@
     display: flex;
     justify-content: center;
     align-items: start;
-    background-color: green;
+    background-color: #1E5786;
     border-right: 2px solid black;
     touch-action: none;
     user-select: none;

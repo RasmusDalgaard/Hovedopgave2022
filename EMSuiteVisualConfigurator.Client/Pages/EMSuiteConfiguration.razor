@@ -8,7 +8,7 @@
 @page "/configuration"
 <PageTitle>EMSuite Visual Configurator</PageTitle>
 	<CascadingValue Value="@CreateEMSuiteConfigurationModel">
-	<div class="container-fluid">
+	<div class="container-fluid border border-2 border-dark">
 		@foreach (SiteDTO site in CreateEMSuiteConfigurationModel.ConfigurationDTO.Sites)
 		{
 			<SiteComponent display=@site.Display siteId=@site.Id/>
@@ -33,7 +33,7 @@
 
 @code {
 	public CreateEMSuiteConfigurationCommand CreateEMSuiteConfigurationModel { get; set; } = new CreateEMSuiteConfigurationCommand();
-	public SiteDTO ActiveSite { get; set; }
+	public SiteDTO? ActiveSite { get; set; } = null;
 
 	public void addSite(){
 		SiteDTO newSite = new SiteDTO();
@@ -42,7 +42,12 @@
 		ActiveSite = newSite;
 	}
 	public void deactivateCurrentSite(){
-		ActiveSite = CreateEMSuiteConfigurationModel.ConfigurationDTO.Sites[0];
+		Console.WriteLine("asdasdasdasdas: " + ActiveSite);
+		if (ActiveSite == null)
+		{
+			ActiveSite = CreateEMSuiteConfigurationModel.ConfigurationDTO.Sites[0];
+		}
+		//ActiveSite = CreateEMSuiteConfigurationModel.ConfigurationDTO.Sites[0];
 		ActiveSite.Display = "none";
 	}
 

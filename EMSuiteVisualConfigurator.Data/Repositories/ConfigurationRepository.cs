@@ -5,6 +5,7 @@ using EMSuiteVisualConfigurator.CoreBusiness.Entities;
 using EMSuiteVisualConfigurator.Data.DataAccess;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -98,65 +99,134 @@ namespace EMSuiteVisualConfigurator.Data.Repositories
 
         public async Task CreateSites(CreateEMSuiteConfigurationCommand command)
         {
+            //string connString = "Server=localhost;Database=emsuite;Trusted_Connection=True;MultipleActiveResultSets=true;Trust Server Certificate=true";
+            string connString = _dbContext.Database.GetConnectionString();
+            SqlConnection cnn = new SqlConnection(connString);
+            cnn.Open();
 
             foreach(SiteDTO site in command.ConfigurationDTO.Sites)
             {
-                string sql = $"INSERT INTO Site (Name, Address, PostCode, TimeZoneID, ScreenTop, ScreenLeft, ID) VALUES ('{site.Name}', '{site.Address}', '{site.PostCode}', '{site.TimeZoneId}' ,0 ,0, {site.Id})";
-                await _dbContext.Database.ExecuteSqlRawAsync(sql);
+                string sql = $"INSERT INTO Site (Name, Address, PostCode, TimeZoneID, ScreenTop, ScreenLeft) VALUES ('{site.Name}', '{site.Address}', '{site.PostCode}', '{site.TimeZoneId}' ,0 ,0)";
+                
+                SqlCommand cmd = new SqlCommand(sql, cnn);
+                await cmd.ExecuteNonQueryAsync();
 
-                //await _dbContext.Database.ExecuteSqlRawAsync($"INSERT INTO Site (Name, Address, PostCode, TimeZoneID, ScreenTop, ScreenLeft) VALUES ('{0}', '{1}', '{2}', '{3}' ,0 ,0)", site.Name, site.Address, site.PostCode, site.TimeZoneId);
-                /*using (var cmd = _dbContext.Database.GetDbConnection().CreateCommand())
+                sql = $"select [ID] from [emsuite].[dbo].[Site] where Name = '{site.Name}'";
+                cmd = new SqlCommand(sql, cnn);
+                SqlDataReader reader = cmd.ExecuteReader();
+                if (reader.Read())
                 {
-                    cmd.CommandText = CommandType.Text;
-                    _dbContext.Database.OpenConnection();
-                    // Create output parameter. "-1" is used for nvarchar(max)
-                    cmd.Parameters.Add(new SqlParameter("@Name", site.Name));
-                    cmd.Parameters.Add(new SqlParameter("@Address", site.Address));
-                    cmd.Parameters.Add(new SqlParameter("@PostCode", site.PostCode));
-                    cmd.Parameters.Add(new SqlParameter("@TimeZoneID", site.TimeZoneId));
-                    cmd.Parameters.Add(new SqlParameter("@ScreenTop", 0));
-                    cmd.Parameters.Add(new SqlParameter("@ScreenLeft", 0));
-                    // Execute the command
-                    cmd.ExecuteNonQuery();
-                    _dbContext.Database.CloseConnection();
-                }*/
-                    
-                //await _dbContext.Database.ExecuteSqlInterpolatedAsync($"INSERT INTO Site (Name, Address, PostCode, TimeZoneID, ScreenTop, ScreenLeft) VALUES ('{site.Name}', '{site.Address}', '{site.PostCode}', '{site.TimeZoneId}' ,0 ,0)");
-                //site.Id = _dbContext.Database.SqlQuery<int>($"select [ID] from [emsuite].[dbo].[Site] where Name = '{site.Name}'").AsEnumerable().ElementAt(0);
-                //Console.WriteLine(site.Id);
-                //Debug.WriteLine(site.Id);
-                //Debug.WriteLine(_dbContext.Database.SqlQuery<int>($"select [ID] from [emsuite].[dbo].[Site] where Name = '{site.Name}'").AsEnumerable().ElementAt(0));
+                    site.Id = (int) reader.GetValue(0);
+                }
+
             }
+            cnn.Close();
         }
 
         public async Task CreateAndAddZones(CreateEMSuiteConfigurationCommand command)
         {
+            string connString = "Server=localhost;Database=emsuite;Trusted_Connection=True;MultipleActiveResultSets=true;Trust Server Certificate=true";
+            SqlConnection cnn = new SqlConnection(connString);
+            cnn.Open();
+
+
             foreach (SiteDTO site in command.ConfigurationDTO.Sites)
             {
                 foreach (ZoneDTO zone in site.Zones)
                 {
-                    string sql = $"INSERT INTO Zone (Name, SiteID, ID) VALUES ({zone.Name}, {site.Id})";
-                    await _dbContext.Database.ExecuteSqlRawAsync(sql);
-                    FormattableString sql1 = $"select [ID] from [emsuite].[dbo].[Zone] where Name = '{zone.Name}'";
-                    zone.Id = _dbContext.Database.SqlQuery<int>(sql1).ElementAt(0);
+                    string sql = $"INSERT INTO Zone (Name, SiteID) VALUES ('{zone.Name}', {site.Id})";
+                    SqlCommand cmd = new SqlCommand(sql, cnn);
+                    await cmd.ExecuteNonQueryAsync();
+
+
+                    sql = $"select [ID] from [emsuite].[dbo].[Zone] where Name = '{zone.Name}'";
+                    cmd = new SqlCommand(sql, cnn);
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        zone.Id = (int)reader.GetValue(0);
+                    }
                 }
             }
+            cnn.Close();
         }
 
         public async Task AddUserToSite(CreateEMSuiteConfigurationCommand command)
         {
-            string userId = _dbContext.Database.SqlQuery<string>($"select [ID] from [emsuite].[dbo].[AspNetUsers] where UserName = 'SystemAdmin'").ElementAt(0);
-            string sql;
+            string connString = "Server=localhost;Database=emsuite;Trusted_Connection=True;MultipleActiveResultSets=true;Trust Server Certificate=true";
+            SqlConnection cnn = new SqlConnection(connString);
+            cnn.Open();
+
+            string sql = $"select [ID] from [emsuite].[dbo].[AspNetUsers] where UserName = 'SystemAdmin'";
+            SqlCommand cmd = new SqlCommand(sql, cnn);
+
+            string userId = "";
+            SqlDataReader reader = cmd.ExecuteReader();
+            if (reader.Read())
+            {
+                userId = (string)reader.GetValue(0);
+            }
+
             foreach (SiteDTO site in command.ConfigurationDTO.Sites)
             {
                 sql = $"INSERT INTO[emsuite].[dbo].[UserSiteAllocation](UserId, SiteID) values('{userId}', {site.Id});";
-                await _dbContext.Database.ExecuteSqlRawAsync(sql);
+                cmd = new SqlCommand(sql, cnn);
+                await cmd.ExecuteNonQueryAsync();
              }
-           
+           cnn.Close();
 
 
         }
 
+        public async Task AddUserToZone(CreateEMSuiteConfigurationCommand command)
+        {
+            string connString = "Server=localhost;Database=emsuite;Trusted_Connection=True;MultipleActiveResultSets=true;Trust Server Certificate=true";
+            SqlConnection cnn = new SqlConnection(connString);
+            cnn.Open();
 
+            string sql = $"select [ID] from [emsuite].[dbo].[AspNetUsers] where UserName = 'SystemAdmin'";
+            SqlCommand cmd = new SqlCommand(sql, cnn);
+
+            string userId = "";
+            SqlDataReader reader = cmd.ExecuteReader();
+            if (reader.Read())
+            {
+                userId = (string)reader.GetValue(0);
+            }
+
+            foreach (SiteDTO site in command.ConfigurationDTO.Sites)
+            {
+                foreach (ZoneDTO zone in site.Zones)
+                {
+                    sql = $"insert into[emsuite].[dbo].[UserZoneAllocation](UserId, ZoneID) values('{userId}', {zone.Id})";
+                    cmd = new SqlCommand(sql, cnn);
+                    await cmd.ExecuteNonQueryAsync();
+                }
+                
+            }
+            cnn.Close();
+        }
+
+        public async Task AllocateLoggerZone(CreateEMSuiteConfigurationCommand command)
+        {
+            string connString = "Server=localhost;Database=emsuite;Trusted_Connection=True;MultipleActiveResultSets=true;Trust Server Certificate=true";
+            SqlConnection cnn = new SqlConnection(connString);
+            cnn.Open();
+            int chnNr = 1;
+            foreach (SiteDTO site in command.ConfigurationDTO.Sites)
+            {
+                foreach (ZoneDTO zone in site.Zones)
+                {
+                    foreach (ChannelDTO channel in zone.Channels)
+                    {
+                        string sql = $"insert into [emsuite].[dbo].[ZoneLoggerChannelAllocation] (LoggerChannelID, ZoneID) values ((select [ID] from [emsuite].[dbo].[LoggerChannel] where DefaultName = '{chnNr} - 1'), {zone.Id})";
+                        SqlCommand cmd = new SqlCommand(sql, cnn);
+                        await cmd.ExecuteNonQueryAsync();
+                        chnNr++;
+                    }
+                }
+            }
+            cnn.Close();
+        }
     }
 }

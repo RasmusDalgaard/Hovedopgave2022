@@ -15,5 +15,9 @@ namespace EMSuiteVisualConfigurator.Application.Interfaces.Repositories
         public Task CreateAndAddZones(CreateEMSuiteConfigurationCommand command);
         public Task AddUserToSite(CreateEMSuiteConfigurationCommand command);
 
+        public Task AllocateLoggerZone(CreateEMSuiteConfigurationCommand command);
+
+        public Task AddUserToZone(CreateEMSuiteConfigurationCommand command);
+
     }
 }

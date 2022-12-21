@@ -3,9 +3,19 @@
 }
 
 .maincontent {
-    height: 600px;
+    height: 900px;
 }
 
 .topbar {
     border-bottom: 2px solid black;
+}
+
+.display-flex{
+    display: flex;
+    flex-wrap: wrap;
+}
+display-flex >
+[class*='col-'] {
+    display:flex;
+    flex-direction:column;
 }

@@ -1,7 +1,10 @@
-﻿.draggable {
+﻿.accesspoint {
     width: 100px;
     height: 100px;
     padding: 20px;
     touch-action: none;
     user-select: none;
+    grid-column: 1;
+    grid-row: 2;
+    z-index: 1;
 }
