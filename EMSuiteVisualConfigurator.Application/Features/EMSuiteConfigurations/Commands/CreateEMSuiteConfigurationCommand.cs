@@ -10,7 +10,7 @@ namespace EMSuiteVisualConfigurator.Application.Features.EMSuiteConfigurations.C
 {
     public class CreateEMSuiteConfigurationCommand : IRequest<string>
     {
-        public EMSuiteConfigurationDTO ConfigurationDTO { get; set; } = new EMSuiteConfigurationDTO();
+        public EMSuiteConfigurationDTO ConfigurationDTO { get; set; } = new();
         public List<AccessPointDTO> AccessPointDTOs { get; set; } = new();
     }
 
