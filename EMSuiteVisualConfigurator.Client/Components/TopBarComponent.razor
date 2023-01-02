@@ -43,8 +43,14 @@
 	public List<ZoneDTO> allZones = new List<ZoneDTO>();
 
 	async Task CreateConfiguration() {
-		CreateEMSuiteConfigurationModel.ConfigurationDTO.ConfigurationName = "123";
 		RemoveIconMenuItems();
+		splitItems();
+		await LinkAndAddZones(CreateEMSuiteConfigurationModel.ConfigurationDTO);
+		await LinkAndAddAccessPoints(CreateEMSuiteConfigurationModel);
+		await Http.PostAsJsonAsync<CreateEMSuiteConfigurationCommand>("/api/emsuiteconfiguration", CreateEMSuiteConfigurationModel, System.Threading.CancellationToken.None);
+	}
+	public void splitItems()
+	{
 		foreach (ConfigurationItem item in items.ToArray())
 		{
 			if (item is LoggerDTO)
@@ -57,13 +63,9 @@
 			}
 			if (item is ZoneDTO)
 			{
-				allZones.Add((ZoneDTO)item);				
+				allZones.Add((ZoneDTO)item);
 			}
 		}
-		await LinkAndAddZones(CreateEMSuiteConfigurationModel.ConfigurationDTO);
-		await LinkAndAddAccessPoints(CreateEMSuiteConfigurationModel);
-		Console.WriteLine("setup done");
-		await Http.PostAsJsonAsync<CreateEMSuiteConfigurationCommand>("/api/emsuiteconfiguration", CreateEMSuiteConfigurationModel, System.Threading.CancellationToken.None);
 	}
 
 	public async Task LinkAndAddZones(EMSuiteConfigurationDTO configurationDTO)
@@ -73,6 +75,7 @@
 		{
 			var currentSiteId = configurationDTO.Sites[i].Id;
 			var zonesLoggersDict = await JS.InvokeAsync<Dictionary<int, int[]>>("GetZonesAndLoggersIds", currentSiteId);
+
 			int zoneCount = zonesLoggersDict.Count;
 			var zoneIds = zonesLoggersDict.Keys.ToArray();
 			List<ZoneDTO> zonesToLink = new List<ZoneDTO>();
@@ -129,7 +132,7 @@
 		}
 	}
 
-	private void RemoveIconMenuItems() {
+	public void RemoveIconMenuItems() {
 		ConfigurationItem loggerToRemove = items.Where(item => item.Id == LoggerDTO.IdCount && item is LoggerDTO).ToArray()[0];
 		ConfigurationItem accessPointToRemove = items.Where(item => item.Id == AccessPointDTO.IdCount && item is AccessPointDTO).ToArray()[0];
 		ConfigurationItem zoneToRemove = items.Where(item => item.Id == ZoneDTO.IdCount && item is ZoneDTO).ToArray()[0];

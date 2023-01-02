@@ -33,7 +33,7 @@
     }
 
     [JSInvokable]
-    public static void addItem(string name, DotNetObjectReference<IconMenuComponent>? objRef)
+    public static async void addItem(string name, DotNetObjectReference<IconMenuComponent>? objRef)
     {
         var items = objRef.Value.items;
         switch (name)
@@ -53,7 +53,8 @@
                 items.Add(new ZoneDTO());
                 break;
         }
-        objRef.Value.StateHasChanged();
+        await objRef.Value.InvokeAsync(objRef.Value.StateHasChanged);
+        //objRef.Value.StateHasChanged();
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
