@@ -133,9 +133,12 @@
 	}
 
 	public void RemoveIconMenuItems() {
-		ConfigurationItem loggerToRemove = items.Where(item => item.Id == LoggerDTO.IdCount && item is LoggerDTO).ToArray()[0];
-		ConfigurationItem accessPointToRemove = items.Where(item => item.Id == AccessPointDTO.IdCount && item is AccessPointDTO).ToArray()[0];
-		ConfigurationItem zoneToRemove = items.Where(item => item.Id == ZoneDTO.IdCount && item is ZoneDTO).ToArray()[0];
+		//ConfigurationItem loggerToRemove = items.Where(item => item.Id == LoggerDTO.IdCount && item is LoggerDTO).ToArray()[0];
+		ConfigurationItem loggerToRemove = items.Where(item => item is LoggerDTO).ToArray().Last();
+		//ConfigurationItem accessPointToRemove = items.Where(item => item.Id == AccessPointDTO.IdCount && item is AccessPointDTO).ToArray()[0];
+		ConfigurationItem accessPointToRemove = items.Where(item => item is AccessPointDTO).ToArray().Last();
+		//ConfigurationItem zoneToRemove = items.Where(item => item.Id == ZoneDTO.IdCount && item is ZoneDTO).ToArray()[0];
+		ConfigurationItem zoneToRemove = items.Where(item => item is ZoneDTO).ToArray().Last();
 		items.Remove(loggerToRemove);
 		items.Remove(accessPointToRemove);
 		items.Remove(zoneToRemove);
